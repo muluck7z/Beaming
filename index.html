@@ -587,17 +587,24 @@
     border-radius: 12px;
     padding: 14px;
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
   }
   /* Avatar com ring vermelho */
   .ann-avatar{
-    width: 44px; height: 44px;
+    width: 46px; height: 46px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
-    outline: 2px solid rgba(255,45,71,0.45);
-    outline-offset: 2px;
+    border: 2.5px solid rgba(255, 45, 71, 0.95);
+    box-shadow:
+      0 0 0 4px rgba(255, 45, 71, 0.18),
+      0 0 18px rgba(255, 45, 71, 0.55),
+      0 0 36px rgba(255, 45, 71, 0.20);
+    cursor: default;
+    pointer-events: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
   .ann-body{ flex: 1; min-width: 0; }
   /* Linha: nick + check + tag */
@@ -605,8 +612,8 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
+    margin-bottom: 6px;
+    flex-wrap: nowrap;
   }
   .ann-nick{
     font-size: 14px;
