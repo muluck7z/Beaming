@@ -11,12 +11,18 @@ const { makeJwt } = require("../_jwt");
     const proto = req.headers["x-forwarded-proto"] || "https";
     const base  = proto + "://" + host;
 
-    const code = req.query.code;
-    if (!code) {
-      res.writeHead(302, { "Location": base + "/?error=missing_code" });
-      res.end();
-      return;
+    function sendPage(res, dest) {
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.setHeader("Cache-Control", "no-store");
+      res.status(200).send(
+        "<!DOCTYPE html><html><head><meta charset=\"utf-8\">" +
+        "<script>window.location.replace(" + JSON.stringify(dest) + ");</script>" +
+        "</head><body></body></html>"
+      );
     }
+
+    const code = req.query.code;
+    if (!code) { sendPage(res, base + "/?error=missing_code"); return; }
 
     try {
       const redirectUri = base + "/api/auth/callback";
@@ -35,8 +41,7 @@ const { makeJwt } = require("../_jwt");
 
       if (!tokenRes.ok) {
         console.error("Token exchange failed:", tokenRes.status, await tokenRes.text());
-        res.writeHead(302, { "Location": base + "/?error=auth_failed" });
-        res.end();
+        sendPage(res, base + "/?error=auth_failed");
         return;
       }
 
@@ -46,11 +51,7 @@ const { makeJwt } = require("../_jwt");
       const userRes = await fetch("https://discord.com/api/users/@me", {
         headers: { Authorization: "Bearer " + access_token },
       });
-      if (!userRes.ok) {
-        res.writeHead(302, { "Location": base + "/?error=auth_failed" });
-        res.end();
-        return;
-      }
+      if (!userRes.ok) { sendPage(res, base + "/?error=auth_failed"); return; }
       const user = await userRes.json();
 
       let hasAccess = false;
@@ -61,6 +62,7 @@ const { makeJwt } = require("../_jwt");
       if (memberRes.ok) {
         const member = await memberRes.json();
         hasAccess = Array.isArray(member.roles) && member.roles.includes(ROLE_ID);
+        console.log("User", user.global_name || user.username, "hasAccess:", hasAccess, "roles:", member.roles);
       } else {
         console.error("Member fetch failed:", memberRes.status, await memberRes.text());
       }
@@ -70,16 +72,13 @@ const { makeJwt } = require("../_jwt");
         SECRET
       );
 
-      const dest = hasAccess ? base + "/" : base + "/?error=no_access";
-      res.writeHead(302, {
-        "Set-Cookie": "ilegal_session=" + jwt + "; Path=/; HttpOnly; SameSite=Lax; Max-Age=" + (7 * 24 * 3600),
-        "Location": dest,
-      });
-      res.end();
+      res.setHeader("Set-Cookie",
+        "ilegal_session=" + jwt + "; Path=/; HttpOnly; SameSite=Lax; Max-Age=" + (7 * 24 * 3600)
+      );
+      sendPage(res, hasAccess ? base + "/" : base + "/?error=no_access");
     } catch (err) {
       console.error("Auth callback error:", err);
-      res.writeHead(302, { "Location": base + "/?error=auth_failed" });
-      res.end();
+      sendPage(res, base + "/?error=auth_failed");
     }
   };
   
