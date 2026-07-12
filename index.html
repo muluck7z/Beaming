@@ -45,17 +45,27 @@
     z-index:0;
   }
 
-  :focus{
+  /* Remove o quadrado azul/outline em qualquer elemento ao clicar */
+  *:focus, 
+  *:active, 
+  button:focus, 
+  a:focus, 
+  li:focus,
+  .nav-item:focus {
     outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    box-shadow: none !important;
   }
 
-  :focus-visible{
-    outline: 2px solid var(--red-glow);
+  /* Mantém o contorno apenas para navegação via teclado por acessibilidade */
+  :focus-visible {
+    outline: 2px solid var(--red-glow) !important;
     outline-offset: 3px;
     border-radius: 4px;
   }
 
-  button, a, input, [role="button"] {
+  /* Remove o destaque cinza/azul nativo em dispositivos móveis */
+  * {
     -webkit-tap-highlight-color: transparent;
   }
 
