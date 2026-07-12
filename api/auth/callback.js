@@ -11,60 +11,55 @@ const { makeJwt } = require("../_jwt");
     const proto = req.headers["x-forwarded-proto"] || "https";
     const base  = proto + "://" + host;
 
-    function sendPage(res, dest) {
-      res.setHeader("Content-Type", "text/html; charset=utf-8");
-      res.setHeader("Cache-Control", "no-store");
-      res.status(200).send(
-        "<!DOCTYPE html><html><head><meta charset=\"utf-8\">" +
-        "<script>window.location.replace(" + JSON.stringify(dest) + ");</script>" +
-        "</head><body></body></html>"
-      );
-    }
-
     const code = req.query.code;
-    if (!code) { sendPage(res, base + "/?error=missing_code"); return; }
+    if (!code) { return redirect(res, base + "/?error=missing_code"); }
+
+    var log = [];
 
     try {
       const redirectUri = base + "/api/auth/callback";
+      log.push("redirect_uri: " + redirectUri);
 
       const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
-          client_id:     CLIENT_ID,
-          client_secret: CLIENT_SECRET,
-          grant_type:    "authorization_code",
-          code,
-          redirect_uri:  redirectUri,
+          client_id: CLIENT_ID, client_secret: CLIENT_SECRET,
+          grant_type: "authorization_code", code, redirect_uri: redirectUri,
         }),
       });
 
       if (!tokenRes.ok) {
-        console.error("Token exchange failed:", tokenRes.status, await tokenRes.text());
-        sendPage(res, base + "/?error=auth_failed");
-        return;
+        var tokenErr = await tokenRes.text();
+        log.push("TOKEN FAILED " + tokenRes.status + ": " + tokenErr);
+        return showDiag(res, log, false, null, base);
       }
 
-      const tokenData = await tokenRes.json();
-      const access_token = tokenData.access_token;
+      const { access_token } = await tokenRes.json();
+      log.push("token ok");
 
       const userRes = await fetch("https://discord.com/api/users/@me", {
         headers: { Authorization: "Bearer " + access_token },
       });
-      if (!userRes.ok) { sendPage(res, base + "/?error=auth_failed"); return; }
+      if (!userRes.ok) { log.push("user fetch failed " + userRes.status); return showDiag(res, log, false, null, base); }
       const user = await userRes.json();
+      log.push("user: " + (user.global_name || user.username) + " (" + user.id + ")");
 
-      let hasAccess = false;
       const memberRes = await fetch(
         "https://discord.com/api/users/@me/guilds/" + GUILD_ID + "/member",
         { headers: { Authorization: "Bearer " + access_token } }
       );
+
+      var hasAccess = false;
       if (memberRes.ok) {
         const member = await memberRes.json();
         hasAccess = Array.isArray(member.roles) && member.roles.includes(ROLE_ID);
-        console.log("User", user.global_name || user.username, "hasAccess:", hasAccess, "roles:", member.roles);
+        log.push("member ok, roles: " + member.roles.join(","));
+        log.push("ROLE_ID procurado: " + ROLE_ID);
+        log.push("hasAccess: " + hasAccess);
       } else {
-        console.error("Member fetch failed:", memberRes.status, await memberRes.text());
+        var memberErr = await memberRes.text();
+        log.push("MEMBER FAILED " + memberRes.status + ": " + memberErr);
       }
 
       const jwt = makeJwt(
@@ -75,10 +70,33 @@ const { makeJwt } = require("../_jwt");
       res.setHeader("Set-Cookie",
         "ilegal_session=" + jwt + "; Path=/; HttpOnly; SameSite=Lax; Max-Age=" + (7 * 24 * 3600)
       );
-      sendPage(res, hasAccess ? base + "/" : base + "/?error=no_access");
+      return showDiag(res, log, hasAccess, user, base);
+
     } catch (err) {
-      console.error("Auth callback error:", err);
-      sendPage(res, base + "/?error=auth_failed");
+      log.push("EXCEPTION: " + err.message);
+      return showDiag(res, log, false, null, base);
     }
   };
+
+  function showDiag(res, log, hasAccess, user, base) {
+    var dest = hasAccess ? base + "/" : base + "/?error=no_access";
+    var color = hasAccess ? "#39d353" : "#ff4444";
+    var rows = log.map(function(l) { return "<div style=\"margin:4px 0;font-family:monospace;font-size:13px;\">" + l + "</div>"; }).join("");
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader("Cache-Control", "no-store");
+    res.status(200).send(
+      "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>body{background:#0d0d0d;color:#eee;font-family:sans-serif;padding:40px;max-width:600px;margin:auto}</style></head><body>" +
+      "<h2 style=\"color:" + color + ";\">Auth: " + (hasAccess ? "✓ ACESSO LIBERADO" : "✗ SEM ACESSO") + "</h2>" +
+      "<div style=\"background:#111;border:1px solid #333;border-radius:8px;padding:16px;margin:16px 0;\">" + rows + "</div>" +
+      (user ? "<div style=\"margin:8px 0;\">Usuário: <b>" + (user.global_name || user.username) + "</b></div>" : "") +
+      "<a href=\"" + dest + "\" style=\"display:inline-block;margin-top:20px;padding:12px 28px;background:" + color + ";color:#fff;border-radius:8px;text-decoration:none;font-weight:bold;\">" +
+      (hasAccess ? "Entrar no site →" : "Voltar") +
+      "</a></body></html>"
+    );
+  }
+
+  function redirect(res, url) {
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.status(200).send("<!DOCTYPE html><html><head><script>location.replace(" + JSON.stringify(url) + ")<\/script></head></html>");
+  }
   
