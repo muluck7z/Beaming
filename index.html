@@ -2920,9 +2920,7 @@
   clickableElements.forEach(el => {
     el.addEventListener('click', () => {
       // Vibração de leve (15ms) - funciona na maioria dos celulares Android
-      if (window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate(30);
-      }
+      playClick();
       
       // Pequeno efeito visual de escala se não houver um :active definido no CSS
       if (!el.classList.contains('menu-btn') && !el.classList.contains('avatar-slot')) {
