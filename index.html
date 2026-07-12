@@ -45,10 +45,18 @@
     z-index:0;
   }
 
+  :focus{
+    outline: none !important;
+  }
+
   :focus-visible{
     outline: 2px solid var(--red-glow);
     outline-offset: 3px;
     border-radius: 4px;
+  }
+
+  button, a, input, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
   }
 
   a{ color:inherit; text-decoration:none; }
