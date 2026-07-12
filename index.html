@@ -3093,52 +3093,66 @@
         missing_code: 'Código de autorização ausente. Tente novamente.',
       };
 
-      function showStatus(msg, color) {
+      function showError(msg) {
         errBox.textContent = msg;
-        errBox.style.cssText = 'display:block;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin:8px 0 4px;background:rgba(' + (color === 'red' ? '224,16,42,0.18);border:1.5px solid rgba(224,16,42,0.7);color:#ff2d47' : color === 'green' ? '57,211,83,0.12);border:1.5px solid rgba(57,211,83,0.5);color:#39d353' : '255,200,0,0.15);border:1.5px solid rgba(255,200,0,0.5);color:#ffc800') + ';';
+        errBox.style.cssText = 'display:block;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin:8px 0 4px;background:rgba(224,16,42,0.18);border:1.5px solid rgba(224,16,42,0.7);color:#ff2d47;';
       }
 
+      // Erro na URL (?error=...)
       var urlError = new URLSearchParams(window.location.search).get('error');
-      if (urlError && errorMsgs[urlError]) {
-        showStatus(errorMsgs[urlError], 'red');
-      } else if (urlError) {
-        showStatus('Erro: ' + urlError, 'red');
-      }
+      if (urlError && errorMsgs[urlError]) showError(errorMsgs[urlError]);
+      else if (urlError) showError('Erro: ' + urlError);
       if (urlError) history.replaceState(null, '', window.location.pathname);
 
-      showStatus('⏳ Verificando acesso...', 'yellow');
+      // JWT no hash (#jwt=...) vindo do callback
+      var hash = window.location.hash;
+      if (hash && hash.startsWith('#jwt=')) {
+        var jwt = decodeURIComponent(hash.slice(5));
+        try { sessionStorage.setItem('ilegal_jwt', jwt); } catch(e) {}
+        history.replaceState(null, '', window.location.pathname);
+      }
 
-      fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' })
-        .then(function(r) {
-          if (!r.ok) {
-            showStatus('✗ Sem acesso (status ' + r.status + ') — faça login novamente.', 'red');
-            throw new Error('unauth:' + r.status);
-          }
-          return r.json();
-        })
-        .then(function(user) {
-          showStatus('✓ Acesso confirmado! Abrindo...', 'green');
-          setTimeout(function() {
-            wall.style.display = 'none';
-            topbar.style.display = 'flex';
-            siteMain.style.display = 'block';
-            errBox.style.display = 'none';
-            if (user && user.userId) {
-              var avatarUrl = user.avatar
-                ? 'https://cdn.discordapp.com/avatars/' + user.userId + '/' + user.avatar + '.png?size=128'
-                : 'https://cdn.discordapp.com/embed/avatars/' + (parseInt(user.userId) % 6) + '.png';
-              avatarBtn.innerHTML = '<img src="' + avatarUrl + '" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
-              avatarBtn.style.padding = '0';
-              avatarBtn.style.overflow = 'hidden';
+      function getToken() {
+        try { return sessionStorage.getItem('ilegal_jwt'); } catch(e) { return null; }
+      }
+
+      function showDashboard(user) {
+        wall.style.display = 'none';
+        topbar.style.display = 'flex';
+        siteMain.style.display = 'block';
+        errBox.style.display = 'none';
+        if (user && user.userId) {
+          var avatarUrl = user.avatar
+            ? 'https://cdn.discordapp.com/avatars/' + user.userId + '/' + user.avatar + '.png?size=128'
+            : 'https://cdn.discordapp.com/embed/avatars/' + (parseInt(user.userId) % 6) + '.png';
+          avatarBtn.innerHTML = '<img src="' + avatarUrl + '" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          avatarBtn.style.padding = '0';
+          avatarBtn.style.overflow = 'hidden';
+        }
+      }
+
+      function checkAuth() {
+        var tkn = getToken();
+        var headers = { 'Cache-Control': 'no-cache' };
+        if (tkn) headers['Authorization'] = 'Bearer ' + tkn;
+
+        fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store', headers: headers })
+          .then(function(r) {
+            if (!r.ok) {
+              try { sessionStorage.removeItem('ilegal_jwt'); } catch(e) {}
+              throw new Error('unauth');
             }
-          }, 600);
-        })
-        .catch(function() {
-          // status já mostrado acima
-        });
+            return r.json();
+          })
+          .then(function(user) { showDashboard(user); })
+          .catch(function() { /* wall permanece visível */ });
+      }
+
+      checkAuth();
 
       if (logoutBtn) {
         logoutBtn.addEventListener('click', function() {
+          try { sessionStorage.removeItem('ilegal_jwt'); } catch(e) {}
           fetch('/api/auth/logout', { method: 'POST' }).finally(function() {
             window.location.reload();
           });
