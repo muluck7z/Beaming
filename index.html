@@ -492,6 +492,7 @@
     border: 1px solid var(--surface-border);
     border-radius: 18px;
     padding: 24px;
+    margin-bottom: 20px;
   }
   .site-list-icon{
     flex-shrink:0;
@@ -501,7 +502,7 @@
     border: 1px solid var(--surface-border);
     display:flex; align-items:center; justify-content:center;
   }
-  .site-list-body{ flex:1; }
+  .site-list-body{ flex:1; min-width:0; }
   .site-list-tag{
     display:inline-block;
     padding: 5px 12px;
@@ -522,11 +523,15 @@
     margin-bottom:18px;
   }
   .site-list-btn{
-    display:inline-flex;
+    display:flex;
     align-items:center;
     gap:10px;
     padding: 13px 22px;
     border-radius: 999px;
+    max-width:100%;
+    box-sizing:border-box;
+    word-break:break-all;
+    white-space:normal;
     background: rgba(224,16,42,0.14);
     border: 1px solid rgba(224,16,42,0.45);
     color: var(--red-glow);
@@ -1876,47 +1881,23 @@
             </div>
             <div class="site-list-card">
               <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-brazino.jpg" alt="ILEGAL" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
+                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-shockify.png" alt="Shockify" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
               </div>
               <div class="site-list-body">
                 <span class="site-list-tag">Gerador 01</span>
-                <div class="site-list-title">ILEGAL</div>
-                <a class="site-list-btn" href="https://app.beamse.pro/gen/ilegal" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar app.beamse.pro/gen/ilegal
+                <div class="site-list-title">Shockify</div>
+                <a class="site-list-btn" href="https://shockify.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==" target="_blank" rel="noopener noreferrer">
+                  <span>→</span> Acessar shockify.st
                 </a>
               </div>
             </div>
             <div class="site-list-card">
               <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-splunk.png" alt="ILEGAL X SPLUNK" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
+                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-immortal.png" alt="Immortal" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
               </div>
               <div class="site-list-body">
                 <span class="site-list-tag">Gerador 02</span>
-                <div class="site-list-title">ILEGAL X SPLUNK</div>
-                <a class="site-list-btn" href="https://app.beamers.si/u/ilegal" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar app.beamers.si/u/ilegal
-                </a>
-              </div>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-injuries.png" alt="ILEGAL X INJURIES" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Gerador 03</span>
-                <div class="site-list-title">ILEGAL X INJURIES</div>
-                <a class="site-list-btn" href="https://www.logged.tg/auth/ilegal" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar logged.tg/auth/ilegal
-                </a>
-              </div>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-immortal.png" alt="ILEGAL X IMMORTAL" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Gerador 04</span>
-                <div class="site-list-title">ILEGAL X IMMORTAL</div>
+                <div class="site-list-title">Immortal</div>
                 <a class="site-list-btn" href="https://immortal.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==" target="_blank" rel="noopener noreferrer">
                   <span>→</span> Acessar immortal.st
                 </a>
@@ -1924,13 +1905,37 @@
             </div>
             <div class="site-list-card">
               <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-shockify.png" alt="ILEGAL X SHOCKIFY" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
+                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-splunk.png" alt="Splunk" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
+              </div>
+              <div class="site-list-body">
+                <span class="site-list-tag">Gerador 03</span>
+                <div class="site-list-title">Splunk</div>
+                <a class="site-list-btn" href="https://app.beamers.si/u/ilegal" target="_blank" rel="noopener noreferrer">
+                  <span>→</span> Acessar app.beamers.si/u/ilegal
+                </a>
+              </div>
+            </div>
+            <div class="site-list-card">
+              <div class="site-list-icon">
+                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-injuries.png" alt="Injuries" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
+              </div>
+              <div class="site-list-body">
+                <span class="site-list-tag">Gerador 04</span>
+                <div class="site-list-title">Injuries</div>
+                <a class="site-list-btn" href="https://www.logged.tg/auth/ilegal" target="_blank" rel="noopener noreferrer">
+                  <span>→</span> Acessar logged.tg/auth/ilegal
+                </a>
+              </div>
+            </div>
+            <div class="site-list-card">
+              <div class="site-list-icon">
+                <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/icon-beamse.jpg" alt="Beamse" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
               </div>
               <div class="site-list-body">
                 <span class="site-list-tag">Gerador 05</span>
-                <div class="site-list-title">ILEGAL X SHOCKIFY</div>
-                <a class="site-list-btn" href="https://shockify.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar shockify.st
+                <div class="site-list-title">Beamse</div>
+                <a class="site-list-btn" href="https://app.beamse.pro/gen/ilegal" target="_blank" rel="noopener noreferrer">
+                  <span>→</span> Acessar app.beamse.pro/gen/ilegal
                 </a>
               </div>
             </div>
