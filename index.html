@@ -3084,6 +3084,8 @@
       var errBox    = document.getElementById('login-error');
       var avatarBtn = document.getElementById('avatarBtn');
       var logoutBtn = document.getElementById('logoutBtn');
+      var topbar    = document.getElementById('site-topbar');
+      var siteMain  = document.getElementById('site-main');
 
       var errorMsgs = {
         no_access:    'Você não tem o cargo necessário neste servidor Discord.',
@@ -3091,39 +3093,48 @@
         missing_code: 'Código de autorização ausente. Tente novamente.',
       };
 
-      function showError(msg) {
+      function showStatus(msg, color) {
         errBox.textContent = msg;
-        errBox.style.cssText = 'display:block;background:rgba(224,16,42,0.18);border:1.5px solid rgba(224,16,42,0.7);color:#ff2d47;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin:8px 0 4px;';
+        errBox.style.cssText = 'display:block;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin:8px 0 4px;background:rgba(' + (color === 'red' ? '224,16,42,0.18);border:1.5px solid rgba(224,16,42,0.7);color:#ff2d47' : color === 'green' ? '57,211,83,0.12);border:1.5px solid rgba(57,211,83,0.5);color:#39d353' : '255,200,0,0.15);border:1.5px solid rgba(255,200,0,0.5);color:#ffc800') + ';';
       }
 
       var urlError = new URLSearchParams(window.location.search).get('error');
       if (urlError && errorMsgs[urlError]) {
-        showError(errorMsgs[urlError]);
+        showStatus(errorMsgs[urlError], 'red');
       } else if (urlError) {
-        showError('Erro inesperado: ' + urlError);
+        showStatus('Erro: ' + urlError, 'red');
       }
       if (urlError) history.replaceState(null, '', window.location.pathname);
 
+      showStatus('⏳ Verificando acesso...', 'yellow');
+
       fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store' })
         .then(function(r) {
-          if (!r.ok) throw new Error('unauth');
+          if (!r.ok) {
+            showStatus('✗ Sem acesso (status ' + r.status + ') — faça login novamente.', 'red');
+            throw new Error('unauth:' + r.status);
+          }
           return r.json();
         })
         .then(function(user) {
-          wall.style.display = 'none';
-          document.getElementById('site-topbar').style.removeProperty('display');
-          document.getElementById('site-main').style.removeProperty('display');
-          if (user && user.userId) {
-            var avatarUrl = user.avatar
-              ? 'https://cdn.discordapp.com/avatars/' + user.userId + '/' + user.avatar + '.png?size=128'
-              : 'https://cdn.discordapp.com/embed/avatars/' + (parseInt(user.userId) % 6) + '.png';
-            avatarBtn.innerHTML = '<img src="' + avatarUrl + '" alt="' + (user.username || '') + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
-            avatarBtn.style.padding = '0';
-            avatarBtn.style.overflow = 'hidden';
-          }
+          showStatus('✓ Acesso confirmado! Abrindo...', 'green');
+          setTimeout(function() {
+            wall.style.display = 'none';
+            topbar.style.display = 'flex';
+            siteMain.style.display = 'block';
+            errBox.style.display = 'none';
+            if (user && user.userId) {
+              var avatarUrl = user.avatar
+                ? 'https://cdn.discordapp.com/avatars/' + user.userId + '/' + user.avatar + '.png?size=128'
+                : 'https://cdn.discordapp.com/embed/avatars/' + (parseInt(user.userId) % 6) + '.png';
+              avatarBtn.innerHTML = '<img src="' + avatarUrl + '" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+              avatarBtn.style.padding = '0';
+              avatarBtn.style.overflow = 'hidden';
+            }
+          }, 600);
         })
         .catch(function() {
-          // não autenticado, wall continua visível
+          // status já mostrado acima
         });
 
       if (logoutBtn) {
