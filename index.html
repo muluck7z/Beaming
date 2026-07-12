@@ -2900,7 +2900,7 @@
     el.addEventListener('click', () => {
       // Vibração de leve (15ms) - funciona na maioria dos celulares Android
       if (window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate(15);
+        window.navigator.vibrate(30);
       }
       
       // Pequeno efeito visual de escala se não houver um :active definido no CSS
@@ -3150,6 +3150,13 @@
       }
 
       checkAuth();
+
+      // Vibração no botão de login (touchstart = resposta mais rápida no mobile)
+      document.querySelectorAll('button, a, [role="button"]').forEach(function(el) {
+        el.addEventListener('touchstart', function() {
+          if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(30);
+        }, { passive: true });
+      });
 
       if (logoutBtn) {
         logoutBtn.addEventListener('click', function() {
