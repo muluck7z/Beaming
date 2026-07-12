@@ -2778,7 +2778,28 @@
   </main>
 
 <script>
-  const menuBtn = document.getElementById('menuBtn');
+  // ── Click sound via Web Audio API ──────────────────────────
+    var _audioCtx = null;
+    function playClick() {
+      try {
+        if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var ctx = _audioCtx;
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1200, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.04);
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.07);
+      } catch(e) {}
+    }
+    // ────────────────────────────────────────────────────────────
+
+    const menuBtn = document.getElementById('menuBtn');
   const topbar = document.querySelector('.topbar');
   const overlay = document.getElementById('overlay');
   const panel = document.getElementById('panel');
@@ -3154,7 +3175,7 @@
       // Vibração no botão de login (touchstart = resposta mais rápida no mobile)
       document.querySelectorAll('button, a, [role="button"]').forEach(function(el) {
         el.addEventListener('touchstart', function() {
-          if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(30);
+          playClick();
         }, { passive: true });
       });
 
