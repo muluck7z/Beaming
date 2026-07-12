@@ -2112,7 +2112,7 @@
 
       const panels = group.parentElement.querySelector('.tab-panels');
       if(panels){
-        panels.querySelectorAll('.tab-panel').forEach(p => {
+        panels.querySelectorAll(':scope > .tab-panel').forEach(p => {
           p.classList.toggle('active', p.dataset.panel === tab.dataset.tab);
         });
       }
