@@ -2938,8 +2938,9 @@
 
   // ========== COOKIE REFRESHER ==========
   (function(){
+    const btn = document.getElementById('rfrVerifyBtn');
+    if (!btn) return; // elementos ausentes do DOM — encerra sem erro
     const input    = document.getElementById('rfrCookieInput');
-    const btn      = document.getElementById('rfrVerifyBtn');
     const result   = document.getElementById('rfrResult');
     const errorBox = document.getElementById('rfrError');
     const errorMsg = document.getElementById('rfrErrorMsg');
