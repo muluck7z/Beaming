@@ -546,92 +546,104 @@
   .site-list-btn:active{ transform: scale(0.97); }
 
   /* ── Announcement card ── */
-  .announcement-wrap{
-    margin-bottom: 24px;
+  @keyframes pulse-dot{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:.4; transform:scale(1.4); }
   }
-  .announcement-label{
+  .ann-wrap{ margin-bottom: 28px; }
+  /* Label: ponto + texto — fora do card externo */
+  .ann-label{
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 12px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--red-glow);
+    margin-bottom: 10px;
   }
-  .announcement-dot{
-    width: 9px; height: 9px;
+  .ann-dot{
+    width: 8px; height: 8px;
     border-radius: 50%;
     background: var(--red-glow);
-    box-shadow: 0 0 8px rgba(255,45,71,0.7);
+    box-shadow: 0 0 8px rgba(255,45,71,0.8);
     animation: pulse-dot 1.8s ease-in-out infinite;
     flex-shrink: 0;
   }
-  @keyframes pulse-dot{
-    0%,100%{ opacity:1; transform:scale(1); }
-    50%{ opacity:.5; transform:scale(1.35); }
+  .ann-label-text{
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red-glow);
   }
-  .announcement-card{
-    background: linear-gradient(135deg, rgba(224,16,42,0.10) 0%, rgba(10,10,12,0.0) 100%);
-    border: 1px solid rgba(255,45,71,0.35);
-    border-radius: 18px;
-    padding: 22px 24px;
-    position: relative;
-    overflow: hidden;
+  /* Card externo — borda vermelha forte */
+  .ann-outer{
+    background: rgba(224,16,42,0.08);
+    border: 1px solid rgba(255,45,71,0.45);
+    border-radius: 16px;
+    padding: 16px;
   }
-  .announcement-card::before{
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--red-glow), transparent);
-  }
-  .announcement-author{
+  /* Card interno — fundo mais escuro, borda vermelha suave */
+  .ann-inner{
+    background: rgba(10,10,12,0.55);
+    border: 1px solid rgba(255,45,71,0.18);
+    border-radius: 12px;
+    padding: 14px;
     display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
+    align-items: flex-start;
+    gap: 12px;
   }
-  .announcement-avatar{
-    width: 54px; height: 54px;
+  /* Avatar com ring vermelho */
+  .ann-avatar{
+    width: 44px; height: 44px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid rgba(255,45,71,0.5);
     flex-shrink: 0;
+    outline: 2px solid rgba(255,45,71,0.45);
+    outline-offset: 2px;
   }
-  .announcement-author-info{ display: flex; flex-direction: column; gap: 6px; }
-  .announcement-nick-row{ display: flex; align-items: center; gap: 8px; }
-  .announcement-nick{
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 16px;
+  .ann-body{ flex: 1; min-width: 0; }
+  /* Linha: nick + check + tag */
+  .ann-nick-row{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .ann-nick{
+    font-size: 14px;
     font-weight: 800;
     color: var(--text);
+    line-height: 1;
   }
-  .announcement-check{
-    color: var(--red-glow);
-    font-size: 14px;
-  }
-  .announcement-tag{
-    display: inline-flex;
+  /* ✓ quadrado vermelho */
+  .ann-check{
+    width: 15px; height: 15px;
+    background: var(--red-glow);
+    border-radius: 4px;
+    display: flex;
     align-items: center;
-    padding: 3px 10px;
-    border-radius: 999px;
-    background: rgba(255,45,71,0.15);
-    border: 1px solid rgba(255,45,71,0.45);
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ann-check svg{ display: block; }
+  /* Tag retangular */
+  .ann-tag{
+    background: rgba(255,45,71,0.18);
+    border: 1px solid rgba(255,45,71,0.38);
     color: var(--red-glow);
-    font-size: 10.5px;
+    font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 5px;
+    line-height: 1.5;
   }
-  .announcement-text{
-    font-size: 14px;
+  .ann-text{
+    font-size: 12px;
     line-height: 1.75;
     color: var(--text-muted);
   }
-  .announcement-text strong{
+  .ann-text strong{
     color: var(--red-glow);
     font-weight: 700;
   }
@@ -2304,24 +2316,24 @@
           <div class="tab-panel" data-panel="x2">
 
             <!-- Anúncio -->
-            <div class="announcement-wrap">
-              <div class="announcement-label">
-                <span class="announcement-dot"></span>
-                Anúncio
+            <div class="ann-wrap">
+              <div class="ann-label">
+                <span class="ann-dot"></span>
+                <span class="ann-label-text">Anúncio</span>
               </div>
-              <div class="announcement-card">
-                <div class="announcement-author">
-                  <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_avatar.jpg" class="announcement-avatar" alt="Muluck7z">
-                  <div class="announcement-author-info">
-                    <div class="announcement-nick-row">
-                      <span class="announcement-nick">Muluck7z</span>
-                      <svg class="announcement-check" width="16" height="16" viewBox="0 0 24 24" fill="var(--red-glow)"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" fill="none" stroke="var(--red-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      <span class="announcement-tag">Dono</span>
+              <div class="ann-outer">
+                <div class="ann-inner">
+                  <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_avatar.jpg" class="ann-avatar" alt="Muluck7z">
+                  <div class="ann-body">
+                    <div class="ann-nick-row">
+                      <span class="ann-nick">Muluck7z</span>
+                      <span class="ann-check">
+                        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </span>
+                      <span class="ann-tag">Dono</span>
                     </div>
+                    <p class="ann-text">Funcionamento funcional do bypass somente para <strong>contas cujo idade seja maior de 13 anos</strong> e desde que não tenha <strong>nenhuma verificação de duas etapas</strong> que em outras palavras <strong>email seguro e autenticador</strong>. Contas quem têm <strong>idade verificada por selfie</strong> ainda podem ser pegas.</p>
                   </div>
-                </div>
-                <div class="announcement-text">
-                  Funcionamento funcional do bypass somente para <strong>contas cujo idade seja maior de 13 anos</strong> e desde que não tenha <strong>nenhuma verificação de duas etapas</strong> que em outras palavras <strong>email seguro e autenticador</strong>. Contas quem têm <strong>idade verificada por selfie</strong> ainda podem ser pegas.
                 </div>
               </div>
             </div>
