@@ -8,11 +8,11 @@ const { makeJwt } = require("../_jwt");
     const SECRET        = process.env.SESSION_SECRET || "fallback";
 
     const code = req.query.code;
-    if (!code) { return htmlRedirect(res, '/?error=missing_code'); }
+    if (!code) { res.redirect("/?error=missing_code"); return; }
 
     try {
-      const host       = req.headers["x-forwarded-host"] || req.headers.host;
-      const proto      = req.headers["x-forwarded-proto"] || "https";
+      const host      = req.headers["x-forwarded-host"] || req.headers.host;
+      const proto     = req.headers["x-forwarded-proto"] || "https";
       const redirectUri = `${proto}://${host}/api/auth/callback`;
 
       const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
@@ -29,7 +29,8 @@ const { makeJwt } = require("../_jwt");
 
       if (!tokenRes.ok) {
         console.error("Token exchange failed:", tokenRes.status, await tokenRes.text());
-        return htmlRedirect(res, '/?error=auth_failed');
+        res.redirect("/?error=auth_failed");
+        return;
       }
 
       const { access_token } = await tokenRes.json();
@@ -37,7 +38,7 @@ const { makeJwt } = require("../_jwt");
       const userRes = await fetch("https://discord.com/api/users/@me", {
         headers: { Authorization: `Bearer ${access_token}` },
       });
-      if (!userRes.ok) return htmlRedirect(res, '/?error=auth_failed');
+      if (!userRes.ok) { res.redirect("/?error=auth_failed"); return; }
       const user = await userRes.json();
 
       let hasAccess = false;
@@ -58,20 +59,10 @@ const { makeJwt } = require("../_jwt");
       res.setHeader("Set-Cookie",
         `ilegal_session=${jwt}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${7 * 24 * 3600}`
       );
-
-      return htmlRedirect(res, hasAccess ? '/' : '/?error=no_access');
+      res.redirect(hasAccess ? "/" : "/?error=no_access");
     } catch (err) {
       console.error("Auth callback error:", err);
-      return htmlRedirect(res, '/?error=auth_failed');
+      res.redirect("/?error=auth_failed");
     }
   };
-
-  function htmlRedirect(res, url) {
-    res.setHeader("Content-Type", "text/html");
-    res.setHeader("Cache-Control", "no-store");
-    res.status(200).send(`<!DOCTYPE html><html><head><meta charset="utf-8">
-  <script>window.location.replace("${url}");<\/script>
-  <noscript><meta http-equiv="refresh" content="0;url=${url}"></noscript>
-  </head><body></body></html>`);
-  }
   
