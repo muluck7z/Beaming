@@ -1,14 +1,5 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "trailingSlash": false,
-  "functions": {
-    "api/refresh.js": {
-      "runtime": "edge"
-    }
-  },
-  "routes": [
-    { "src": "/api/refresh", "dest": "/api/refresh.js" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  "trailingSlash": false
 }
