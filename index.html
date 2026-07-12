@@ -1657,59 +1657,85 @@
     position:fixed; inset:0; z-index:9999;
     background: radial-gradient(120% 120% at 85% -10%, #1a0508 0%, #0a0a0c 45%), #0a0a0c;
     display:flex; align-items:center; justify-content:center;
+    padding: 20px;
   ">
-    <!-- glow de fundo -->
-    <div style="position:absolute;inset:0;background:radial-gradient(600px 500px at 50% 60%,rgba(224,16,42,0.07),transparent 70%);pointer-events:none;"></div>
+    <!-- glow ambiente -->
+    <div style="position:absolute;inset:0;background:radial-gradient(700px 500px at 50% 55%,rgba(224,16,42,0.09),transparent 70%);pointer-events:none;"></div>
 
-    <!-- Card -->
+    <!-- ann-outer: camada vermelha externa -->
     <div style="
       position:relative;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,45,71,0.22);
-      border-radius: 24px;
-      padding: 40px 32px 36px;
-      max-width: 380px; width: calc(100% - 40px);
-      text-align: center;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(224,16,42,0.08);
-      backdrop-filter: blur(14px);
+      background: rgba(224,16,42,0.08);
+      border: 1px solid rgba(255,45,71,0.45);
+      border-radius: 20px;
+      padding: 14px;
+      max-width: 360px; width: 100%;
+      box-shadow: 0 0 50px rgba(224,16,42,0.12), 0 24px 60px rgba(0,0,0,0.6);
     ">
-      <!-- Logo -->
-      <div style="font-family:'Space Grotesk',sans-serif; font-size: clamp(40px,12vw,58px); font-weight:900; letter-spacing:-0.03em; color:#f2f1f0; line-height:1; margin-bottom:10px;">
-        ILE<span style="color:#ff2d47;">GAL</span>
+      <!-- ann-inner: camada escura interna -->
+      <div style="
+        background: rgba(10,10,12,0.80);
+        border: 1px solid rgba(255,45,71,0.15);
+        border-radius: 13px;
+        overflow: hidden;
+      ">
+
+        <!-- Banner ILEGAL -->
+        <div style="width:100%; height:160px; overflow:hidden; position:relative;">
+          <img
+            src="https://raw.githubusercontent.com/muluck7z/Beaming/main/ilegal-banner.jpg"
+            alt="ILEGAL"
+            style="width:100%; height:100%; object-fit:cover; object-position:center 30%; display:block; pointer-events:none; user-select:none;"
+          >
+          <!-- gradiente sobre o banner -->
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(10,10,12,0) 30%, rgba(10,10,12,0.85) 100%);"></div>
+        </div>
+
+        <!-- Conteúdo -->
+        <div style="padding: 20px 20px 24px; text-align:center;">
+
+          <!-- Nome -->
+          <div style="
+            display:inline-flex; align-items:center; gap:10px;
+            font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:900;
+            letter-spacing:-0.02em; color:#f2f1f0; margin-bottom:6px;
+          ">
+            ILE<span style="color:#ff2d47;">GAL</span>
+          </div>
+
+          <p style="font-size:12px; color:#93939a; margin-bottom:22px; font-family:'Inter',sans-serif; line-height:1.55;">
+            Acesso restrito a membros verificados do servidor.
+          </p>
+
+          <!-- Erro -->
+          <div id="login-error" style="display:none; background:rgba(224,16,42,0.10); border:1px solid rgba(255,45,71,0.28); border-radius:10px; padding:10px 13px; margin-bottom:16px; font-size:12px; color:#ff2d47; font-family:'Inter',sans-serif;"></div>
+
+          <!-- Botão -->
+          <a href="/api/auth/discord" style="
+            display:flex; align-items:center; justify-content:center; gap:10px;
+            width:100%; padding:13px 18px;
+            background: rgba(224,16,42,0.14);
+            border: 1.5px solid rgba(255,45,71,0.55);
+            color: #ff2d47;
+            border-radius:12px; text-decoration:none;
+            font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
+            letter-spacing:0.02em;
+            box-shadow: 0 0 16px rgba(255,45,71,0.14);
+            transition: background .18s, box-shadow .18s, transform .14s, border-color .18s;
+            -webkit-tap-highlight-color:transparent;
+          "
+          onmouseover="this.style.background='rgba(224,16,42,0.24)';this.style.borderColor='rgba(255,45,71,0.9)';this.style.boxShadow='0 0 28px rgba(255,45,71,0.3)'"
+          onmouseout="this.style.background='rgba(224,16,42,0.14)';this.style.borderColor='rgba(255,45,71,0.55)';this.style.boxShadow='0 0 16px rgba(255,45,71,0.14)'"
+          onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'">
+            <svg width="19" height="15" viewBox="0 0 71 55" fill="none"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z" fill="currentColor"/></svg>
+            Entrar com Discord
+          </a>
+
+          <p style="font-size:10.5px; color:#56565c; margin-top:14px; font-family:'Inter',sans-serif;">
+            Você precisa ter o cargo no servidor para acessar.
+          </p>
+        </div>
       </div>
-
-      <!-- Subtítulo -->
-      <p style="font-size:13px; color:#93939a; margin-bottom:32px; font-family:'Inter',sans-serif; line-height:1.5;">
-        Acesso restrito a membros<br>verificados do servidor.
-      </p>
-
-      <!-- Mensagem de erro -->
-      <div id="login-error" style="display:none; background:rgba(224,16,42,0.10); border:1px solid rgba(255,45,71,0.30); border-radius:12px; padding:11px 14px; margin-bottom:18px; font-size:13px; color:#ff2d47; font-family:'Inter',sans-serif;"></div>
-
-      <!-- Botão Entrar -->
-      <a href="/api/auth/discord" style="
-        display:flex; align-items:center; justify-content:center; gap:11px;
-        width:100%; padding:14px 20px;
-        background: rgba(224,16,42,0.12);
-        border: 1.5px solid rgba(255,45,71,0.55);
-        color: #ff2d47;
-        border-radius:14px; text-decoration:none;
-        font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;
-        letter-spacing:0.01em;
-        box-shadow: 0 0 18px rgba(255,45,71,0.15), inset 0 0 0 1px rgba(255,45,71,0.08);
-        transition: background .18s ease, box-shadow .18s ease, transform .15s ease, border-color .18s ease;
-        -webkit-tap-highlight-color:transparent;
-      "
-      onmouseover="this.style.background='rgba(224,16,42,0.22)';this.style.borderColor='rgba(255,45,71,0.85)';this.style.boxShadow='0 0 28px rgba(255,45,71,0.28), inset 0 0 0 1px rgba(255,45,71,0.15)'"
-      onmouseout="this.style.background='rgba(224,16,42,0.12)';this.style.borderColor='rgba(255,45,71,0.55)';this.style.boxShadow='0 0 18px rgba(255,45,71,0.15), inset 0 0 0 1px rgba(255,45,71,0.08)'"
-      onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'">
-        <svg width="20" height="16" viewBox="0 0 71 55" fill="none"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z" fill="currentColor"/></svg>
-        Entrar com Discord
-      </a>
-
-      <p style="font-size:11px; color:#56565c; margin-top:18px; font-family:'Inter',sans-serif;">
-        Você precisa ter o cargo no servidor para acessar.
-      </p>
     </div>
   </div>
   <!-- ════════════════════════════════════════ -->
