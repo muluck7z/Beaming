@@ -1,4 +1,4 @@
-const { verifyJwt, parseCookies } = require("../_jwt");
+const { verifyJwt, parseCookies } = require("./_jwt");
 
   module.exports = function handler(req, res) {
     const cookies = parseCookies(req);
