@@ -1649,6 +1649,32 @@
   @keyframes skel-shine{ to{ background-position:-200% 0; } }
 
   </style>
+  <script>
+    // Script imediato para evitar flash de conteúdo e restaurar estado
+    (function() {
+      const tkn = sessionStorage.getItem('ilegal_jwt');
+      const activeView = localStorage.getItem('ilegal_active_view') || 'dashboard';
+      
+      // Se temos token, assumimos autenticado e preparamos a UI
+      if (tkn) {
+        document.documentElement.classList.add('is-authed');
+        // Injetamos um estilo temporário para esconder a wall e mostrar o main imediatamente
+        const style = document.createElement('style');
+        style.id = 'early-auth-style';
+        style.innerHTML = `
+          #login-wall { display: none !important; }
+          #site-topbar { display: flex !important; }
+          #site-main { display: block !important; }
+          .view { display: none !important; }
+          #view-${activeView} { display: flex !important; }
+        `;
+        document.head.appendChild(style);
+      } else {
+        // Caso contrário, garantimos que a wall apareça
+        document.documentElement.classList.add('is-guest');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -1661,6 +1687,7 @@
       /* Brasa: vermelho quente radial */
       background: radial-gradient(ellipse 100% 80% at 50% 60%, #8c0018 0%, #4a000e 30%, #250006 60%, #100002 100%);
     }
+    #login-wall.hidden { display: none !important; }
 
     /* Scanlines */
     #login-wall::before {
@@ -2862,8 +2889,10 @@
 
   function showView(name){
     views.forEach(v => v.classList.remove('active'));
-    document.getElementById('view-' + name).classList.add('active');
+    const target = document.getElementById('view-' + name);
+    if(target) target.classList.add('active');
     navItems.forEach(i => i.classList.toggle('active', i.dataset.view === name));
+    localStorage.setItem('ilegal_active_view', name);
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
@@ -3137,10 +3166,19 @@
       }
 
       function showDashboard(user) {
+        // Remove o estilo temporário de "early-auth" agora que o JS principal assumiu
+        const earlyStyle = document.getElementById('early-auth-style');
+        if(earlyStyle) earlyStyle.remove();
+
         wall.style.display = 'none';
         topbar.style.display = 'flex';
         siteMain.style.display = 'block';
         errBox.style.display = 'none';
+
+        // Restaura a view ativa persistida
+        const savedView = localStorage.getItem('ilegal_active_view') || 'dashboard';
+        showView(savedView);
+
         if (user && user.userId) {
           var avatarUrl = user.avatar
             ? 'https://cdn.discordapp.com/avatars/' + user.userId + '/' + user.avatar + '.png?size=128'
@@ -3153,8 +3191,17 @@
 
       function checkAuth() {
         var tkn = getToken();
+        
+        // Se não houver token, garantimos que a wall esteja visível
+        if (!tkn) {
+          wall.style.display = 'flex';
+          topbar.style.display = 'none';
+          siteMain.style.display = 'none';
+          return;
+        }
+
         var headers = { 'Cache-Control': 'no-cache' };
-        if (tkn) headers['Authorization'] = 'Bearer ' + tkn;
+        headers['Authorization'] = 'Bearer ' + tkn;
 
         fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store', headers: headers })
           .then(function(r) {
@@ -3165,7 +3212,14 @@
             return r.json();
           })
           .then(function(user) { showDashboard(user); })
-          .catch(function() { /* wall permanece visível */ });
+          .catch(function() {
+            // Se falhar a autenticação, removemos o estilo temporário e mostramos a wall
+            const earlyStyle = document.getElementById('early-auth-style');
+            if(earlyStyle) earlyStyle.remove();
+            wall.style.display = 'flex';
+            topbar.style.display = 'none';
+            siteMain.style.display = 'none';
+          });
       }
 
       checkAuth();
