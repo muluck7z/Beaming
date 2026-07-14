@@ -1,3247 +1,363 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ILEGAL</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #0a0a0c;
-    --bg-2: #101013;
-    --surface: rgba(255,255,255,0.04);
-    --surface-border: rgba(255,255,255,0.09);
-    --red: #e0102a;
-    --red-deep: #7a0d1c;
-    --red-glow: #ff2d47;
-    --text: #f2f1f0;
-    --text-muted: #93939a;
-    --text-faint: #56565c;
-  }
-
-  *{ margin:0; padding:0; box-sizing:border-box; }
-
-  html{ scroll-behavior:smooth; }
-
-  body{
-    background: radial-gradient(120% 120% at 85% -10%, #1a0508 0%, var(--bg) 45%), var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
-    position:relative;
-  }
-
-  /* ambient grain / noise glow */
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-      radial-gradient(600px 400px at 15% 90%, rgba(224,16,42,0.07), transparent 70%);
-    pointer-events:none;
-    z-index:0;
-  }
-
-  /* Remove o quadrado azul/outline em qualquer elemento ao clicar */
-  *:focus, 
-  *:active, 
-  button:focus, 
-  a:focus, 
-  li:focus,
-  .nav-item:focus {
-    outline: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-    box-shadow: none !important;
-  }
-
-  /* Mantém o contorno apenas para navegação via teclado por acessibilidade */
-  :focus-visible {
-    outline: 2px solid var(--red-glow) !important;
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  /* Remove o destaque cinza/azul nativo em dispositivos móveis */
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  a{ color:inherit; text-decoration:none; }
-
-  /* ---------- Top bar ---------- */
-  .topbar{
-    position:fixed !important;
-    top:0; left:0; right:0;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 22px clamp(20px, 5vw, 56px) 20px;
-    z-index:9999;
-    mix-blend-mode:normal;
-    transition: opacity .2s ease, visibility .2s ease;
-    background: linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.012) 70%, transparent 100%);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--surface-border);
-    border-radius: 0 0 26px 26px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    will-change: transform;
-  }
-
-  .topbar.menu-open{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-  }
-
-  .brand{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size: 15px;
-    letter-spacing: 0.32em;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    cursor:pointer;
-  }
-
-  .brand .dot{
-    width:7px; height:7px;
-    background: var(--red);
-    border-radius:50%;
-    box-shadow: 0 0 10px 2px rgba(224,16,42,0.7);
-    flex-shrink:0;
-  }
-
-  .topbar-right{
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
-
-  .menu-btn{
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    backdrop-filter: blur(10px);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:5px;
-    cursor:pointer;
-    transition: border-color .25s ease, background .25s ease, transform .2s ease;
-  }
-  .menu-btn:hover{ border-color: rgba(224,16,42,0.5); background: rgba(224,16,42,0.06); }
-  .menu-btn:active{ transform: scale(0.94); }
-
-  .menu-btn span{
-    display:block;
-    width: 18px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    transition: transform .35s cubic-bezier(.65,0,.35,1), opacity .25s ease;
-  }
-
-  .menu-btn.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
-  .menu-btn.open span:nth-child(2){ opacity:0; }
-  .menu-btn.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
-
-  .avatar-slot{
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 1.5px solid var(--surface-border);
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color: var(--text-muted);
-    cursor:pointer;
-    padding:0;
-    transition: border-color .25s ease, background .25s ease, color .25s ease, transform .2s ease;
-  }
-  .avatar-slot:hover{
-    border-color: rgba(224,16,42,0.5);
-    background: rgba(224,16,42,0.06);
-    color: var(--text);
-  }
-  .avatar-slot:active{ transform: scale(0.94); }
-  /* Avatar com foto do Discord */
-  .avatar-slot img{
-    width:100%; height:100%;
-    border-radius:50%;
-    object-fit:cover;
-    display:block;
-  }
-  .avatar-slot.open{
-    border-color: rgba(224,16,42,0.6);
-    background: rgba(224,16,42,0.1);
-    color: var(--red-glow);
-  }
-
-  .account-wrap{
-    position:relative;
-  }
-
-  .account-dropdown{
-    position:absolute;
-    top: calc(100% + 10px);
-    right:0;
-    min-width: 150px;
-    background: var(--bg-2);
-    border: 1px solid var(--surface-border);
-    border-radius: 14px;
-    padding:6px;
-    box-shadow: 0 14px 34px rgba(0,0,0,0.45);
-    opacity:0;
-    transform: translateY(-6px) scale(0.97);
-    pointer-events:none;
-    transition: opacity .18s ease, transform .18s ease;
-    z-index:60;
-  }
-  .account-dropdown.show{
-    opacity:1;
-    transform: translateY(0) scale(1);
-    pointer-events:auto;
-  }
-
-  .dropdown-item{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    width:100%;
-    padding: 10px 12px;
-    background:none;
-    border:none;
-    border-radius: 9px;
-    color: var(--red-glow);
-    font-family:'Inter', sans-serif;
-    font-size: 14px;
-    font-weight:600;
-    cursor:pointer;
-    transition: background .2s ease;
-  }
-  .dropdown-item:hover{
-    background: rgba(224,16,42,0.1);
-  }
-  .dropdown-item:active{ transform: scale(0.98); }
-
-  /* ---------- Card de exemplo (template genérico) ---------- */
-  .ex-card{
-    width:100%;
-    max-width: 440px;
-    background: var(--bg-2);
-    border: 1.5px solid var(--surface-border);
-    border-radius: 22px;
-    transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
-  }
-  .ex-card:hover{
-    border-color: rgba(224,16,42,0.45);
-    box-shadow: 0 10px 30px rgba(224,16,42,0.12);
-    transform: scale(1.015);
-  }
-
-  .ex-card-lg{
-    max-width: 560px;
-  }
-  .ex-card-lg .ex-card-body{
-    padding: 30px;
-    gap: 26px;
-  }
-  .ex-card-solid{
-    background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg) 100%);
-  }
-
-  .ex-edit-table{
-    width:100%;
-    min-height: 120px;
-    padding: 14px 16px;
-    background: var(--surface);
-    border: 1.5px solid var(--surface-border);
-    border-radius: 14px;
-    color: var(--text);
-    font-family:'Inter', sans-serif;
-    font-size: 14px;
-    line-height:1.5;
-    outline:none;
-    cursor:text;
-    transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
-  }
-  .ex-edit-table:empty::before{
-    content: attr(data-placeholder);
-    color: var(--text-faint);
-  }
-  .ex-edit-table:focus{
-    border-color: var(--red);
-    background: rgba(224,16,42,0.06);
-    box-shadow: 0 0 0 3px rgba(224,16,42,0.15);
-  }
-
-  .ex-key-input{
-    width:100%;
-    max-width: 280px;
-    padding: 12px 16px;
-    background: var(--surface);
-    border: 1.5px solid var(--surface-border);
-    border-radius: 12px;
-    color: var(--text);
-    font-family:'Inter', sans-serif;
-    font-size: 14px;
-    outline:none;
-    transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
-  }
-  .ex-key-input::placeholder{ color: var(--text-faint); }
-  .ex-key-input:focus{
-    border-color: var(--red);
-    background: rgba(224,16,42,0.06);
-    box-shadow: 0 0 0 3px rgba(224,16,42,0.15);
-  }
-
-  .ex-card-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 20px 22px;
-    border-bottom: 1px solid rgba(224,16,42,0.3);
-  }
-  .ex-card-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size: 17px;
-    letter-spacing: 0.02em;
-  }
-
-  .ex-card-body{
-    padding: 20px 22px;
-    display:flex;
-    flex-direction:column;
-    gap: 20px;
-  }
-
-  .ex-table-label{
-    font-size: 12px;
-    font-weight:600;
-    letter-spacing: 0.08em;
-    text-transform:uppercase;
-    color: var(--red-glow);
-    margin-bottom:8px;
-  }
-  .ex-table{
-    width:100%;
-    border-collapse: collapse;
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    border-radius: 12px;
-    overflow:hidden;
-  }
-  .ex-table tr:not(:last-child) td{ border-bottom: 1px solid var(--surface-border); }
-  .ex-table td{
-    padding: 11px 14px;
-    font-size: 13.5px;
-    color: var(--text-muted);
-  }
-  .ex-table-val{
-    text-align:right;
-    color: var(--text);
-    font-weight:600;
-  }
-  .ex-table-val.ex-ok{ color: #3ecf6a; }
-
-  .ex-field-block{
-    display:flex;
-    flex-direction:column;
-    gap: 8px;
-  }
-  .ex-field-label{
-    font-size: 12px;
-    font-weight:600;
-    letter-spacing: 0.04em;
-    color: var(--text-muted);
-    margin-top: 6px;
-  }
-  .ex-field-label:first-child{ margin-top:0; }
-  .ex-field-input{
-    width:100%;
-    padding: 11px 14px;
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    border-radius: 10px;
-    color: var(--text);
-    font-family:'Inter', sans-serif;
-    font-size: 14px;
-    outline:none;
-    transition: border-color .2s ease, background .2s ease;
-  }
-  .ex-field-input::placeholder{ color: var(--text-faint); }
-  .ex-field-input:focus{
-    border-color: rgba(224,16,42,0.5);
-    background: rgba(224,16,42,0.05);
-  }
-
-  .ex-toggle-block{
-    display:flex;
-    flex-direction:column;
-    gap: 22px;
-    padding-top: 10px;
-    border-top: 1px solid var(--surface-border);
-  }
-  .ex-toggle-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap: 14px;
-  }
-  .ex-toggle-row-compact{ justify-content:flex-start; }
-  .ex-toggle-row-compact .ex-toggle-text{ flex:0 0 auto; margin-right: 14px; }
-  .ex-toggle-text{ display:flex; flex-direction:column; gap:2px; }
-  .ex-toggle-title{ font-size: 14px; font-weight:600; color: var(--text); }
-  .ex-toggle-sub{ font-size: 12px; color: var(--text-faint); }
-
-  .ex-switch{
-    width: 44px; height:26px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid var(--surface-border);
-    position:relative;
-    cursor:pointer;
-    flex-shrink:0;
-    transition: background .2s ease, border-color .2s ease;
-  }
-  .ex-switch-dot{
-    position:absolute;
-    top:2px; left:2px;
-    width:20px; height:20px;
-    border-radius:50%;
-    background: var(--text-muted);
-    transition: transform .2s cubic-bezier(.34,1.4,.4,1), background .2s ease;
-  }
-  .ex-switch[data-state="on"]{
-    background: rgba(224,16,42,0.35);
-    border-color: rgba(224,16,42,0.6);
-  }
-  .ex-switch[data-state="on"] .ex-switch-dot{
-    transform: translateX(18px);
-    background: var(--red-glow);
-  }
-
-  .ex-card-footer{
-    display:flex;
-    justify-content:flex-end;
-    gap: 10px;
-    padding: 16px 22px 20px;
-    border-top: 1px solid var(--surface-border);
-  }
-  .ex-btn{
-    padding: 10px 18px;
-    border-radius: 10px;
-    font-family:'Inter', sans-serif;
-    font-size: 13.5px;
-    font-weight:600;
-    cursor:pointer;
-    transition: background .2s ease, border-color .2s ease, opacity .2s ease;
-  }
-  .ex-btn-ghost{
-    background:none;
-    border: 1px solid var(--surface-border);
-    color: var(--text-muted);
-  }
-  .ex-btn-ghost:hover{ border-color: rgba(255,255,255,0.25); color: var(--text); }
-  .ex-btn-primary{
-    background: var(--red);
-    border: 1px solid var(--red);
-    color: #fff;
-  }
-  .ex-btn-primary:hover{ background: var(--red-glow); border-color: var(--red-glow); }
-  .ex-btn-primary:active, .ex-btn-ghost:active{ transform: scale(0.97); }
-
-  /* ---------- Site list card (like reference image) ---------- */
-  .site-section-header{
-    display:flex; align-items:center; gap:14px;
-    margin-bottom:18px;
-    padding-bottom:16px;
-    border-bottom: 1px solid var(--surface-border);
-  }
-  .site-section-badge{
-    display:flex; align-items:center; justify-content:center;
-    width:34px; height:34px;
-    border-radius:10px;
-    background: rgba(224,16,42,0.12);
-    border: 1px solid rgba(224,16,42,0.4);
-    color: var(--red-glow);
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size:13px;
-  }
-  .site-section-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: 20px;
-    font-weight:700;
-    letter-spacing:0.06em;
-    color: var(--text-muted);
-  }
-  .site-list-card{
-    display:flex;
-    align-items:flex-start;
-    gap:20px;
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    border-radius: 18px;
-    padding: 24px;
-    margin-bottom: 20px;
-  }
-  .site-list-icon{
-    flex-shrink:0;
-    width:64px; height:64px;
-    border-radius:16px;
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .site-list-body{ flex:1; min-width:0; }
-  .site-list-tag{
-    display:inline-block;
-    padding: 5px 12px;
-    border-radius: 999px;
-    background: rgba(224,16,42,0.12);
-    border: 1px solid rgba(224,16,42,0.4);
-    color: var(--red-glow);
-    font-size: 11.5px;
-    font-weight:700;
-    letter-spacing:0.06em;
-    margin-bottom:10px;
-  }
-  .site-list-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: 26px;
-    font-weight:700;
-    color: var(--text);
-    margin-bottom:18px;
-  }
-  .site-list-btn{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding: 13px 22px;
-    border-radius: 999px;
-    max-width:100%;
-    box-sizing:border-box;
-    word-break:break-all;
-    white-space:normal;
-    background: rgba(224,16,42,0.14);
-    border: 1px solid rgba(224,16,42,0.45);
-    color: var(--red-glow);
-    font-family:'Inter', sans-serif;
-    font-size: 15px;
-    font-weight:700;
-    text-decoration:none;
-    cursor:pointer;
-    transition: background .2s ease, border-color .2s ease, transform .2s ease;
-  }
-  .site-list-btn:hover{ background: rgba(224,16,42,0.22); border-color: var(--red-glow); }
-  .site-list-btn:active{ transform: scale(0.97); }
-
-  /* ── Announcement card ── */
-  @keyframes pulse-dot{
-    0%,100%{ opacity:1; transform:scale(1); }
-    50%{ opacity:.4; transform:scale(1.4); }
-  }
-  .ann-wrap{ margin-bottom: 28px; position: relative; z-index: 10000; }
-  /* Label: ponto + texto — fora do card externo */
-  .ann-label{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  .ann-dot{
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--red-glow);
-    box-shadow: 0 0 8px rgba(255,45,71,0.8);
-    animation: pulse-dot 1.8s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-  .ann-label-text{
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--red-glow);
-  }
-  /* Card externo — borda vermelha forte */
-  .ann-outer{
-    background: rgba(224,16,42,0.08);
-    border: 1px solid rgba(255,45,71,0.45);
-    border-radius: 16px;
-    padding: 16px;
-  }
-  /* Card interno — fundo mais escuro, borda vermelha suave */
-  .ann-inner{
-    background: rgba(10,10,12,0.55);
-    border: 1px solid rgba(255,45,71,0.18);
-    border-radius: 12px;
-    padding: 14px;
-    display: grid;
-    grid-template-columns: 46px 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 12px;
-    row-gap: 10px;
-    align-items: center;
-  }
-  /* Avatar com ring vermelho */
-  .ann-avatar{
-    grid-column: 1;
-    grid-row: 1;
-    width: 46px; height: 46px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    border: 2.5px solid rgba(255, 45, 71, 0.95);
-    box-shadow:
-      0 0 0 4px rgba(255, 45, 71, 0.18),
-      0 0 18px rgba(255, 45, 71, 0.55),
-      0 0 36px rgba(255, 45, 71, 0.20);
-    cursor: default;
-    pointer-events: none;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-  }
-  .ann-body{ grid-column: 2; grid-row: 1; min-width: 0; }
-  /* Linha: nick + check + tag */
-  .ann-nick-row{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 0;
-    flex-wrap: nowrap;
-  }
-  .ann-nick{
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--text);
-    line-height: 1;
-  }
-  /* ✓ quadrado vermelho */
-  .ann-check{
-    width: 15px; height: 15px;
-    background: var(--red-glow);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .ann-check svg{ display: block; }
-  /* Tag retangular */
-  .ann-tag{
-    background: rgba(255,45,71,0.18);
-    border: 1px solid rgba(255,45,71,0.38);
-    color: var(--red-glow);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 2px 7px;
-    border-radius: 5px;
-    line-height: 1.5;
-  }
-  .ann-text{
-    grid-column: 1 / -1;
-    grid-row: 2;
-    font-size: 12px;
-    line-height: 1.75;
-    color: var(--text-muted);
-  }
-  .ann-text strong{
-    color: var(--red-glow);
-    font-weight: 700;
-  }
-
-  .tutorial-card{
-    width:100%;
-    max-width:640px;
-    background: var(--bg-2);
-    border: 1px solid var(--surface-border);
-    border-radius: 18px;
-    overflow:hidden;
-  }
-  .tutorial-card-body{
-    padding: 24px 26px 28px;
-  }
-  .video-player{
-    width:100%;
-    background: #000;
-    overflow:hidden;
-  }
-  .video-player-frame{
-    width:100%;
-    aspect-ratio:16/9;
-    background: radial-gradient(circle at 50% 40%, #1c1c1f 0%, #050506 75%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .video-play-btn{
-    width:64px; height:64px;
-    border-radius:50%;
-    background: rgba(255,255,255,0.92);
-    border:none;
-    display:flex; align-items:center; justify-content:center;
-    color:#111;
-    cursor:pointer;
-    transition: transform .2s ease;
-  }
-  .video-play-btn svg{ margin-left:3px; }
-  .video-play-btn:hover{ transform: scale(1.06); }
-  .video-controls{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding: 12px 16px;
-    background:#000;
-  }
-  .video-time{
-    font-size:13px;
-    color: var(--text-muted);
-    font-variant-numeric: tabular-nums;
-    flex-shrink:0;
-  }
-  .video-progress{
-    position:relative;
-    flex:1;
-    height:4px;
-    border-radius:999px;
-    background: rgba(255,255,255,0.18);
-  }
-  .video-progress-fill{
-    position:absolute; left:0; top:0; bottom:0;
-    width:10%;
-    background: var(--text-muted);
-    border-radius:999px;
-  }
-  .video-progress-dot{
-    position:absolute; left:10%; top:50%;
-    width:12px; height:12px;
-    background:#fff;
-    border-radius:50%;
-    transform: translate(-50%,-50%);
-  }
-  .video-icon{
-    color: var(--text-muted);
-    display:flex;
-    flex-shrink:0;
-  }
-
-  .tutorial-tags{
-    display:flex;
-    gap:10px;
-    margin-bottom:16px;
-  }
-  .tutorial-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: 24px;
-    font-weight:700;
-    color: var(--text);
-    line-height:1.3;
-    margin-bottom:14px;
-  }
-  .tutorial-desc{
-    font-size: 14.5px;
-    color: var(--text-muted);
-    line-height:1.5;
-    max-width:600px;
-  }
-
-
-  /* ---------- Menu modal (top sheet, like reference) ---------- */
-  .overlay{
-    position:fixed; inset:0;
-    background: rgba(4,4,5,0.6);
-    backdrop-filter: blur(3px);
-    opacity:0;
-    pointer-events:none;
-    transition: opacity .3s ease;
-    z-index:40;
-  }
-  .overlay.show{ opacity:1; pointer-events:auto; }
-
-  .panel{
-    position:fixed;
-    top:0; left:0; right:0;
-    width:100%;
-    background: linear-gradient(180deg, #18161b 0%, #0e0d10 100%);
-    border-bottom: 1px solid var(--surface-border);
-    border-radius: 0 0 28px 28px;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.55);
-    padding: calc(20px + env(safe-area-inset-top, 0px)) 22px 22px;
-    transform: translateY(-100%);
-    transition: transform .4s cubic-bezier(.22,.9,.28,1.05);
-    z-index:46;
-  }
-  .overlay.show .panel{ transform: translateY(0); }
-
-  .panel-header{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    margin-bottom: 22px;
-  }
-
-  .panel-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size: 19px;
-    letter-spacing: 0.01em;
-  }
-
-  .panel-close{
-    position:absolute;
-    right:0; top:50%;
-    transform: translateY(-50%);
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    border: 1px solid var(--surface-border);
-    background: var(--surface);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    color: var(--text-muted);
-    transition: border-color .2s ease, color .2s ease, transform .2s ease;
-  }
-  .panel-close:hover{ border-color: rgba(224,16,42,0.5); color: var(--text); }
-  .panel-close:active{ transform: translateY(-50%) scale(0.92); }
-
-  .nav-list{ list-style:none; display:flex; flex-direction:column; gap:6px; }
-
-  .nav-item{
-    position:relative;
-    padding: 13px 14px;
-    border-radius: 14px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:14px;
-    color: var(--text-muted);
-    background: transparent;
-    transition: background .2s ease, color .2s ease;
-  }
-
-  .nav-item .icon-box{
-    width: 40px;
-    height: 40px;
-    border-radius: 11px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--surface-border);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-    color: var(--text-muted);
-    transition: background .2s ease, color .2s ease, border-color .2s ease;
-  }
-
-  .nav-item .label{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: 16px;
-    font-weight:600;
-    letter-spacing: 0.005em;
-  }
-
-  .nav-item:hover, .nav-item.active{
-    color: var(--text);
-    background: rgba(255,255,255,0.055);
-  }
-  .nav-item:hover .icon-box, .nav-item.active .icon-box{
-    color: var(--red-glow);
-    border-color: rgba(224,16,42,0.35);
-    background: rgba(224,16,42,0.09);
-  }
-
-
-
-  /* ---------- Main views ---------- */
-  .view{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    z-index:1;
-    padding: 120px 24px 80px;
-  }
-
-  .view.view-top{
-    align-items:flex-start;
-    padding-top: 150px;
-  }
-
-  .view-inner{ max-width: 680px; width:100%; text-align:center; }
-
-  /* Hero */
-
-
-  .hero-eyebrow{
-    font-size:12px;
-    letter-spacing:0.35em;
-    color: var(--text-faint);
-    text-transform:uppercase;
-    margin-bottom: 26px;
-  }
-
-  .hero-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size: clamp(52px, 12vw, 108px);
-    line-height:0.95;
-    letter-spacing: -0.01em;
-    background: linear-gradient(180deg, #ffffff 0%, #d8d8da 55%, #8a8a90 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    position:relative;
-  }
-
-  .hero-title .accent{
-    color: var(--red);
-    -webkit-text-fill-color: var(--red);
-    text-shadow: 0 0 40px rgba(224,16,42,0.45);
-  }
-
-  .hero-sub{
-    margin-top:22px;
-    color: var(--text-muted);
-    font-size: 16px;
-    line-height:1.7;
-    max-width: 460px;
-  }
-
-  .hero-hint{
-    margin-top: 48px;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-size:12px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color: var(--text-faint);
-    padding: 12px 20px;
-    border: 1px solid var(--surface-border);
-    border-radius: 999px;
-    background: var(--surface);
-    cursor:pointer;
-    transition: border-color .3s ease, color .3s ease, transform .2s ease;
-  }
-  .hero-hint:hover{ border-color: rgba(224,16,42,0.5); color: var(--text); }
-  .hero-hint svg{ transform: translateY(-1px); }
-
-  .hero-hint .arrow{
-    animation: nudge 1.6s ease-in-out infinite;
-  }
-  @keyframes nudge{
-    0%,100%{ transform: translate(0,0); }
-    50%{ transform: translate(4px,-4px); }
-  }
-
-  /* ---------- Leaderboard (Dashboard) ---------- */
-  .lb-card{
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    backdrop-filter: blur(16px);
-    border-radius: 24px;
-    padding: 10px clamp(14px, 4vw, 26px) 16px;
-    text-align:left;
-  }
-
-  .lb-title-row{
-    padding: 14px 10px 18px;
-    border-bottom: 1px solid var(--surface-border);
-    margin-bottom: 6px;
-  }
-
-  .lb-title-eyebrow{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size: 17px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .lb-list{ list-style:none; display:flex; flex-direction:column; }
-
-  .lb-item{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    padding: 14px 10px;
-    border-radius: 14px;
-    transition: background .2s ease;
-  }
-  .lb-item:hover{ background: rgba(255,255,255,0.035); }
-
-  .lb-avatar-wrap{ position:relative; flex-shrink:0; }
-
-  .lb-avatar{
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.05);
-    border: 1.5px dashed var(--surface-border);
-  }
-
-  .lb-rank-1 .lb-avatar{
-    border: 2px solid var(--red);
-    border-style: solid;
-    box-shadow: 0 0 14px 1px rgba(224,16,42,0.55);
-  }
-  .lb-rank-2 .lb-avatar{
-    border: 2px solid rgba(230,230,235,0.55);
-    box-shadow: 0 0 10px 0px rgba(230,230,235,0.25);
-  }
-  .lb-rank-3 .lb-avatar{
-    border: 2px solid #d98a3d;
-    box-shadow: 0 0 10px 0px rgba(217,138,61,0.35);
-  }
-
-  .lb-crown{
-    position:absolute;
-    top: -11px; right: -9px;
-    display:flex;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-  }
-  .lb-crown-1{ color: var(--red-glow); transform: rotate(12deg); }
-  .lb-crown-2{ color: #e7e7ec; transform: rotate(10deg); }
-  .lb-crown-3{ color: #d98a3d; transform: rotate(10deg); }
-
-  .lb-name{
-    flex:1;
-    min-width:0;
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size: 15px;
-    color: var(--text);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-
-  .lb-score{
-    display:flex;
-    align-items:center;
-    gap: 10px;
-    flex-shrink:0;
-  }
-
-  .lb-stat{
-    display:flex;
-    align-items:center;
-    gap:5px;
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size: 12px;
-    color: var(--text);
-  }
-  .lb-stat svg{ color: var(--text); flex-shrink:0; }
-
-  .lb-stat-robux svg{ color: #ffffff; }
-
-  /* ---------- Tab panels (Sites links) ---------- */
-  .tab-panels{ margin-top: 30px; text-align:left; }
-  .tab-panel{ display:none; }
-  .tab-panel.active{ display:block; animation: panel-fade .35s ease; }
-  @keyframes panel-fade{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform: translateY(0);} }
-
-  .link-list{
-    display:flex;
-    flex-direction:column;
-    gap: 10px;
-  }
-
-  .link-item{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding: 15px 18px;
-    border-radius: 16px;
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    backdrop-filter: blur(12px);
-    color: var(--text);
-    transition: border-color .25s ease, background .25s ease, transform .2s ease;
-  }
-  .link-item:hover{
-    border-color: rgba(224,16,42,0.4);
-    background: rgba(224,16,42,0.06);
-    transform: translateX(2px);
-  }
-  .link-item:active{ transform: scale(0.98); }
-
-  .link-icon{
-    width: 38px;
-    height: 38px;
-    border-radius: 11px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--surface-border);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-    color: var(--red-glow);
-  }
-
-  .link-icon-img{
-    background: #0a0a0c;
-    overflow:hidden;
-    padding: 0;
-  }
-  .link-icon-img img{
-    width:100%;
-    height:100%;
-    object-fit: cover;
-  }
-
-  .link-name{
-    flex:1;
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size: 15px;
-  }
-
-  .link-arrow{
-    display:flex;
-    color: var(--text-faint);
-    transition: color .25s ease, transform .25s ease;
-  }
-  .link-item:hover .link-arrow{ color: var(--red-glow); transform: translate(2px,-2px); }
-
-  /* Maintenance view */
-  /* ---------- Floating tab cards (Tutorial) ---------- */
-  .tutorial-tabs{
-    display:flex;
-    justify-content:center;
-    gap: 22px;
-    margin-bottom: 34px;
-    flex-wrap:wrap;
-  }
-
-  .tab-float{
-    animation: tab-bob 4.2s ease-in-out infinite;
-  }
-  .tab-float:nth-child(2){
-    animation-duration: 4.8s;
-    animation-delay: -1.6s;
-  }
-  .tab-float:nth-child(3){
-    animation-duration: 5.3s;
-    animation-delay: -3.1s;
-  }
-
-  @keyframes tab-bob{
-    0%, 100%{ transform: translateY(0); }
-    50%{ transform: translateY(-7px); }
-  }
-
-  .tab-card{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding: 14px 22px;
-    border-radius: 999px;
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    backdrop-filter: blur(14px);
-    color: var(--text-muted);
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size: 14px;
-    cursor:pointer;
-    transform: scale(0.94);
-    opacity: 0.7;
-    transition: transform .3s cubic-bezier(.34,1.4,.4,1), opacity .3s ease, border-color .3s ease, box-shadow .3s ease, color .3s ease;
-  }
-
-  .tab-card .tab-icon{
-    display:flex;
-    color: inherit;
-    transition: color .3s ease;
-  }
-
-  .tab-card.active{
-    transform: scale(1.08);
-    opacity: 1;
-    color: var(--text);
-    border-color: rgba(224,16,42,0.45);
-    background: rgba(224,16,42,0.08);
-    box-shadow: 0 10px 30px rgba(224,16,42,0.18);
-  }
-  .tab-card.active .tab-icon{ color: var(--red-glow); }
-
-  .tab-card:hover:not(.active){
-    opacity: 0.9;
-    border-color: rgba(255,255,255,0.18);
-  }
-
-  .maint-card{
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    backdrop-filter: blur(16px);
-    border-radius: 24px;
-    padding: clamp(40px, 6vw, 64px) clamp(28px, 6vw, 56px);
-    position:relative;
-    overflow:hidden;
-  }
-
-  .hazard-strip{
-    height: 8px;
-    width:100%;
-    border-radius: 999px;
-    margin: 0 auto 36px;
-    max-width: 120px;
-    background: repeating-linear-gradient(
-      -45deg,
-      var(--red) 0px, var(--red) 10px,
-      #1a1a1c 10px, #1a1a1c 20px
-    );
-    background-size: 200% 100%;
-    animation: hazard-move 3.2s linear infinite;
-    opacity:0.9;
-  }
-  @keyframes hazard-move{
-    0%{ background-position: 0 0; }
-    100%{ background-position: 56px 0; }
-  }
-
-  .gear-wrap{
-    width:74px; height:74px;
-    margin: 0 auto 30px;
-    display:flex; align-items:center; justify-content:center;
-    border-radius:50%;
-    background: radial-gradient(circle at 30% 30%, rgba(224,16,42,0.18), rgba(224,16,42,0.02));
-    border: 1px solid rgba(224,16,42,0.25);
-  }
-  .gear-wrap svg{
-    animation: spin 6s linear infinite;
-    color: var(--red-glow);
-    filter: drop-shadow(0 0 8px rgba(224,16,42,0.5));
-  }
-  @keyframes spin{ to{ transform: rotate(360deg); } }
-
-  .maint-eyebrow{
-    font-size:11px;
-    letter-spacing:0.28em;
-    text-transform:uppercase;
-    color: var(--red-glow);
-    margin-bottom:14px;
-  }
-
-  .maint-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size: clamp(32px, 5vw, 44px);
-    margin-bottom: 16px;
-    letter-spacing:-0.01em;
-  }
-
-  .maint-text{
-    color: var(--text-muted);
-    font-size:15px;
-    line-height:1.75;
-    max-width: 440px;
-    margin: 0 auto;
-  }
-
-  .maint-progress{
-    margin: 34px auto 0;
-    max-width: 260px;
-    height: 4px;
-    border-radius:999px;
-    background: rgba(255,255,255,0.07);
-    overflow:hidden;
-    position:relative;
-  }
-  .maint-progress::after{
-    content:"";
-    position:absolute;
-    top:0; left:-40%;
-    width:40%; height:100%;
-    background: linear-gradient(90deg, transparent, var(--red), transparent);
-    animation: sweep 2.2s ease-in-out infinite;
-  }
-  @keyframes sweep{
-    0%{ left:-40%; }
-    100%{ left:100%; }
-  }
-
-  .back-link{
-    margin-top: 36px;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:13px;
-    color: var(--text-faint);
-    cursor:pointer;
-    letter-spacing:0.04em;
-    transition: color .25s ease;
-  }
-  .back-link:hover{ color: var(--text); }
-
-  .view{ display:none; }
-  .view.active{ display:flex; }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  }
-
-  @media (max-width: 480px){
-    .panel{ padding: calc(18px + env(safe-area-inset-top, 0px)) 16px 18px; border-radius: 0 0 22px 22px; }
-    .nav-item .label{ font-size:15px; }
-  }
-
-  /* Novos estilos para modelos de links e encurtador */
-  .model-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 16px;
-  }
-  .model-item {
-    background: var(--surface);
-    border: 1px solid var(--surface-border);
-    border-radius: 12px;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    transition: border-color 0.2s ease;
-  }
-  .model-item:hover {
-    border-color: rgba(224, 16, 42, 0.4);
-  }
-  .model-info {
-    flex: 1;
-    min-width: 0;
-  }
-  .model-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--red-glow);
-    margin-bottom: 4px;
-  }
-  .model-text {
-    font-family: 'Space Grotesk', monospace;
-    font-size: 13px;
-    color: var(--text-muted);
-    word-break: break-all;
-    line-height: 1.4;
-  }
-  .copy-mini-btn {
-    background: rgba(224, 16, 42, 0.1);
-    border: 1px solid rgba(224, 16, 42, 0.3);
-    color: var(--red-glow);
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-  }
-  .copy-mini-btn:hover {
-    background: var(--red);
-    color: #fff;
-    border-color: var(--red);
-  }
-  .copy-mini-btn.copied {
-    background: #3ecf6a;
-    color: #fff;
-    border-color: #3ecf6a;
-  }
-  .tutorial-extra-btn {
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 14px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--surface-border);
-    border-radius: 12px;
-    color: var(--text);
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-  .tutorial-extra-btn:hover {
-    background: var(--surface);
-    border-color: rgba(224, 16, 42, 0.4);
-    transform: translateY(-2px);
-  }
-  .tutorial-extra-btn svg {
-    color: var(--red-glow);
-  }
-
-
-  /* ========== COOKIE REFRESHER ========== */
-  .rfr-wrap{ display:flex; flex-direction:column; gap:20px; }
-
-  .rfr-input-card{
-    background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg) 100%);
-    border: 1px solid var(--surface-border);
-    border-radius: 20px;
-    overflow:hidden;
-  }
-  .rfr-input-header{
-    display:flex; align-items:center; gap:14px;
-    padding: 18px 22px;
-    border-bottom: 1px solid rgba(224,16,42,0.2);
-    background: rgba(224,16,42,0.04);
-  }
-  .rfr-input-icon{
-    width:38px; height:38px;
-    border-radius:11px;
-    background: rgba(224,16,42,0.12);
-    border: 1px solid rgba(224,16,42,0.35);
-    display:flex; align-items:center; justify-content:center;
-    color: var(--red-glow);
-    flex-shrink:0;
-  }
-  .rfr-input-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700; font-size:16px; letter-spacing:0.02em;
-  }
-  .rfr-input-sub{
-    font-size:12px; color:var(--text-muted); margin-top:2px;
-  }
-  .rfr-input-body{ padding:20px 22px; display:flex; flex-direction:column; gap:14px; }
-
-  .rfr-textarea{
-    width:100%;
-    min-height:90px;
-    padding:14px 16px;
-    background: rgba(255,255,255,0.03);
-    border: 1.5px solid var(--surface-border);
-    border-radius:14px;
-    color: var(--text);
-    font-family:'Inter', monospace;
-    font-size:12px;
-    line-height:1.6;
-    outline:none;
-    resize:none;
-    transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
-  }
-  .rfr-textarea::placeholder{ color:var(--text-faint); }
-  .rfr-textarea:focus{
-    border-color: rgba(224,16,42,0.55);
-    background: rgba(224,16,42,0.05);
-    box-shadow: 0 0 0 3px rgba(224,16,42,0.12);
-  }
-
-  .rfr-btn{
-    display:flex; align-items:center; justify-content:center; gap:10px;
-    width:100%;
-    padding:14px 22px;
-    border-radius:12px;
-    background: var(--red);
-    border: 1px solid var(--red-glow);
-    color:#fff;
-    font-family:'Space Grotesk', sans-serif;
-    font-size:14px; font-weight:700; letter-spacing:0.06em;
-    cursor:pointer;
-    transition: background .2s ease, box-shadow .2s ease, transform .15s ease;
-    position:relative; overflow:hidden;
-  }
-  .rfr-btn::before{
-    content:"";
-    position:absolute; inset:0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
-    pointer-events:none;
-  }
-  .rfr-btn:hover{ background: var(--red-glow); box-shadow: 0 6px 22px rgba(224,16,42,0.45); }
-  .rfr-btn:active{ transform: scale(0.97); }
-  .rfr-btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
-  .rfr-btn-spin{ display:inline-block; animation: rfr-spin .7s linear infinite; }
-  @keyframes rfr-spin{ to{ transform:rotate(360deg); } }
-
-  /* Result card */
-  .rfr-result{
-    display:none;
-    flex-direction:column;
-    gap:16px;
-    animation: panel-fade .4s ease;
-  }
-  .rfr-result.show{ display:flex; }
-
-  .rfr-profile-card{
-    background: linear-gradient(145deg, rgba(224,16,42,0.07) 0%, var(--bg-2) 60%, var(--bg) 100%);
-    border: 1px solid rgba(224,16,42,0.3);
-    border-radius:20px;
-    overflow:hidden;
-    position:relative;
-  }
-  .rfr-profile-card::before{
-    content:"";
-    position:absolute; top:0; left:0; right:0; height:2px;
-    background: linear-gradient(90deg, transparent, var(--red-glow), transparent);
-    opacity:.6;
-  }
-  .rfr-profile-header{
-    display:flex; align-items:center; gap:18px;
-    padding:22px 22px 18px;
-  }
-  .rfr-avatar-wrap{ position:relative; flex-shrink:0; }
-  .rfr-avatar{
-    width:72px; height:72px;
-    border-radius:18px;
-    background: rgba(255,255,255,0.04);
-    border: 2px solid rgba(224,16,42,0.5);
-    box-shadow: 0 0 20px rgba(224,16,42,0.25), inset 0 0 20px rgba(0,0,0,0.4);
-    object-fit:cover;
-    display:block;
-  }
-  .rfr-avatar-placeholder{
-    width:72px; height:72px;
-    border-radius:18px;
-    background: rgba(224,16,42,0.08);
-    border: 2px solid rgba(224,16,42,0.4);
-    display:flex; align-items:center; justify-content:center;
-    color: rgba(224,16,42,0.5);
-  }
-  .rfr-avatar-badge{
-    position:absolute; bottom:-4px; right:-4px;
-    width:20px; height:20px;
-    border-radius:50%;
-    background: #3ecf6a;
-    border: 2px solid var(--bg-2);
-    box-shadow: 0 0 8px rgba(62,207,106,0.6);
-  }
-  .rfr-user-info{ flex:1; min-width:0; }
-  .rfr-username{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700; font-size:22px;
-    color:var(--text); line-height:1.2;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  }
-  .rfr-userid{
-    font-size:12px; color:var(--text-faint); margin-top:4px; font-variant-numeric:tabular-nums;
-  }
-  .rfr-premium-badge{
-    display:inline-flex; align-items:center; gap:5px;
-    margin-top:8px;
-    padding:4px 10px;
-    border-radius:999px;
-    background: rgba(255,183,77,0.12);
-    border:1px solid rgba(255,183,77,0.4);
-    color:#ffb74d;
-    font-size:11px; font-weight:700; letter-spacing:0.06em;
-  }
-
-  .rfr-stats-grid{
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:10px;
-    padding: 0 22px 22px;
-  }
-  .rfr-stat-cell{
-    background: rgba(255,255,255,0.03);
-    border:1px solid var(--surface-border);
-    border-radius:14px;
-    padding:14px 16px;
-    display:flex; flex-direction:column; gap:4px;
-  }
-  .rfr-stat-label{
-    font-size:11px; font-weight:600; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--text-faint);
-  }
-  .rfr-stat-value{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:20px; font-weight:700; color:var(--text);
-  }
-  .rfr-stat-value.green{ color:#3ecf6a; }
-  .rfr-stat-value.gold{ color:#ffb74d; }
-
-  /* New cookie card */
-  .rfr-cookie-card{
-    background: var(--bg-2);
-    border:1px solid var(--surface-border);
-    border-radius:18px;
-    overflow:hidden;
-  }
-  .rfr-cookie-header{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 18px;
-    border-bottom:1px solid var(--surface-border);
-  }
-  .rfr-cookie-label{
-    display:flex; align-items:center; gap:8px;
-    font-size:12px; font-weight:700; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--red-glow);
-  }
-  .rfr-cookie-body{ padding:14px 18px; }
-  .rfr-cookie-value{
-    font-family:'Inter', monospace;
-    font-size:11px; line-height:1.7;
-    color:var(--text-muted);
-    word-break:break-all;
-    background: rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:10px;
-    padding:12px 14px;
-    max-height:80px;
-    overflow-y:auto;
-    scrollbar-width:thin;
-    scrollbar-color: rgba(224,16,42,0.4) transparent;
-  }
-  .rfr-copy-btn{
-    display:flex; align-items:center; gap:7px;
-    padding:8px 16px;
-    border-radius:8px;
-    background: rgba(224,16,42,0.1);
-    border:1px solid rgba(224,16,42,0.35);
-    color:var(--red-glow);
-    font-family:'Inter', sans-serif;
-    font-size:12px; font-weight:700;
-    cursor:pointer;
-    transition: background .2s ease, transform .15s ease;
-    white-space:nowrap;
-  }
-  .rfr-copy-btn:hover{ background:rgba(224,16,42,0.2); }
-  .rfr-copy-btn:active{ transform:scale(0.96); }
-  .rfr-copy-btn.copied{ color:#3ecf6a; border-color:rgba(62,207,106,0.4); background:rgba(62,207,106,0.08); }
-
-  /* Error / status */
-  .rfr-error{
-    display:none;
-    align-items:center; gap:12px;
-    padding:14px 18px;
-    background: rgba(224,16,42,0.06);
-    border:1px solid rgba(224,16,42,0.25);
-    border-radius:14px;
-    font-size:13.5px; color:var(--text-muted);
-    animation: panel-fade .3s ease;
-  }
-  .rfr-error.show{ display:flex; }
-  .rfr-error-icon{ color:var(--red-glow); flex-shrink:0; }
-
-  /* Skeleton shimmer */
-  .rfr-skel{
-    border-radius:8px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
-    background-size:200% 100%;
-    animation: skel-shine 1.4s infinite;
-  }
-  @keyframes skel-shine{ to{ background-position:-200% 0; } }
-
-  </style>
-  <script>
-    // Script imediato para evitar flash de conteúdo e restaurar estado
-    (function() {
-      const tkn = sessionStorage.getItem('ilegal_jwt');
-      const activeView = localStorage.getItem('ilegal_active_view') || 'dashboard';
-      
-      // Se temos token, assumimos autenticado e preparamos a UI
-      if (tkn) {
-        document.documentElement.classList.add('is-authed');
-        // Injetamos um estilo temporário para esconder a wall e mostrar o main imediatamente
-        const style = document.createElement('style');
-        style.id = 'early-auth-style';
-        style.innerHTML = `
-          #login-wall { display: none !important; }
-          #site-topbar { display: flex !important; }
-          #site-main { display: block !important; }
-          .view { display: none !important; }
-          #view-${activeView} { display: flex !important; }
-        `;
-        document.head.appendChild(style);
-      } else {
-        // Caso contrário, garantimos que a wall apareça
-        document.documentElement.classList.add('is-guest');
-      }
-    })();
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação - ILEGAL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050506;
+            --bg-2: #0a0709;
+            --surface: rgba(255, 255, 255, 0.04);
+            --surface-border: rgba(255, 255, 255, 0.09);
+            --red: #e0102a;
+            --red-deep: #7a0d1c;
+            --red-glow: #ff2d47;
+            --gold: #d4a24a;
+            --text: #f2f1f0;
+            --text-muted: #93939a;
+            --text-faint: #56565c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(120% 120% at 85% -10%, #140406 0%, var(--bg) 45%), var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Scanlines e Efeitos de Fundo */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(600px 400px at 15% 90%, rgba(224, 16, 42, 0.07), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float-btn {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* ── Tela de Login (Login Wall) ── */
+        #login-wall {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(700px 500px at 50% 62%, rgba(224, 16, 42, 0.22) 0%, transparent 68%),
+                radial-gradient(900px 600px at 15% 100%, rgba(122, 13, 28, 0.18) 0%, transparent 60%),
+                #050506;
+        }
+
+        #login-wall::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.025) 2px,
+                rgba(255, 255, 255, 0.025) 3px
+            );
+        }
+
+        #lw-wrap {
+            position: relative;
+            z-index: 1;
+            width: min(400px, calc(100vw - 28px));
+            animation: rise 0.6s cubic-bezier(.16,.8,.24,1) both;
+        }
+
+        #lw-banner-wrap {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 16px 16px 0 0;
+            margin-bottom: -2px;
+            border: 1px solid rgba(255, 45, 71, 0.3);
+            border-bottom: none;
+        }
+
+        #lw-banner-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            filter: saturate(0.9) brightness(0.82) contrast(1.05);
+            transform: scale(1.02);
+        }
+
+        #lw-banner-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 45%, rgba(10, 5, 6, 0.55) 100%);
+        }
+
+        #lw-banner-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            box-shadow: inset 0 0 36px 6px rgba(0,0,0,0.45);
+            pointer-events: none;
+        }
+
+        #lw-outer {
+            background: linear-gradient(180deg, rgba(224, 16, 42, 0.1), rgba(224, 16, 42, 0.05));
+            border: 1px solid rgba(255, 45, 71, 0.4);
+            border-radius: 0 0 18px 18px;
+            padding: 17px;
+            box-shadow: 0 24px 50px -22px rgba(0,0,0,0.8);
+        }
+
+        #lw-inner {
+            background: rgba(8, 7, 8, 0.6);
+            border: 1px solid rgba(255, 45, 71, 0.18);
+            border-radius: 13px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            grid-template-rows: auto auto auto;
+            column-gap: 13px;
+            row-gap: 11px;
+            align-items: center;
+        }
+
+        #lw-avatar {
+            grid-column: 1;
+            grid-row: 1;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 40%;
+            border: 2.5px solid rgba(10, 10, 12, 0.9);
+            box-shadow: 0 0 0 2px rgba(255, 45, 71, 0.8), 0 0 18px rgba(255, 45, 71, 0.5), 0 0 34px rgba(255, 45, 71, 0.18);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        #lw-body {
+            grid-column: 2;
+            grid-row: 1;
+            min-width: 0;
+        }
+
+        #lw-nick-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+
+        #lw-nick {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #f2f1f0;
+            line-height: 1;
+            letter-spacing: 0.01em;
+        }
+
+        #lw-check {
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(145deg, #ff2d47, #a30f22);
+            border-radius: 4.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        #lw-tag {
+            background: rgba(255, 45, 71, 0.14);
+            border: 1px solid rgba(255, 45, 71, 0.4);
+            color: #ff2d47;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            padding: 2.5px 7px;
+            border-radius: 5px;
+            line-height: 1.5;
+        }
+
+        #lw-sub {
+            font-size: 11px;
+            color: var(--text-faint);
+            margin-top: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #lw-desc {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            font-size: 12.5px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            padding-top: 2px;
+            border-top: 1px solid rgba(255, 45, 71, 0.14);
+        }
+
+        #lw-desc strong {
+            color: #ff2d47;
+            font-weight: 700;
+        }
+
+        #lw-btn {
+            grid-column: 1 / -1;
+            grid-row: 3;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 18px;
+            background: linear-gradient(180deg, rgba(224,16,42,0.18), rgba(224,16,42,0.08));
+            border: 1.5px solid rgba(255, 45, 71, 0.55);
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.03em;
+            overflow: hidden;
+            box-shadow: 0 8px 22px -10px rgba(224,16,42,0.55);
+            transition: background .18s, border-color .18s, box-shadow .18s, transform .13s;
+            cursor: pointer;
+            animation: float-btn 2.6s ease-in-out infinite;
+        }
+
+        #lw-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);
+            transform: translateX(-120%);
+            transition: transform .6s ease;
+        }
+
+        #lw-btn:hover {
+            background: linear-gradient(180deg, rgba(224,16,42,0.3), rgba(224,16,42,0.14));
+            border-color: rgba(255, 45, 71, 0.9);
+            box-shadow: 0 10px 30px -8px rgba(224,16,42,0.75);
+            animation-play-state: paused;
+        }
+
+        #lw-btn:hover::before { transform: translateX(120%); }
+
+        #lw-btn:active {
+            transform: scale(0.97);
+            animation-play-state: paused;
+        }
+
+        #lw-foot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 10.5px;
+            color: var(--text-faint);
+            margin-top: 14px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+        }
+
+    </style>
 </head>
 <body>
+    <div id="login-wall">
+        <div id="lw-wrap">
+            <!-- Banner -->
+            <div id="lw-banner-wrap">
+                <img src="assets/ilegal-banner.jpg" alt="ILEGAL">
+            </div>
 
-  <!-- ═══════════════ LOGIN WALL ═══════════════ -->
-  <style>
-    /* ── Tela ── */
-    #login-wall {
-      position: fixed; inset: 0; z-index: 9999; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      /* Brasa: vermelho quente radial */
-      background: radial-gradient(ellipse 100% 80% at 50% 60%, #8c0018 0%, #4a000e 30%, #250006 60%, #100002 100%);
-    }
-    #login-wall.hidden { display: none !important; }
+            <!-- Card de Login -->
+            <div id="lw-outer">
+                <div id="lw-inner">
+                    <!-- Ícone -->
+                    <img id="lw-avatar" src="assets/ilegal-icon.jpg" alt="ILEGAL">
 
-    /* Scanlines */
-    #login-wall::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(255,255,255,0.025) 2px,
-        rgba(255,255,255,0.025) 3px
-      );
-    }
+                    <!-- Info -->
+                    <div id="lw-body">
+                        <div id="lw-nick-row">
+                            <span id="lw-nick">ILEGAL</span>
+                            <span id="lw-check">
+                                <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
+                                    <path d="M1 3.5L3.5 6L8 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span id="lw-tag">BOT</span>
+                        </div>
+                    </div>
 
-    /* Wrapper central */
-    #lw-wrap {
-      position: relative; z-index: 1;
-      width: min(400px, calc(100vw - 28px));
-    }
+                    <!-- Descrição -->
+                    <div id="lw-desc">
+                        Somente membros verificados podem acessar ao nosso site, então volte ao nosso servidor e faça a sua verificação!
+                    </div>
 
-    /* Banner acima do ann-outer */
-    #lw-banner-wrap {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      border-radius: 14px 14px 0 0;
-      margin-bottom: -2px;
-    }
-    #lw-banner-wrap img {
-      width: 100%; height: auto;
-      display: block; pointer-events: none; user-select: none;
-      filter: saturate(0.9) brightness(0.88);
-    }
-    #lw-banner-wrap::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 55%, rgba(224,16,42,0.08) 100%);
-    }
+                    <!-- Botão -->
+                    <a id="lw-btn" href="#">
+                        <svg width="18" height="14" viewBox="0 0 71 55" fill="none">
+                            <path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z" fill="currentColor"/>
+                        </svg>
+                        Entrar com Discord
+                    </a>
+                </div>
+            </div>
 
-    /* ann-outer — idêntico ao dos bypass cards */
-    #lw-outer {
-      background: rgba(224,16,42,0.08);
-      border: 1px solid rgba(255,45,71,0.45);
-      border-radius: 0 0 16px 16px;
-      padding: 16px;
-    }
-
-    /* ann-inner — grid igual aos bypass cards */
-    #lw-inner {
-      background: rgba(10,10,12,0.55);
-      border: 1px solid rgba(255,45,71,0.18);
-      border-radius: 12px;
-      padding: 14px;
-      display: grid;
-      grid-template-columns: 46px 1fr;
-      grid-template-rows: auto auto auto;
-      column-gap: 12px;
-      row-gap: 10px;
-      align-items: center;
-    }
-
-    /* Avatar com ring vermelho */
-    #lw-avatar {
-      grid-column: 1; grid-row: 1;
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      object-fit: cover; object-position: center 40%;
-      border: 2.5px solid rgba(255,45,71,0.95);
-      box-shadow:
-        0 0 0 4px rgba(255,45,71,0.18),
-        0 0 18px rgba(255,45,71,0.55),
-        0 0 36px rgba(255,45,71,0.20);
-      pointer-events: none; user-select: none;
-    }
-
-    /* Body: nick + subtítulo */
-    #lw-body {
-      grid-column: 2; grid-row: 1;
-      min-width: 0;
-    }
-    #lw-nick-row {
-      display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;
-    }
-    #lw-nick {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px; font-weight: 800;
-      color: #f2f1f0; line-height: 1;
-    }
-    #lw-check {
-      width: 15px; height: 15px;
-      background: #ff2d47; border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    #lw-tag {
-      background: rgba(255,45,71,0.18);
-      border: 1px solid rgba(255,45,71,0.38);
-      color: #ff2d47;
-      font-size: 9px; font-weight: 800;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 2px 7px; border-radius: 5px; line-height: 1.5;
-    }
-    #lw-sub {
-      font-size: 11px; color: rgba(255,255,255,0.35);
-      margin-top: 3px; font-family: 'Inter', sans-serif;
-    }
-
-    /* Descrição — row 2 full width */
-    #lw-desc {
-      grid-column: 1 / -1; grid-row: 2;
-      font-size: 12px; line-height: 1.75;
-      color: rgba(255,255,255,0.45);
-      font-family: 'Inter', sans-serif;
-    }
-    #lw-desc strong { color: #ff2d47; font-weight: 700; }
-
-    /* Erro — inserido via JS antes do botão */
-    #login-error {
-      grid-column: 1 / -1;
-      background: rgba(224,16,42,0.09);
-      border: 1px solid rgba(255,45,71,0.28);
-      border-radius: 10px;
-      padding: 10px 13px;
-      font-size: 12px; color: #ff2d47;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.5;
-    }
-
-    /* Botão Discord — row 3 full width */
-    #lw-btn {
-      grid-column: 1 / -1; grid-row: 3;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 13px 18px;
-      background: rgba(224,16,42,0.14);
-      border: 1.5px solid rgba(255,45,71,0.55);
-      border-radius: 11px;
-      color: #ff2d47; text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700; font-size: 14px; letter-spacing: 0.04em;
-      box-shadow: 0 0 18px rgba(255,45,71,0.15);
-      transition: background .18s, border-color .18s, box-shadow .18s, transform .13s;
-      -webkit-tap-highlight-color: transparent; cursor: pointer;
-    }
-    #lw-btn:hover {
-      background: rgba(224,16,42,0.26);
-      border-color: rgba(255,45,71,0.9);
-      box-shadow: 0 0 30px rgba(255,45,71,0.3);
-    }
-    #lw-btn:active { transform: scale(0.97); }
-
-    /* Rodapé */
-    #lw-foot {
-      font-size: 10.5px; color: rgba(255,255,255,0.2);
-      margin-top: 14px; text-align: center;
-      font-family: 'Inter', sans-serif; line-height: 1.5;
-    }
-  </style>
-
-  <div id="login-wall">
-    <div id="lw-wrap">
-
-      <!-- Banner -->
-      <div id="lw-banner-wrap">
-        <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/ilegal-banner.jpg" alt="ILEGAL">
-      </div>
-
-      <!-- ann-outer -->
-      <div id="lw-outer">
-        <!-- ann-inner -->
-        <div id="lw-inner">
-
-          <!-- ícone (col 1 row 1) -->
-          <img id="lw-avatar"
-            src="https://raw.githubusercontent.com/muluck7z/Beaming/main/ilegal-icon.jpg"
-            alt="ILEGAL">
-
-          <!-- body (col 2 row 1) -->
-          <div id="lw-body">
-            <div id="lw-nick-row">
-              <span id="lw-nick">ILEGAL</span>
-              <span id="lw-check">
-                <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
-                  <path d="M1 3.5L3.5 6L8 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <p id="lw-foot">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                    <path d="M6 10V8a6 6 0 1112 0v2M5 10h14a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8"/>
                 </svg>
-              </span>
-              <span id="lw-tag">BOT</span>
-            </div>
-            <div id="lw-sub">Ilegal | Beaming</div>
-          </div>
-
-          <!-- descrição (col 1/-1 row 2) -->
-          <div id="lw-desc">
-            Acesso restrito a <strong>membros verificados</strong> do servidor Discord. Autentique-se para continuar.
-          </div>
-
-          <!-- erro dinâmico -->
-          <div id="login-error" style="display:none;"></div>
-
-          <!-- botão (col 1/-1 row 3) -->
-          <a id="lw-btn" href="/api/auth/discord">
-            <svg width="18" height="14" viewBox="0 0 71 55" fill="none"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z" fill="currentColor"/></svg>
-            Entrar com Discord
-          </a>
-
+                Você precisa ter o cargo no servidor para acessar.
+            </p>
         </div>
-      </div>
-
-      <!-- Card anúncio do Muluck7z -->
-      <div class="ann-wrap" style="margin-top:12px;">
-        <div class="ann-label">
-          <span class="ann-dot"></span>
-          <span class="ann-label-text">Anúncio</span>
-        </div>
-        <div class="ann-outer">
-          <div class="ann-inner">
-            <img class="ann-avatar" src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_icon.gif" alt="Muluck7z">
-            <div class="ann-body">
-              <div class="ann-nick-row">
-                <span class="ann-nick">Muluck7z</span>
-                <span class="ann-check">
-                  <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <span class="ann-tag">OWNER</span>
-              </div>
-            </div>
-            <div class="ann-text">
-              <strong>Seja bem vindo(a)</strong>, para você ter <strong>acesso ao nosso site</strong> você deve <strong>fazer sua verificação</strong> no servidor no <strong>canal verifique</strong>.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <p id="lw-foot">Você precisa ter o cargo no servidor para acessar.</p>
     </div>
-  </div>
-  <!-- ════════════════════════════════════════ -->
-
-  <div class="topbar" id="site-topbar" style="display:none;">
-    <div class="brand" onclick="goHome()">
-      <span class="dot"></span>
-      ILEGAL
-    </div>
-    <div class="topbar-right">
-      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="account-wrap">
-        <button class="avatar-slot" id="avatarBtn" aria-label="Conta" aria-expanded="false">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </button>
-        <div class="account-dropdown" id="accountDropdown">
-          <button class="dropdown-item" id="logoutBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-            <span>Sair</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="overlay" id="overlay">
-    <nav class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
-      <div class="panel-header">
-        <span class="panel-title">Menu</span>
-        <button class="panel-close" id="closeBtn" aria-label="Fechar menu">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <ul class="nav-list">
-        <li class="nav-item active" data-view="dashboard">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
-          </span>
-          <span class="label">Dashboard</span>
-        </li>
-        <li class="nav-item" data-view="tutorial">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-          </span>
-          <span class="label">Tutorial</span>
-        </li>
-        <li class="nav-item" data-view="sites">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
-          </span>
-          <span class="label">Sites</span>
-        </li>
-        <li class="nav-item" data-view="ferramentas">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-          </span>
-          <span class="label">Ferramentas</span>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-  <main id="site-main" style="display:none;">
-    <section class="view active" id="view-dashboard">
-      <div class="view-inner">
-        <h1 class="hero-title" style="font-size: clamp(32px, 6vw, 52px); margin-bottom: 14px;">ILE<span class="accent">GAL</span></h1>
-        <p style="font-size: clamp(36px, 10vw, 80px); font-weight: 900; letter-spacing: -0.02em; color: var(--text); margin: 0 auto 40px; line-height: 1.1;">A MELHOR</p>
-
-        <!-- Anúncio Dashboard -->
-        <div class="ann-wrap">
-          <div class="ann-label">
-            <span class="ann-dot"></span>
-            <span class="ann-label-text">Anúncio</span>
-          </div>
-          <div class="ann-outer">
-            <div class="ann-inner">
-              <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_icon.gif" class="ann-avatar" alt="Muluck7z">
-              <div class="ann-body">
-                <div class="ann-nick-row">
-                  <span class="ann-nick">Muluck7z</span>
-                  <span class="ann-check">
-                    <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </span>
-                  <span class="ann-tag">Dono</span>
-                </div>
-              </div>
-                <p class="ann-text">Para conseguir <strong>concorrer aos TOPs</strong> você deve abrir um <strong>ticket e apresentar seu painel de hits</strong> e se possível <strong>seus summary roubados.</strong> Somente aos <strong>Domingos.</strong></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="lb-card">
-          <div class="lb-title-row">
-            <span class="lb-title-eyebrow">
-              Elites
-            </span>
-          </div>
-          <ul class="lb-list">
-            <li class="lb-item lb-rank-1">
-              <div class="lb-avatar-wrap">
-                <div class="lb-avatar" style="background:url('https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_icon.gif') center/cover no-repeat;border-style:solid;"></div>
-                <span class="lb-crown lb-crown-1"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8.5l3.6 2.6L12 4l5.4 7.1L21 8.5 19.3 18H4.7L3 8.5zm4 11h10v1.5H7Link Falso9.5z"/></svg></span>
-              </div>
-              <span class="lb-name">Muluck7z</span>
-              <span class="lb-score">
-                <span class="lb-stat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z"/><path d="M8.5 12.5a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/><path d="M13 15a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/><path d="M15.5 10a.8.8 0 100-1.6.8.8 0 000 1.6z" fill="currentColor" stroke="none"/><path d="M10.5 9a.7.7 0 100-1.4.7.7 0 000 1.4z" fill="currentColor" stroke="none"/></svg> 5.665</span>
-                <span class="lb-stat lb-stat-robux"><svg width="16" height="16" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M12 1.8L20.83 6.9 20.83 17.1 12 22.2 3.17 17.1 3.17 6.9Z M12 4.4L18.58 8.2 18.58 15.8 12 19.6 5.42 15.8 5.42 8.2Z M12 6.9L16.42 9.45 16.42 14.55 12 17.1 7.58 14.55 7.58 9.45Z M9.4 9.4L14.6 9.4 14.6 14.6 9.4 14.6Z"/></svg> 9.678.569</span>
-              </span>
-            </li>
-                        <li class="lb-item lb-rank-2">
-                <div class="lb-avatar-wrap">
-                  <div class="lb-avatar" style="background:url('https://raw.githubusercontent.com/muluck7z/Beaming/main/r4in_avatar.png') center/cover no-repeat;border-style:solid;"></div>
-                  <span class="lb-crown lb-crown-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8.5l3.6 2.6L12 4l5.4 7.1L21 8.5 19.3 18H4.7L3 8.5zm4 11h10v1.5H7Link Falso9.5z"/></svg></span>
-                </div>
-                <span class="lb-name">R4in</span>
-                <span class="lb-score">
-                  <span class="lb-stat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z"/><path d="M8.5 12.5a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/><path d="M13 15a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/><path d="M15.5 10a.8.8 0 100-1.6.8.8 0 000 1.6z" fill="currentColor" stroke="none"/><path d="M10.5 9a.7.7 0 100-1.4.7.7 0 000 1.4z" fill="currentColor" stroke="none"/></svg> 2.108</span>
-                  <span class="lb-stat lb-stat-robux"><svg width="16" height="16" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M12 1.8L20.83 6.9 20.83 17.1 12 22.2 3.17 17.1 3.17 6.9Z M12 4.4L18.58 8.2 18.58 15.8 12 19.6 5.42 15.8 5.42 8.2Z M12 6.9L16.42 9.45 16.42 14.55 12 17.1 7.58 14.55 7.58 9.45Z M9.4 9.4L14.6 9.4 14.6 14.6 9.4 14.6Z"/></svg> 4.193.918</span>
-                </span>
-              </li>
-            <li class="lb-item lb-rank-3">
-                <div class="lb-avatar-wrap">
-                  <div class="lb-avatar" style="background:url('https://raw.githubusercontent.com/muluck7z/Beaming/main/7x9x_avatar.jpg') center/cover no-repeat;border-style:solid;"></div>
-                  <span class="lb-crown lb-crown-3"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8.5l3.6 2.6L12 4l5.4 7.1L21 8.5 19.3 18H4.7L3 8.5zm4 11h10v1.5H7Link Falso9.5z"/></svg></span>
-                </div>
-                <span class="lb-name">7x9x</span>
-                <span class="lb-score">
-                  <span class="lb-stat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z"/><path d="M8.5 12.5a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/><path d="M13 15a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/><path d="M15.5 10a.8.8 0 100-1.6.8.8 0 000 1.6z" fill="currentColor" stroke="none"/><path d="M10.5 9a.7.7 0 100-1.4.7.7 0 000 1.4z" fill="currentColor" stroke="none"/></svg> 1.004</span>
-                  <span class="lb-stat lb-stat-robux"><svg width="16" height="16" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M12 1.8L20.83 6.9 20.83 17.1 12 22.2 3.17 17.1 3.17 6.9Z M12 4.4L18.58 8.2 18.58 15.8 12 19.6 5.42 15.8 5.42 8.2Z M12 6.9L16.42 9.45 16.42 14.55 12 17.1 7.58 14.55 7.58 9.45Z M9.4 9.4L14.6 9.4 14.6 14.6 9.4 14.6Z"/></svg> 1.286.738</span>
-                </span>
-              </li>
-            <li class="lb-item">
-              <div class="lb-avatar-wrap"><div class="lb-avatar"></div></div>
-              <span class="lb-name">Desconhecido</span>
-              <span class="lb-score">
-                <span class="lb-stat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z"/><path d="M8.5 12.5a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/><path d="M13 15a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/></svg> —</span>
-                <span class="lb-stat lb-stat-robux"><svg width="16" height="16" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M12 1.8L20.83 6.9 20.83 17.1 12 22.2 3.17 17.1 3.17 6.9Z M12 4.4L18.58 8.2 18.58 15.8 12 19.6 5.42 15.8 5.42 8.2Z M12 6.9L16.42 9.45 16.42 14.55 12 17.1 7.58 14.55 7.58 9.45Z M9.4 9.4L14.6 9.4 14.6 14.6 9.4 14.6Z"/></svg> —</span>
-              </span>
-            </li>
-            <li class="lb-item">
-              <div class="lb-avatar-wrap"><div class="lb-avatar"></div></div>
-              <span class="lb-name">Desconhecido</span>
-              <span class="lb-score">
-                <span class="lb-stat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z"/><path d="M8.5 12.5a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/><path d="M13 15a1 1 0 100-2 1 1 0 000 2z" fill="currentColor" stroke="none"/></svg> —</span>
-                <span class="lb-stat lb-stat-robux"><svg width="16" height="16" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M12 1.8L20.83 6.9 20.83 17.1 12 22.2 3.17 17.1 3.17 6.9Z M12 4.4L18.58 8.2 18.58 15.8 12 19.6 5.42 15.8 5.42 8.2Z M12 6.9L16.42 9.45 16.42 14.55 12 17.1 7.58 14.55 7.58 9.45Z M9.4 9.4L14.6 9.4 14.6 14.6 9.4 14.6Z"/></svg> —</span>
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="view view-top" id="view-tutorial">
-      <div class="view-inner">
-        <div class="hero-eyebrow">Tutorial</div>
-        <div class="tutorial-tabs">
-          <div class="tab-float">
-            <button class="tab-card active" data-tab="v1">
-              <span class="tab-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.07 0l2.83-2.83a5 5 0 00-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.07 0L4.1 13.83a5 5 0 007.07 7.07l1.5-1.5"/></svg>
-              </span>
-              <span class="tab-label">Link Falso</span>
-            </button>
-          </div>
-          <div class="tab-float">
-            <button class="tab-card" data-tab="metodos">
-              <span class="tab-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-              </span>
-              <span class="tab-label">Métodos</span>
-            </button>
-          </div>
-        <div class="tab-panels">
-          
-          <div class="tab-panel active" data-panel="v1">
-            <!-- Tutorial 01: Webhook -->
-            <div class="site-section-header">
-              <span class="site-section-badge">01</span>
-              <span class="site-section-title">WEBHOOK</span>
-            </div>
-
-            <div class="tutorial-card" style="margin-bottom: 40px;">
-              <div class="video-player">
-                <div class="video-player-frame">
-                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
-                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/webhook-tutorial.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-
-              <div class="tutorial-card-body">
-                <div class="tutorial-tags">
-                  <span class="site-list-tag">Tutorial 01</span>
-                  <span class="site-list-tag">Webhook</span>
-                </div>
-                <div class="tutorial-title">Webhook — Como as Informações são Enviadas</div>
-                <div class="tutorial-desc">Entenda completamente o que é um Webhook e como ele funciona no Beam para receber as informações das vítimas em tempo real. Base essencial para dominar todas as técnicas.</div>
-              </div>
-            </div>
-
-            <!-- Tutorial 02: Link Falso (Tabs) -->
-            <div class="site-section-header">
-              <span class="site-section-badge">02</span>
-              <span class="site-section-title">LINK FALSO</span>
-            </div>
-
-            <!-- Tabs flutuantes: Servidor Privado / Grupo / Perfil -->
-            <div class="tutorial-tabs" style="margin-bottom:28px;">
-              <div class="tab-float">
-                <button class="tab-card active" data-tab="lf-srv">
-                  <span class="tab-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="currentColor"/><circle cx="6" cy="18" r="1" fill="currentColor"/></svg>
-                  </span>
-                  <span class="tab-label">Servidor Privado</span>
-                </button>
-              </div>
-              <div class="tab-float">
-                <button class="tab-card" data-tab="lf-grp">
-                  <span class="tab-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-                  </span>
-                  <span class="tab-label">Grupo</span>
-                </button>
-              </div>
-              <div class="tab-float">
-                <button class="tab-card" data-tab="lf-prf">
-                  <span class="tab-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  </span>
-                  <span class="tab-label">Perfil</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="tab-panels" style="margin-bottom:40px;">
-
-              <!-- Painel Servidor Privado -->
-              <div class="tab-panel active" data-panel="lf-srv">
-                <div class="tutorial-card">
-                  <div class="video-player">
-                    <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
-                        <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-servidor-privado.mp4" type="video/mp4">
-                      </video>
-                    </div>
-                  </div>
-                  <div class="tutorial-card-body">
-                    <div class="tutorial-tags">
-                      <span class="site-list-tag">Tutorial 02</span>
-                      <span class="site-list-tag">Servidor Privado</span>
-                    </div>
-                    <div class="tutorial-title">Link Falso — Servidor Privado</div>
-                    <div class="tutorial-desc">Aprenda a criar um link falso que simula um Servidor Privado do Roblox. Perfeito para atrair jogadores que buscam acesso exclusivo a servidores premium.</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Painel Grupo -->
-              <div class="tab-panel" data-panel="lf-grp">
-                <div class="tutorial-card">
-                  <div class="video-player">
-                    <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
-                        <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-grupo.mp4" type="video/mp4">
-                      </video>
-                    </div>
-                  </div>
-                  <div class="tutorial-card-body">
-                    <div class="tutorial-tags">
-                      <span class="site-list-tag">Tutorial 02</span>
-                      <span class="site-list-tag">Grupo</span>
-                    </div>
-                    <div class="tutorial-title">Link Falso — Grupo</div>
-                    <div class="tutorial-desc">Domine a técnica de criar links falsos de Grupos do Roblox. Ideal para enganar com promessas de rewards e benefícios exclusivos.</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Painel Perfil -->
-              <div class="tab-panel" data-panel="lf-prf">
-                <div class="tutorial-card">
-                  <div class="video-player">
-                    <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
-                        <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-perfil.mp4" type="video/mp4">
-                      </video>
-                    </div>
-                  </div>
-                  <div class="tutorial-card-body">
-                    <div class="tutorial-tags">
-                      <span class="site-list-tag">Tutorial 02</span>
-                      <span class="site-list-tag">Perfil</span>
-                    </div>
-                    <div class="tutorial-title">Link Falso — Perfil</div>
-                    <div class="tutorial-desc">Crie links falsos de Perfis do Roblox com precisão. Muito efetivo para imitar perfis famosos ou amigos próximos.</div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Tutorial 03: Encurtar Link -->
-            <div class="site-section-header">
-              <span class="site-section-badge">03</span>
-              <span class="site-section-title">ENCURTAR LINK</span>
-            </div>
-
-            <div class="tutorial-card" style="margin-bottom: 40px;">
-              <div class="video-player">
-                <div class="video-player-frame">
-                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
-                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/encurtar-link.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-
-              <div class="tutorial-card-body">
-                <div class="tutorial-tags">
-                  <span class="site-list-tag">Tutorial 03</span>
-                  <span class="site-list-tag">Encurtador</span>
-                </div>
-                <div class="tutorial-title">Encurtar Link Falso</div>
-                <div class="tutorial-desc">Aprenda a encurtar seus links falsos para deixá-los mais discretos e convincentes. Use a ferramenta recomendada para criar URLs profissionais.</div>
-                
-                <a href="https://abre.ai" target="_blank" rel="noopener" class="tutorial-extra-btn">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.07 0l2.83-2.83a5 5 0 00-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.07 0L4.1 13.83a5 5 0 007.07 7.07l1.5-1.5"/></svg>
-                  <span>Abre.ai — Encurtador de Links</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Tutorial 04: Esconder Link -->
-            <div class="site-section-header">
-              <span class="site-section-badge">04</span>
-              <span class="site-section-title">ESCONDER LINK</span>
-            </div>
-
-            <div class="tutorial-card">
-              <div class="video-player">
-                <div class="video-player-frame">
-                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
-                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/disfarcar-link.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-
-              <div class="tutorial-card-body">
-                <div class="tutorial-tags">
-                  <span class="site-list-tag">Tutorial 04</span>
-                  <span class="site-list-tag">Disfarce</span>
-                </div>
-                <div class="tutorial-title">Disfarçar Link com URL Falsa</div>
-                <div class="tutorial-desc">Aprenda a disfarçar o seu link com uma URL falsa do Roblox. Clique em "Copiar" no modelo desejado, substitua <strong>SEU LINK</strong> pelo seu link e envie para o alvo.</div>
-                
-                <div class="model-list">
-                  <div class="model-item">
-                    <div class="model-info">
-                      <div class="model-label">Servidor Privado</div>
-                      <div class="model-text">[https:/www.roblox.com/share?code=1f9c510c988d284fa0f84f3f9d2a998a&type=Server](SEU LINK AQUI)</div>
-                    </div>
-                    <button class="copy-mini-btn" onclick="copyModelText(this, '[https:/www.roblox.com/share?code=1f9c510c988d284fa0f84f3f9d2a998a&type=Server](SEU LINK AQUI)')">Copiar</button>
-                  </div>
-                  <div class="model-item">
-                    <div class="model-info">
-                      <div class="model-label">Grupo</div>
-                      <div class="model-text">[https:/www.roblox.com/communities/2502972105/qwearty](SEU LINK)</div>
-                    </div>
-                    <button class="copy-mini-btn" onclick="copyModelText(this, '[https:/www.roblox.com/communities/2502972105/qwearty](SEU LINK)')">Copiar</button>
-                  </div>
-                  <div class="model-item">
-                    <div class="model-info">
-                      <div class="model-label">Perfil</div>
-                      <div class="model-text">[https:/roblox.com/users/3644003255/profile](SEU LINK)</div>
-                    </div>
-                    <button class="copy-mini-btn" onclick="copyModelText(this, '[https:/roblox.com/users/3644003255/profile](SEU LINK)')">Copiar</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="tab-panel" data-panel="metodos">
-
-            <!-- Método 01: Cookie -->
-            <div class="site-section-header">
-              <span class="site-section-badge">01</span>
-              <span class="site-section-title">COOKIE</span>
-            </div>
-
-            <!-- Tabs grandes visíveis (PC / Celular) -->
-            <div class="tutorial-tabs" style="margin-bottom:28px;">
-              <div class="tab-float">
-                <button class="tab-card active" data-tab="cookie-pc">
-                  <span class="tab-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  </span>
-                  <span class="tab-label">PC</span>
-                </button>
-              </div>
-              <div class="tab-float">
-                <button class="tab-card" data-tab="cookie-cel">
-                  <span class="tab-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
-                  </span>
-                  <span class="tab-label">Celular</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="tab-panels">
-
-              <!-- Painel PC -->
-              <div class="tab-panel active" data-panel="cookie-pc">
-                <div class="tutorial-card" style="margin-bottom:40px;">
-                  <div class="video-player">
-                    <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
-                        <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/metodo-cookie-pc.mp4" type="video/mp4">
-                      </video>
-                    </div>
-                  </div>
-                  <div class="tutorial-card-body">
-                    <div class="tutorial-tags">
-                      <span class="site-list-tag">Método 01</span>
-                      <span class="site-list-tag">Cookie — PC</span>
-                    </div>
-                    <div class="tutorial-title">Cookie — PC</div>
-                    <div class="tutorial-desc">Tutorial completo no PC mostrando como usar o método Cookie com a extensão atualizada.</div>
-
-                    <div style="margin-top:20px;padding:16px;background:rgba(224,16,42,0.06);border:1px solid rgba(224,16,42,0.25);border-radius:10px;">
-                      <div style="font-weight:700;color:var(--red-glow);margin-bottom:8px;font-size:.875rem;">Extensão Atualizada</div>
-                      <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">O tutorial mostra a extensão <strong style="color:var(--text)">EditThisCookie</strong>, mas ela foi substituída. Use o arquivo abaixo no lugar dela. O funcionamento é idêntico.</div>
-                    </div>
-
-                    <div style="margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--surface-border);border-radius:10px;">
-                      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:14px;">Como instalar no Chrome</div>
-                      <div style="display:flex;flex-direction:column;gap:10px;">
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">1</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Baixe o arquivo <strong style="color:var(--text)">.zip</strong> da extensão abaixo</span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">2</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Abra o Chrome e vá em <strong style="color:var(--red-glow)">chrome://extensions</strong></span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">3</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Ative o <strong style="color:var(--red-glow)">"Modo do desenvolvedor"</strong> no canto superior direito</span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">4</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Arraste e solte o arquivo <strong style="color:var(--text)">.zip</strong> diretamente na página de extensões</span></div>
-                      </div>
-                    </div>
-
-                    <a href="https://raw.githubusercontent.com/muluck7z/Beaming/main/IlegalBeaming.zip" download="IlegalBeaming.zip" class="tutorial-extra-btn" style="margin-top:16px;">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      <span>Baixar Extensão — IlegalBeaming.zip</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Painel Celular -->
-              <div class="tab-panel" data-panel="cookie-cel">
-                <div class="tutorial-card" style="margin-bottom:40px;">
-                  <div class="video-player">
-                    <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
-                        <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/metodo-cookie-celular.mp4" type="video/mp4">
-                      </video>
-                    </div>
-                  </div>
-                  <div class="tutorial-card-body">
-                    <div class="tutorial-tags">
-                      <span class="site-list-tag">Método 01</span>
-                      <span class="site-list-tag">Cookie — Celular</span>
-                    </div>
-                    <div class="tutorial-title">Cookie — Celular</div>
-                    <div class="tutorial-desc">Tutorial no celular com a versão mais recente da extensão com todas as melhorias.</div>
-
-                    <div style="margin-top:20px;padding:16px;background:rgba(224,16,42,0.06);border:1px solid rgba(224,16,42,0.25);border-radius:10px;">
-                      <div style="font-weight:700;color:var(--red-glow);margin-bottom:8px;font-size:.875rem;">Extensão Atualizada</div>
-                      <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">O tutorial mostra a extensão <strong style="color:var(--text)">EditThisCookie</strong>, mas ela foi substituída. Use o arquivo abaixo no lugar dela. O funcionamento é idêntico.</div>
-                    </div>
-
-                    <div style="margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--surface-border);border-radius:10px;">
-                      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:14px;">Como instalar no Celular (Kiwi Browser)</div>
-                      <div style="display:flex;flex-direction:column;gap:10px;">
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">1</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Baixe o arquivo <strong style="color:var(--text)">.zip</strong> da extensão abaixo</span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">2</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Instale o <strong style="color:var(--red-glow)">Kiwi Browser</strong> na Play Store — é o único navegador Android que suporta extensões</span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">3</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Abra o Kiwi, acesse <strong style="color:var(--red-glow)">kiwi://extensions</strong> e ative o <strong style="color:var(--text)">"Modo do desenvolvedor"</strong></span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">4</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Toque em <strong style="color:var(--text)">"Load unpacked / + (from .zip)"</strong> e selecione o arquivo baixado</span></div>
-                      </div>
-                    </div>
-
-                    <a href="https://raw.githubusercontent.com/muluck7z/Beaming/main/IlegalBeaming.zip" download="IlegalBeaming.zip" class="tutorial-extra-btn" style="margin-top:16px;">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      <span>Baixar Extensão — IlegalBeaming.zip</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-            </div><!-- /tab-panels cookie -->
-
-            <!-- Método 02: Autenticador -->
-            <div class="site-section-header">
-              <span class="site-section-badge">02</span>
-              <span class="site-section-title">AUTENTICADOR</span>
-            </div>
-
-            <div class="tutorial-card" style="margin-bottom:40px;">
-              <div class="video-player">
-                <div class="video-player-frame">
-                  <video style="width:100%;height:100%;" controls playsinline preload="metadata">
-                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/autenticador.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <div class="tutorial-card-body">
-                <div class="tutorial-tags">
-                  <span class="site-list-tag">Método 02</span>
-                  <span class="site-list-tag">Autenticador</span>
-                </div>
-                <div class="tutorial-title">Autenticador — Segurança Adicional</div>
-                <div class="tutorial-desc">Este método pode ser usado de duas formas: adicionar autenticador em contas para aumentar a segurança e evitar recuperação, e também extrair a <strong style="color:var(--red-glow)">key authenticador</strong> que chega junto com a hit.</div>
-              </div>
-            </div>
-
-            <!-- Método 03: Bypass -->
-            <div class="site-section-header">
-              <span class="site-section-badge">03</span>
-              <span class="site-section-title">BYPASS</span>
-            </div>
-
-            <div class="tutorial-card" style="margin-bottom:40px;">
-              <div class="video-player">
-                <div class="video-player-frame">
-                  <video style="width:100%;height:100%;" controls playsinline preload="metadata">
-                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/bypass.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <div class="tutorial-card-body">
-                <div class="tutorial-tags">
-                  <span class="site-list-tag">Método 03</span>
-                  <span class="site-list-tag">Bypass</span>
-                </div>
-                <div class="tutorial-title">Bypass — Contornando Detecção</div>
-                <div class="tutorial-desc">Método avançado utilizado para contornar sistemas de detecção de segurança e obter acesso às contas com máxima eficiência e discrição.</div>
-              </div>
-            </div>
-
-            <!-- Método 04: Recovery -->
-            <div class="site-section-header">
-              <span class="site-section-badge">04</span>
-              <span class="site-section-title">RECOVERY / CÓDIGO DE RECUPERAÇÃO</span>
-            </div>
-
-            <div class="tutorial-card">
-              <div class="video-player">
-                <div class="video-player-frame">
-                  <video style="width:100%;height:100%;" controls playsinline preload="metadata">
-                    <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/recovery.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <div class="tutorial-card-body">
-                <div class="tutorial-tags">
-                  <span class="site-list-tag">Método 04</span>
-                  <span class="site-list-tag">Recovery</span>
-                </div>
-                <div class="tutorial-title">Código de Recuperação — Backup de Acesso</div>
-                <div class="tutorial-desc">Assim como o <strong style="color:var(--red-glow)">Key Authenticador</strong>, os <strong style="color:var(--red-glow)">Recovery Codes</strong> também chegam junto com a hit. Eles funcionam como uma segunda forma de verificação e são essenciais para trocar e-mail ou senha.</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="view view-top" id="view-sites">
-      <div class="view-inner">
-        <div class="hero-eyebrow">Sites</div>
-        <div class="tutorial-tabs">
-          <div class="tab-float">
-            <button class="tab-card active" data-tab="x1">
-              <span class="tab-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C7.5 3 4 5.8 4 9.5c0 3 2 6.5 8 11 6-4.5 8-8 8-11C20 5.8 16.5 3 12 3z"/><path d="M6.2 10.6c1.8-1.1 3.8-1.7 5.8-1.7s4 .6 5.8 1.7"/><circle cx="9.3" cy="11.4" r="0.9" fill="currentColor" stroke="none"/><circle cx="14.7" cy="11.4" r="0.9" fill="currentColor" stroke="none"/></svg>
-              </span>
-              <span class="tab-label">Geradores</span>
-            </button>
-          </div>
-          <div class="tab-float">
-            <button class="tab-card" data-tab="x2">
-              <span class="tab-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="13" height="10" rx="2"/><path d="M7.5 10V6.5a4.5 4.5 0 018.5-2"/><circle cx="10.5" cy="15" r="1" fill="currentColor" stroke="none"/></svg>
-              </span>
-              <span class="tab-label">Bypass</span>
-            </button>
-          </div>
-          <div class="tab-float">
-            <button class="tab-card" data-tab="x3">
-              <span class="tab-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
-              </span>
-              <span class="tab-label">Refresher</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="tab-panels">
-          <div class="tab-panel active" data-panel="x1">
-            <div class="site-section-header">
-              <span class="site-section-badge">01</span>
-              <span class="site-section-title">Geradores</span>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-shockify.png" alt="Shockify" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Gerador 01</span>
-                <div class="site-list-title">Shockify</div>
-                <a class="site-list-btn" href="https://shockify.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar shockify.st
-                </a>
-              </div>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-immortal.png" alt="Immortal" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Gerador 02</span>
-                <div class="site-list-title">Immortal</div>
-                <a class="site-list-btn" href="https://immortal.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar immortal.st
-                </a>
-              </div>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-splunk.png" alt="Splunk" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Gerador 03</span>
-                <div class="site-list-title">Splunk</div>
-                <a class="site-list-btn" href="https://app.beamers.si/u/ilegal" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar app.beamers.si/u/ilegal
-                </a>
-              </div>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/icon-injuries.png" alt="Injuries" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Gerador 04</span>
-                <div class="site-list-title">Injuries</div>
-                <a class="site-list-btn" href="https://www.logged.tg/auth/ilegal" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar logged.tg/auth/ilegal
-                </a>
-              </div>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/icon-beamse.jpg" alt="Beamse" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Gerador 05</span>
-                <div class="site-list-title">Beamse</div>
-                <a class="site-list-btn" href="https://app.beamse.pro/gen/ilegal" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar app.beamse.pro/gen/ilegal
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="tab-panel" data-panel="x2">
-
-            <!-- Anúncio -->
-            <div class="ann-wrap">
-              <div class="ann-label">
-                <span class="ann-dot"></span>
-                <span class="ann-label-text">Anúncio</span>
-              </div>
-              <div class="ann-outer">
-                <div class="ann-inner">
-                  <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_icon.gif" class="ann-avatar" alt="Muluck7z">
-                  <div class="ann-body">
-                    <div class="ann-nick-row">
-                      <span class="ann-nick">Muluck7z</span>
-                      <span class="ann-check">
-                        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </span>
-                      <span class="ann-tag">Dono</span>
-                    </div>
-                  </div>
-                    <p class="ann-text">Funcionamento funcional do bypass somente para <strong>contas cujo idade seja maior de 13 anos</strong> e desde que não tenha <strong>nenhuma verificação de duas etapas</strong> que em outras palavras <strong>email seguro e autenticador</strong>. Contas quem têm <strong>idade verificada por selfie</strong> ainda podem ser pegas.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="site-section-header">
-              <span class="site-section-badge">01</span>
-              <span class="site-section-title">Bypass</span>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Bypasser 01</span>
-                <div class="site-list-title">RBX BYPASS</div>
-                <div class="tutorial-desc" style="margin-bottom:16px;">Ferramenta de bypass exclusiva para contornar sistemas de detecção e obter acesso às contas com segurança.</div>
-                <a class="site-list-btn" href="https://rbx-bypass.com/" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar rbx-bypass.com
-                </a>
-              </div>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg>
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Bypasser 02</span>
-                <div class="site-list-title">RBLXBYPASSER</div>
-                <div class="tutorial-desc" style="margin-bottom:16px;">Segunda ferramenta de bypass exclusiva do Brazino para contornar sistemas de detecção com alta eficiência.</div>
-                <a class="site-list-btn" href="https://www.rblxbypasser.xyz/" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar rblxbypasser.xyz
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="tab-panel" data-panel="x3">
-
-            <!-- Anúncio -->
-            <div class="ann-wrap">
-              <div class="ann-label">
-                <span class="ann-dot"></span>
-                <span class="ann-label-text">Anúncio</span>
-              </div>
-              <div class="ann-outer">
-                <div class="ann-inner">
-                  <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_icon.gif" class="ann-avatar" alt="Muluck7z">
-                  <div class="ann-body">
-                    <div class="ann-nick-row">
-                      <span class="ann-nick">Muluck7z</span>
-                      <span class="ann-check">
-                        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </span>
-                      <span class="ann-tag">Dono</span>
-                    </div>
-                  </div>
-                    <p class="ann-text">Para evitar erros é fundamental a <strong>utilização do refresher</strong> para se usar no <strong>Bypass</strong> e também para <strong>manter uma sessão ativa por mais tempo.</strong></p>
-                </div>
-              </div>
-            </div>
-
-            <div class="site-section-header">
-              <span class="site-section-badge">01</span>
-              <span class="site-section-title">Refresher Cookie</span>
-            </div>
-            <div class="site-list-card">
-              <div class="site-list-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
-              </div>
-              <div class="site-list-body">
-                <span class="site-list-tag">Refresher 01</span>
-                <div class="site-list-title">REFRESHER COOKIE</div>
-                <div class="tutorial-desc" style="margin-bottom:16px;">Ferramenta exclusiva para atualizar e validar o seu cookie .ROBLOSECURITY de forma rápida e segura.</div>
-                <a class="site-list-btn" href="https://www.rblxbypasser.xyz/cookie-refresher" target="_blank" rel="noopener noreferrer">
-                  <span>→</span> Acessar rblxbypasser.xyz
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="view view-top" id="view-ferramentas">
-      <div class="view-inner">
-        <div class="hero-eyebrow">Ferramentas</div>
-        <div class="tutorial-tabs">
-          <div class="tab-float">
-            <button class="tab-card active" data-tab="y1">
-              <span class="tab-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 01-8.5 8.5 8.4 8.4 0 01-4-1L3 21l1.5-4.5A8.4 8.4 0 013.5 12 8.5 8.5 0 0112 3.5 8.5 8.5 0 0121 12z"/></svg>
-              </span>
-              <span class="tab-label">Auto Mensagem</span>
-            </button>
-          </div>
-          <div class="tab-float">
-            <button class="tab-card" data-tab="y2">
-              <span class="tab-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
-              </span>
-              <span class="tab-label">Extensão Falsa</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="tab-panels">
-          <div class="tab-panel active" data-panel="y1">
-
-            <!-- Anúncio Extensão Falsa -->
-            <div class="ann-wrap">
-              <div class="ann-label">
-                <span class="ann-dot"></span>
-                <span class="ann-label-text">Anúncio</span>
-              </div>
-              <div class="ann-outer">
-                <div class="ann-inner">
-                  <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_icon.gif" class="ann-avatar" alt="Muluck7z">
-                  <div class="ann-body">
-                    <div class="ann-nick-row">
-                      <span class="ann-nick">Muluck7z</span>
-                      <span class="ann-check">
-                        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </span>
-                      <span class="ann-tag">Dono</span>
-                    </div>
-                  </div>
-                    <p class="ann-text">No momento não estou desenvolvendo este projeto.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="site-section-header">
-              <span class="site-section-badge">01</span>
-              <span class="site-section-title">Auto Mensagem</span>
-            </div>
-            <div class="ex-card ex-card-lg ex-card-solid">
-              <div class="ex-card-body">
-                <div class="ex-table-block">
-                  <div class="ex-table-label site-list-tag">Teste</div>
-                  <input class="ex-key-input" type="text" placeholder="Escreva algo">
-                </div>
-
-                <div class="ex-toggle-block">
-                  <div class="ex-toggle-row ex-toggle-row-compact">
-                    <div class="ex-toggle-text">
-                      <span class="ex-toggle-title">Opção A</span>
-                    </div>
-                    <button class="ex-switch" data-state="off"><span class="ex-switch-dot"></span></button>
-                  </div>
-                  <div class="ex-toggle-row ex-toggle-row-compact">
-                    <div class="ex-toggle-text">
-                      <span class="ex-toggle-title">Opção B</span>
-                    </div>
-                    <button class="ex-switch" data-state="off"><span class="ex-switch-dot"></span></button>
-                  </div>
-                </div>
-
-                <a class="site-list-btn" href="#" id="exExecutarBtn" style="justify-content:center;">Executar</a>
-              </div>
-            </div>
-          </div>
-          <div class="tab-panel" data-panel="y2">
-
-            <!-- Anúncio Extensão Falsa -->
-            <div class="ann-wrap">
-              <div class="ann-label">
-                <span class="ann-dot"></span>
-                <span class="ann-label-text">Anúncio</span>
-              </div>
-              <div class="ann-outer">
-                <div class="ann-inner">
-                  <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_icon.gif" class="ann-avatar" alt="Muluck7z">
-                  <div class="ann-body">
-                    <div class="ann-nick-row">
-                      <span class="ann-nick">Muluck7z</span>
-                      <span class="ann-check">
-                        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </span>
-                      <span class="ann-tag">Dono</span>
-                    </div>
-                  </div>
-                    <p class="ann-text">No momento não estou desenvolvendo este projeto.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-<script>
-  // ── Click sound via Web Audio API ──────────────────────────
-    var _audioCtx = null;
-    function playClick() {
-      try {
-        if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        var ctx = _audioCtx;
-        var osc = ctx.createOscillator();
-        var gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(1200, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.04);
-        gain.gain.setValueAtTime(0.18, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.07);
-      } catch(e) {}
-    }
-    // ────────────────────────────────────────────────────────────
-
-    const menuBtn = document.getElementById('menuBtn');
-  const topbar = document.querySelector('.topbar');
-  const overlay = document.getElementById('overlay');
-  const panel = document.getElementById('panel');
-  const closeBtn = document.getElementById('closeBtn');
-  const navItems = document.querySelectorAll('.nav-item');
-  const views = document.querySelectorAll('.view');
-
-  function openMenu(){
-    menuBtn.classList.add('open');
-    menuBtn.setAttribute('aria-expanded','true');
-    topbar.classList.add('menu-open');
-    overlay.classList.add('show');
-    panel.setAttribute('aria-hidden','false');
-  }
-  function closeMenu(){
-    menuBtn.classList.remove('open');
-    menuBtn.setAttribute('aria-expanded','false');
-    topbar.classList.remove('menu-open');
-    overlay.classList.remove('show');
-    panel.setAttribute('aria-hidden','true');
-  }
-  function toggleMenu(){
-    overlay.classList.contains('show') ? closeMenu() : openMenu();
-  }
-
-  menuBtn.addEventListener('click', toggleMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', (e) => { if(e.target === overlay) closeMenu(); });
-
-
-  const avatarBtn = document.getElementById('avatarBtn');
-  const accountDropdown = document.getElementById('accountDropdown');
-  const logoutBtn = document.getElementById('logoutBtn');
-
-  function openAccountDropdown(){
-    avatarBtn.classList.add('open');
-    avatarBtn.setAttribute('aria-expanded','true');
-    accountDropdown.classList.add('show');
-  }
-  function closeAccountDropdown(){
-    avatarBtn.classList.remove('open');
-    avatarBtn.setAttribute('aria-expanded','false');
-    accountDropdown.classList.remove('show');
-  }
-
-  avatarBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    accountDropdown.classList.contains('show') ? closeAccountDropdown() : openAccountDropdown();
-  });
-
-  document.addEventListener('click', (e) => {
-    if(!accountDropdown.contains(e.target) && e.target !== avatarBtn){
-      closeAccountDropdown();
-    }
-  });
-
-  logoutBtn.addEventListener('click', () => {
-    // função fantasma: sem ação por enquanto
-  });
-
-  function showView(name){
-    views.forEach(v => v.classList.remove('active'));
-    const target = document.getElementById('view-' + name);
-    if(target) target.classList.add('active');
-    navItems.forEach(i => i.classList.toggle('active', i.dataset.view === name));
-    localStorage.setItem('ilegal_active_view', name);
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
-
-  function goHome(){
-    showView('dashboard');
-    navItems.forEach(i => i.classList.toggle('active', i.dataset.view === 'dashboard'));
-    closeMenu();
-  }
-
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      showView(item.dataset.view);
-      closeMenu();
-    });
-  });
-
-  const allTabCards = document.querySelectorAll('.tab-card');
-
-  const exSwitches = document.querySelectorAll('.ex-switch');
-  const exSaveBtn = document.getElementById('exSaveBtn');
-  const exCancelBtn = document.getElementById('exCancelBtn');
-
-  exSwitches.forEach(sw => {
-    sw.addEventListener('click', () => {
-      sw.dataset.state = sw.dataset.state === 'on' ? 'off' : 'on'; // fantasma: só alterna visual
-    });
-  });
-
-  if(exSaveBtn) exSaveBtn.addEventListener('click', () => {}); // fantasma: sem ação
-  if(exCancelBtn) exCancelBtn.addEventListener('click', () => {}); // fantasma: sem ação
-
-  allTabCards.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const group = tab.closest('.tutorial-tabs');
-      group.querySelectorAll('.tab-card').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const panels = group.parentElement.querySelector('.tab-panels');
-      if(panels){
-        panels.querySelectorAll(':scope > .tab-panel').forEach(p => {
-          p.classList.toggle('active', p.dataset.panel === tab.dataset.tab);
-        });
-      }
-    });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') closeMenu();
-  });
-
-  // Feedback tátil e visual ao clicar
-  const clickableElements = document.querySelectorAll('button, a, .menu-btn, .avatar-slot, .nav-item, .tab-card, .ex-switch, [role="button"]');
-  
-  clickableElements.forEach(el => {
-    el.addEventListener('click', () => {
-      // Vibração de leve (15ms) - funciona na maioria dos celulares Android
-      playClick();
-      
-      // Pequeno efeito visual de escala se não houver um :active definido no CSS
-      if (!el.classList.contains('menu-btn') && !el.classList.contains('avatar-slot')) {
-        el.style.transform = 'scale(0.97)';
-        setTimeout(() => {
-          el.style.transform = '';
-        }, 100);
-      }
-    });
-  });
-
-  // Funções para os novos tutoriais
-  function changeTutorialVideo(src, title, desc) {
-    const video = document.getElementById('main-tutorial-video');
-    const titleEl = document.getElementById('tutorial-video-title');
-    const descEl = document.getElementById('tutorial-video-desc');
-    
-    video.src = src;
-    video.play();
-    titleEl.innerText = title;
-    descEl.innerText = desc;
-    
-    // Atualizar estilo dos botões
-    const buttons = event.target.parentElement.querySelectorAll('button');
-    buttons.forEach(btn => {
-      btn.style.border = '1px solid var(--surface-border)';
-      btn.style.background = 'none';
-      btn.style.color = 'var(--text-muted)';
-    });
-    event.target.style.border = '1px solid var(--red-glow)';
-    event.target.style.background = 'rgba(224,16,42,0.1)';
-    event.target.style.color = 'var(--red-glow)';
-  }
-
-  // ========== COOKIE REFRESHER ==========
-  (function(){
-    const btn = document.getElementById('rfrVerifyBtn');
-    if (!btn) return; // elementos ausentes do DOM — encerra sem erro
-    const input    = document.getElementById('rfrCookieInput');
-    const result   = document.getElementById('rfrResult');
-    const errorBox = document.getElementById('rfrError');
-    const errorMsg = document.getElementById('rfrErrorMsg');
-
-    const elUsername = document.getElementById('rfrUsername');
-    const elUserId   = document.getElementById('rfrUserId');
-    const elRobux    = document.getElementById('rfrRobux');
-    const elStatus   = document.getElementById('rfrStatus');
-    const elCreated  = document.getElementById('rfrCreated');
-    const elFriends  = document.getElementById('rfrFriends');
-    const elAvatar   = document.getElementById('rfrAvatar');
-    const elAvatarPh = document.getElementById('rfrAvatarPlaceholder');
-    const elPremium  = document.getElementById('rfrPremium');
-    const elBadge    = document.getElementById('rfrStatusBadge');
-    const elCookieOut= document.getElementById('rfrCookieOut');
-    const copyBtn    = document.getElementById('rfrCopyBtn');
-
-    function showError(msg){
-      errorMsg.textContent = msg;
-      errorBox.classList.add('show');
-      result.classList.remove('show');
-    }
-    function hideError(){ errorBox.classList.remove('show'); }
-
-    function setBtnLoading(loading){
-      btn.disabled = loading;
-      btn.innerHTML = loading
-        ? '<span class="rfr-btn-spin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span> VERIFICANDO...'
-        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg> VERIFICAR &amp; ATUALIZAR';
-    }
-
-    async function verify(){
-      const raw = input.value.trim();
-      if(!raw){ showError('Cole o cookie antes de verificar.'); return; }
-      if(raw.length < 20){ showError('Cookie muito curto ou inválido.'); return; }
-
-      hideError();
-      setBtnLoading(true);
-      result.classList.remove('show');
-
-      try {
-        const res = await fetch('/api/refresh', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cookie: raw }),
-        });
-
-        const data = await res.json();
-
-        if(!res.ok || !data.ok){
-          showError(data.error || 'Cookie inválido ou expirado.');
-          return;
-        }
-
-        // Preenche UI
-        elUsername.textContent = data.displayName || data.username || '—';
-        elUserId.textContent   = 'ID: ' + (data.userId || '—');
-
-        elRobux.textContent = data.robux != null
-          ? Number(data.robux).toLocaleString('pt-BR')
-          : '—';
-
-        elStatus.textContent = 'Ativo ✓';
-
-        if(data.created){
-          const d = new Date(data.created);
-          elCreated.textContent = d.toLocaleDateString('pt-BR', {day:'2-digit', month:'short', year:'numeric'});
-        } else {
-          elCreated.textContent = '—';
-        }
-
-        elFriends.textContent = data.friendCount != null
-          ? Number(data.friendCount).toLocaleString('pt-BR')
-          : '—';
-
-        if(data.avatarUrl){
-          elAvatar.src = data.avatarUrl;
-          elAvatar.style.display = 'block';
-          elAvatarPh.style.display = 'none';
-        } else {
-          elAvatar.style.display = 'none';
-          elAvatarPh.style.display = 'flex';
-        }
-
-        elBadge.style.display  = 'block';
-        elPremium.style.display = data.isPremium ? 'inline-flex' : 'none';
-
-        // Cookie refreshado (novo se Roblox rotacionou, senão o limpo)
-        elCookieOut.textContent = data.refreshedCookie || raw;
-
-        // Badge indicando se foi rotacionado
-        const cookieLabelEl = document.querySelector('.rfr-cookie-label');
-        if(cookieLabelEl){
-          cookieLabelEl.innerHTML = data.wasRefreshed
-            ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg> Cookie Atualizado <span style="background:rgba(62,207,106,.15);border:1px solid rgba(62,207,106,.4);color:#3ecf6a;font-size:10px;padding:2px 8px;border-radius:999px;margin-left:6px;">NOVO</span>'
-            : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-15.36 6.36L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0115.36-6.36L21 8"/><path d="M21 3v5h-5"/></svg> Cookie Limpo';
-        }
-
-        result.classList.add('show');
-
-      } catch(e){
-        showError('Erro de conexão. Verifique sua internet e tente novamente.');
-      } finally {
-        setBtnLoading(false);
-      }
-    }
-
-    btn.addEventListener('click', verify);
-    input.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)) verify();
-    });
-
-    copyBtn.addEventListener('click', () => {
-      const txt = elCookieOut.textContent;
-      if(!txt || txt === '—') return;
-      navigator.clipboard.writeText(txt).then(() => {
-        copyBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copiado!';
-        copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar';
-          copyBtn.classList.remove('copied');
-        }, 2000);
-      });
-    });
-  })();
-
-  function copyModelText(btn, text) {
-    navigator.clipboard.writeText(text).then(() => {
-      const originalText = btn.innerText;
-      btn.innerText = 'Copiado!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.innerText = originalText;
-        btn.classList.remove('copied');
-      }, 2000);
-    });
-  }
-
-  // ══════════════════ AUTH ══════════════════
-    (function() {
-      var wall      = document.getElementById('login-wall');
-      var errBox    = document.getElementById('login-error');
-      var avatarBtn = document.getElementById('avatarBtn');
-      var logoutBtn = document.getElementById('logoutBtn');
-      var topbar    = document.getElementById('site-topbar');
-      var siteMain  = document.getElementById('site-main');
-
-      var errorMsgs = {
-        no_access:    'Você não tem o cargo necessário neste servidor Discord.',
-        auth_failed:  'Falha na autenticação. Tente novamente.',
-        missing_code: 'Código de autorização ausente. Tente novamente.',
-      };
-
-      function showError(msg) {
-        errBox.textContent = msg;
-        errBox.style.cssText = 'display:block;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin:8px 0 4px;background:rgba(224,16,42,0.18);border:1.5px solid rgba(224,16,42,0.7);color:#ff2d47;';
-      }
-
-      // Erro na URL (?error=...)
-      var urlError = new URLSearchParams(window.location.search).get('error');
-      if (urlError && errorMsgs[urlError]) showError(errorMsgs[urlError]);
-      else if (urlError) showError('Erro: ' + urlError);
-      if (urlError) history.replaceState(null, '', window.location.pathname);
-
-      // JWT no hash (#jwt=...) vindo do callback
-      var hash = window.location.hash;
-      if (hash && hash.startsWith('#jwt=')) {
-        var jwt = decodeURIComponent(hash.slice(5));
-        try { sessionStorage.setItem('ilegal_jwt', jwt); } catch(e) {}
-        history.replaceState(null, '', window.location.pathname);
-      }
-
-      function getToken() {
-        try { return sessionStorage.getItem('ilegal_jwt'); } catch(e) { return null; }
-      }
-
-      function showDashboard(user) {
-        // Remove o estilo temporário de "early-auth" agora que o JS principal assumiu
-        const earlyStyle = document.getElementById('early-auth-style');
-        if(earlyStyle) earlyStyle.remove();
-
-        wall.style.display = 'none';
-        topbar.style.display = 'flex';
-        siteMain.style.display = 'block';
-        errBox.style.display = 'none';
-
-        // Restaura a view ativa persistida
-        const savedView = localStorage.getItem('ilegal_active_view') || 'dashboard';
-        showView(savedView);
-
-        if (user && user.userId) {
-          var avatarUrl = user.avatar
-            ? 'https://cdn.discordapp.com/avatars/' + user.userId + '/' + user.avatar + '.png?size=128'
-            : 'https://cdn.discordapp.com/embed/avatars/' + (parseInt(user.userId) % 6) + '.png';
-          avatarBtn.innerHTML = '<img src="' + avatarUrl + '" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
-          avatarBtn.style.padding = '0';
-          avatarBtn.style.overflow = 'hidden';
-        }
-      }
-
-      function checkAuth() {
-        var tkn = getToken();
-        
-        // Se não houver token, garantimos que a wall esteja visível
-        if (!tkn) {
-          wall.style.display = 'flex';
-          topbar.style.display = 'none';
-          siteMain.style.display = 'none';
-          return;
-        }
-
-        var headers = { 'Cache-Control': 'no-cache' };
-        headers['Authorization'] = 'Bearer ' + tkn;
-
-        fetch('/api/auth/me', { credentials: 'same-origin', cache: 'no-store', headers: headers })
-          .then(function(r) {
-            if (!r.ok) {
-              try { sessionStorage.removeItem('ilegal_jwt'); } catch(e) {}
-              throw new Error('unauth');
-            }
-            return r.json();
-          })
-          .then(function(user) { showDashboard(user); })
-          .catch(function() {
-            // Se falhar a autenticação, removemos o estilo temporário e mostramos a wall
-            const earlyStyle = document.getElementById('early-auth-style');
-            if(earlyStyle) earlyStyle.remove();
-            wall.style.display = 'flex';
-            topbar.style.display = 'none';
-            siteMain.style.display = 'none';
-          });
-      }
-
-      checkAuth();
-
-      // Vibração no botão de login (touchstart = resposta mais rápida no mobile)
-      document.querySelectorAll('button, a, [role="button"]').forEach(function(el) {
-        el.addEventListener('touchstart', function() {
-          playClick();
-        }, { passive: true });
-      });
-
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
-          try { sessionStorage.removeItem('ilegal_jwt'); } catch(e) {}
-          fetch('/api/auth/logout', { method: 'POST' }).finally(function() {
-            window.location.reload();
-          });
-        });
-      }
-    })();
-    // ══════════════════════════════════════════
-
-</script>
 </body>
 </html>
