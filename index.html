@@ -2578,14 +2578,112 @@
           </div>
 
             <div class="tab-panel" data-panel="metodos">
-              <div class="site-section-header">
-                <span class="site-section-badge">01</span>
-                <span class="site-section-title">EM BREVE</span>
+
+                <!-- Card de entrada: Condo Método -->
+                <div class="site-list-card" id="condo-card-entry" style="cursor:pointer;" onclick="document.getElementById('condo-card-entry').style.display='none';document.getElementById('condo-card-detail').style.display='block';">
+                  <div class="site-list-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="none">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="rgba(212,162,74,0.85)" stroke="#d4a24a" stroke-width="1.4" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="site-list-body">
+                    <span class="site-list-tag">Método 01</span>
+                    <div class="site-list-title" style="display:flex;align-items:center;gap:10px;">
+                      Condo Método
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#d4a24a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <div class="tutorial-desc" style="margin-bottom:16px;">Postagem de jogos +18 Roblox (Condo) em redes como TikTok e YouTube e atraí-los para sua comunidade no discord onde terá seus links falsos.</div>
+                    <button class="site-list-btn" style="border:none;cursor:pointer;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      <span>Ver método completo</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card de detalhe: Condo Método (oculto até clicar) -->
+                <div id="condo-card-detail" style="display:none;">
+
+                  <!-- Voltar -->
+                  <button onclick="document.getElementById('condo-card-detail').style.display='none';document.getElementById('condo-card-entry').style.display='flex';" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text-muted);font-size:.85rem;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:20px;padding:0;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    Voltar
+                  </button>
+
+                  <!-- Informações -->
+                  <div style="background:var(--surface);border:1px solid var(--surface-border);border-radius:16px;padding:20px;margin-bottom:20px;">
+                    <div style="font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Informações</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                      <div style="display:flex;flex-direction:column;gap:3px;">
+                        <span style="font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Autor</span>
+                        <span style="font-size:.9rem;color:var(--text);font-weight:600;">Muluck7z</span>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:3px;">
+                        <span style="font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Avaliado</span>
+                        <span style="font-size:.9rem;color:var(--text);font-weight:600;display:flex;align-items:center;gap:5px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="#d4a24a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                          4.9
+                        </span>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:3px;">
+                        <span style="font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Dificuldade</span>
+                        <span style="font-size:.9rem;color:var(--red-glow);font-weight:600;">Moderada</span>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:3px;">
+                        <span style="font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Categoria</span>
+                        <span style="font-size:.9rem;color:var(--text);font-weight:600;">Postagem</span>
+                      </div>
+                    </div>
+                    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--surface-border);">
+                      <span style="font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:8px;">Tags</span>
+                      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                        <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Social</span>
+                        <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Viral</span>
+                        <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Best</span>
+                        <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Op</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Card tutorial com vídeo -->
+                  <div class="tutorial-card" style="margin-bottom:24px;">
+                    <div class="video-player">
+                      <div class="video-player-frame" style="display:block;padding:0;background:#000;">
+                        <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                          <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/condo-metodo.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                    </div>
+                    <div class="tutorial-card-body">
+                      <div class="tutorial-tags">
+                        <span class="site-list-tag">Método 01</span>
+                        <span class="site-list-tag">Condo</span>
+                      </div>
+                      <div class="tutorial-title" style="display:flex;align-items:center;gap:10px;">
+                        Condo Método
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a24a" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                      </div>
+                      <div class="tutorial-desc">Postagem de jogos +18 Roblox (Condo) em redes como TikTok e YouTube e atraí-los para sua comunidade no discord onde terá seus links falsos.</div>
+                    </div>
+                  </div>
+
+                  <!-- Exemplo de servidor -->
+                  <div class="site-list-card" style="margin-bottom:0;">
+                    <div class="site-list-icon">
+                      <svg width="30" height="24" viewBox="0 0 71 55" fill="var(--red-glow)"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg>
+                    </div>
+                    <div class="site-list-body">
+                      <span class="site-list-tag">Exemplo de Servidor</span>
+                      <div class="site-list-title" style="font-size:20px;margin-bottom:10px;">Servidor de Referência</div>
+                      <div class="tutorial-desc" style="margin-bottom:14px;">Veja um exemplo real de como estruturar sua comunidade no Discord para o Condo Método.</div>
+                      <a class="site-list-btn" href="https://discord.gg/Yfug55fTGX" target="_blank" rel="noopener noreferrer">
+                        <svg width="16" height="13" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg>
+                        <span>Entrar no servidor</span>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
               </div>
-              <div style="padding:40px 0;text-align:center;color:var(--text-muted);font-size:.9rem;">
-                Esta seção está sendo preparada.
-              </div>
-            </div>
           </div>
         </div>
       </section>
