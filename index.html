@@ -2686,6 +2686,90 @@
 
                 </div>
               </div>
+
+                <!-- Card de entrada: UGC Método -->
+                <div class="site-list-card" id="ugc-card-entry" style="cursor:pointer;" onclick="document.getElementById('ugc-card-entry').style.display='none';document.getElementById('ugc-card-detail').style.display='block';">
+                  <div class="site-list-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="var(--red-glow)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>
+                  </div>
+                  <div class="site-list-body">
+                    <span class="site-list-tag">Método 02</span>
+                    <div class="site-list-title">UGC Método</div>
+                      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+                        <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Social</span>
+                        <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Viral</span>
+                        <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Best</span>
+                        <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Op</span>
+                      </div>
+                    <div class="tutorial-desc">Postagem de itens caros ou raros como a Korblox e Headless (por preços acessíveis) em redes como TikTok e atraí-los para seu grupo ou jogo falso.</div>
+                    
+                    <button class="site-list-btn" style="border:none;cursor:pointer;margin-top:16px;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      <span>Ver método completo</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card de detalhe: UGC Método (oculto até clicar) -->
+                <div id="ugc-card-detail" style="display:none;">
+
+                  <!-- Voltar -->
+                  <button onclick="document.getElementById('ugc-card-detail').style.display='none';document.getElementById('ugc-card-entry').style.display='flex';" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text-muted);font-size:.85rem;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:20px;padding:0;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    Voltar
+                  </button>
+
+                  <!-- Card tutorial com vídeo -->
+                  <div class="tutorial-card" style="margin-bottom:24px;">
+                    <div class="video-player">
+                      <div class="video-player-frame" style="display:block;padding:0;background:#000;">
+                        <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                          <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/ugc-metodo.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                    </div>
+                    <div class="tutorial-card-body">
+                      <div class="tutorial-tags">
+                        <span class="site-list-tag">Método 02</span>
+                        <span class="site-list-tag">UGC</span>
+                      </div>
+                      <div class="tutorial-title">UGC Método</div>
+                      <div class="tutorial-desc">Postagem de itens caros ou raros como a Korblox e Headless (por preços acessíveis) em redes como TikTok e atraí-los para seu grupo ou jogo falso.</div>
+                      <div style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:14px;padding:16px;margin-top:16px;">
+                        <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Informações</div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+                          <div style="display:flex;flex-direction:column;gap:2px;">
+                            <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Autor</span>
+                            <span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span>
+                          </div>
+                          <div style="display:flex;flex-direction:column;gap:2px;">
+                            <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Avaliado</span>
+                            <span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 4.5</span>
+                          </div>
+                          <div style="display:flex;flex-direction:column;gap:2px;">
+                            <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Dificuldade</span>
+                            <span style="font-size:.88rem;color:var(--red-glow);font-weight:600;">Moderada</span>
+                          </div>
+                          <div style="display:flex;flex-direction:column;gap:2px;">
+                            <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Categoria</span>
+                            <span style="font-size:.88rem;color:var(--text);font-weight:600;">Postagem</span>
+                          </div>
+                        </div>
+                        <div style="padding-top:10px;border-top:1px solid var(--surface-border);">
+                          <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:7px;">Tags</span>
+                          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Social</span>
+                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Viral</span>
+                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Best</span>
+                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Op</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
             <div class="tab-panel" data-panel="pos-beaming">
               <div style="padding:40px 0;text-align:center;color:var(--text-muted);font-size:.9rem;">
                 Esta seção está sendo preparada.
