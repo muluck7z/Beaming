@@ -2587,10 +2587,12 @@
 
             <div class="tab-panel" data-panel="metodos">
 
-                <!-- ─── Condo Método ─── -->
-                <div class="site-list-card" id="condo-card-entry" style="cursor:pointer;" onclick="document.getElementById('condo-card-entry').style.display='none';document.getElementById('condo-card-detail').style.display='block';">
+              <!-- ══ LISTA DE MÉTODOS ══ -->
+              <div id="metodos-list">
+
+                <div class="site-list-card" style="cursor:pointer;" onclick="openMethod('condo')">
                   <div class="site-list-icon">
-                    <svg width="44" height="28" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="42" height="26" rx="6" stroke="var(--red-glow)" stroke-width="2"/><text x="22" y="19" text-anchor="middle" fill="var(--red-glow)" font-family="Arial Black,Arial,sans-serif" font-size="13" font-weight="900">+18</text></svg>
+                    <svg width="44" height="28" viewBox="0 0 44 28" fill="none"><rect x="1" y="1" width="42" height="26" rx="6" stroke="var(--red-glow)" stroke-width="2"/><text x="22" y="19" text-anchor="middle" fill="var(--red-glow)" font-family="Arial Black,Arial,sans-serif" font-size="13" font-weight="900">+18</text></svg>
                   </div>
                   <div class="site-list-body">
                     <span class="site-list-tag">Método 01</span>
@@ -2609,66 +2611,9 @@
                   </div>
                 </div>
 
-                <div id="condo-card-detail" style="display:none;">
-                  <button onclick="document.getElementById('condo-card-detail').style.display='none';document.getElementById('condo-card-entry').style.display='flex';" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text-muted);font-size:.85rem;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:20px;padding:0;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-                    Voltar
-                  </button>
-                  <div class="tutorial-card" style="margin-bottom:24px;">
-                    <div class="video-player">
-                      <div class="video-player-frame" style="display:block;padding:0;background:#000;">
-                        <video style="width:100%;display:block;" controls playsinline preload="metadata">
-                          <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/condo-metodo.mp4" type="video/mp4">
-                        </video>
-                      </div>
-                    </div>
-                    <div class="tutorial-card-body">
-                      <div class="tutorial-tags">
-                        <span class="site-list-tag">Método 01</span>
-                        <span class="site-list-tag">Condo</span>
-                      </div>
-                      <div class="tutorial-title">Condo Método</div>
-                      <div class="tutorial-desc">Postagem de jogos +18 Roblox (Condo) em redes como TikTok e YouTube e atraí-los para sua comunidade no discord onde terá seus links falsos.</div>
-                      <div style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:14px;padding:16px;margin-top:16px;">
-                        <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Informações</div>
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Autor</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Avaliado</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 4.9</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Dificuldade</span><span style="font-size:.88rem;color:var(--red-glow);font-weight:600;">Moderada</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Categoria</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Postagem</span></div>
-                        </div>
-                        <div style="padding-top:10px;border-top:1px solid var(--surface-border);">
-                          <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:7px;">Tags</span>
-                          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Social</span>
-                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Viral</span>
-                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Best</span>
-                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Op</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="site-list-card" style="margin-bottom:0;">
-                    <div class="site-list-icon">
-                      <svg width="30" height="24" viewBox="0 0 71 55" fill="var(--red-glow)"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg>
-                    </div>
-                    <div class="site-list-body">
-                      <span class="site-list-tag">Exemplo de Servidor</span>
-                      <div class="site-list-title" style="font-size:20px;margin-bottom:10px;">Servidor de Referência</div>
-                      <div class="tutorial-desc" style="margin-bottom:14px;">Veja um exemplo real de como estruturar sua comunidade no Discord para o Condo Método.</div>
-                      <a class="site-list-btn" href="https://discord.gg/Yfug55fTGX" target="_blank" rel="noopener noreferrer">
-                        <svg width="16" height="13" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg>
-                        <span>Entrar no servidor</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- ─── UGC Método ─── -->
-                <div class="site-list-card" id="ugc-card-entry" style="cursor:pointer;" onclick="document.getElementById('ugc-card-entry').style.display='none';document.getElementById('ugc-card-detail').style.display='block';">
+                <div class="site-list-card" style="cursor:pointer;" onclick="openMethod('ugc')">
                   <div class="site-list-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="var(--red-glow)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>
                   </div>
                   <div class="site-list-body">
                     <span class="site-list-tag">Método 02</span>
@@ -2687,50 +2632,7 @@
                   </div>
                 </div>
 
-                <div id="ugc-card-detail" style="display:none;">
-                  <button onclick="document.getElementById('ugc-card-detail').style.display='none';document.getElementById('ugc-card-entry').style.display='flex';" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text-muted);font-size:.85rem;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:20px;padding:0;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-                    Voltar
-                  </button>
-                  <div class="tutorial-card" style="margin-bottom:24px;">
-                    <div class="video-player">
-                      <div class="video-player-frame" style="display:block;padding:0;background:#000;">
-                        <video style="width:100%;display:block;" controls playsinline preload="metadata">
-                          <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/ugc-metodo.mp4" type="video/mp4">
-                        </video>
-                      </div>
-                    </div>
-                    <div class="tutorial-card-body">
-                      <div class="tutorial-tags">
-                        <span class="site-list-tag">Método 02</span>
-                        <span class="site-list-tag">UGC</span>
-                      </div>
-                      <div class="tutorial-title">UGC Método</div>
-                      <div class="tutorial-desc">Postagem de itens caros ou raros como a Korblox e Headless (por preços acessíveis) em redes como TikTok e atraí-los para seu grupo ou jogo falso.</div>
-                      <div style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:14px;padding:16px;margin-top:16px;">
-                        <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Informações</div>
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Autor</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Avaliado</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 4.5</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Dificuldade</span><span style="font-size:.88rem;color:var(--red-glow);font-weight:600;">Moderada</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Categoria</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Postagem</span></div>
-                        </div>
-                        <div style="padding-top:10px;border-top:1px solid var(--surface-border);">
-                          <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:7px;">Tags</span>
-                          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Social</span>
-                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Viral</span>
-                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Best</span>
-                            <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Op</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- ─── Doação Método ─── -->
-                <div class="site-list-card" id="doacao-card-entry" style="cursor:pointer;" onclick="document.getElementById('doacao-card-entry').style.display='none';document.getElementById('doacao-card-detail').style.display='block';">
+                <div class="site-list-card" style="cursor:pointer;" onclick="openMethod('doacao')">
                   <div class="site-list-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="4.5" r="3" stroke="var(--red-glow)" stroke-width="1.7"/>
@@ -2755,56 +2657,146 @@
                   </div>
                 </div>
 
-                <div id="doacao-card-detail" style="display:none;">
-                  <button onclick="document.getElementById('doacao-card-detail').style.display='none';document.getElementById('doacao-card-entry').style.display='flex';" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text-muted);font-size:.85rem;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:20px;padding:0;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-                    Voltar
-                  </button>
-                  <div class="tutorial-card" style="margin-bottom:16px;">
-                    <div class="tutorial-card-body">
-                      <div class="tutorial-tags">
-                        <span class="site-list-tag">Método 03</span>
-                        <span class="site-list-tag">Postagem</span>
+              </div><!-- /metodos-list -->
+
+              <!-- ══ DETALHE DO MÉTODO (oculto, substitui lista) ══ -->
+              <div id="metodos-detail" style="display:none;">
+
+                <!-- Botão Voltar fixo no topo -->
+                <button onclick="closeMethod()" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text-muted);font-size:.85rem;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:24px;padding:0;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                  Voltar para Métodos
+                </button>
+
+                <!-- ─ Condo ─ -->
+                <div id="method-condo" style="display:none;">
+                  <div style="border-radius:18px;overflow:hidden;background:var(--bg-2);border:1px solid var(--surface-border);margin-bottom:16px;">
+                    <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                      <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/condo-metodo.mp4" type="video/mp4">
+                    </video>
+                    <div style="padding:22px 24px 24px;">
+                      <div style="display:flex;gap:8px;margin-bottom:14px;">
+                        <span class="site-list-tag">Método 01</span>
+                        <span class="site-list-tag">Condo</span>
                       </div>
-                      <div class="tutorial-title">Doação Método</div>
-                      <div class="tutorial-desc" style="margin-bottom:18px;">Consiste em postar vídeos de doação de robux ou itens no TikTok e atraí-los para seu perfil, servidor ou grupo falso.</div>
-                      <div style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:14px;padding:18px 20px;margin-bottom:14px;line-height:1.75;">
-                        <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Como funciona</div>
-                        <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">Método simples, mas que pode lhe render algumas contas. A ideia é publicar um vídeo curto simulando uma doação de <strong style="color:var(--red-glow)">Robux ou itens</strong> — não em live, mas em clipes curtos e editados de forma atrativa (veja os exemplos abaixo).</p>
-                        <p style="font-size:.88rem;color:var(--text);margin-bottom:14px;">Após atrair a vítima, direcione-a para um <strong style="color:var(--red-glow)">perfil, servidor ou grupo falso</strong> onde o beam acontece.</p>
-                        <div style="background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.2);border-radius:10px;padding:12px 14px;">
-                          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:6px;">📌 Onde colocar seu link</div>
-                          <p style="font-size:.83rem;color:var(--text-muted);margin:0;">Deixe seu link de redirecionamento nos <strong style="color:var(--text);">comentários</strong> do vídeo ou na sua <strong style="color:var(--text);">bio</strong> do TikTok. O tipo de link fica a seu critério.</p>
+                      <div class="tutorial-title">Condo Método</div>
+                      <div class="tutorial-desc">Postagem de jogos +18 Roblox (Condo) em redes como TikTok e YouTube e atraí-los para sua comunidade no discord onde terá seus links falsos.</div>
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--surface-border);">
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Autor</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Avaliado</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 4.9</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Dificuldade</span><span style="font-size:.88rem;color:var(--red-glow);font-weight:600;">Moderada</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Categoria</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Postagem</span></div>
+                      </div>
+                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--surface-border);">
+                        <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:8px;">Tags</span>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Social</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Viral</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Best</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Op</span>
                         </div>
                       </div>
-                      <div style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:14px;padding:16px;margin-bottom:14px;">
-                        <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Informações</div>
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Autor</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Avaliado</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 3.0</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Dificuldade</span><span style="font-size:.88rem;color:#4ade80;font-weight:600;">Fácil</span></div>
-                          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;">Categoria</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Postagem</span></div>
-                        </div>
+                    </div>
+                  </div>
+                  <div style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:18px;padding:22px 24px;display:flex;align-items:flex-start;gap:18px;">
+                    <div style="flex-shrink:0;width:50px;height:50px;border-radius:14px;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.25);display:flex;align-items:center;justify-content:center;">
+                      <svg width="26" height="20" viewBox="0 0 71 55" fill="var(--red-glow)"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg>
+                    </div>
+                    <div style="flex:1;">
+                      <span class="site-list-tag" style="margin-bottom:8px;">Exemplo de Servidor</span>
+                      <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;">Servidor de Referência</div>
+                      <div class="tutorial-desc" style="margin-bottom:14px;">Veja um exemplo real de como estruturar sua comunidade no Discord para o Condo Método.</div>
+                      <a class="site-list-btn" href="https://discord.gg/Yfug55fTGX" target="_blank" rel="noopener noreferrer">
+                        <svg width="14" height="11" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg>
+                        <span>Entrar no servidor</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ─ UGC ─ -->
+                <div id="method-ugc" style="display:none;">
+                  <div style="border-radius:18px;overflow:hidden;background:var(--bg-2);border:1px solid var(--surface-border);">
+                    <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                      <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/ugc-metodo.mp4" type="video/mp4">
+                    </video>
+                    <div style="padding:22px 24px 24px;">
+                      <div style="display:flex;gap:8px;margin-bottom:14px;">
+                        <span class="site-list-tag">Método 02</span>
+                        <span class="site-list-tag">UGC</span>
                       </div>
-                      <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Exemplos de vídeo</div>
-                      <div style="display:flex;flex-direction:column;gap:10px;">
-                        <div style="border-radius:12px;overflow:hidden;background:#000;">
-                          <video style="width:100%;display:block;" controls playsinline preload="metadata">
-                            <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/donate-example-1.mp4" type="video/mp4">
-                          </video>
-                        </div>
-                        <div style="border-radius:12px;overflow:hidden;background:#000;">
-                          <video style="width:100%;display:block;" controls playsinline preload="metadata">
-                            <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/donate-example-2.mp4" type="video/mp4">
-                          </video>
+                      <div class="tutorial-title">UGC Método</div>
+                      <div class="tutorial-desc">Postagem de itens caros ou raros como a Korblox e Headless (por preços acessíveis) em redes como TikTok e atraí-los para seu grupo ou jogo falso.</div>
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--surface-border);">
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Autor</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Avaliado</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 4.5</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Dificuldade</span><span style="font-size:.88rem;color:var(--red-glow);font-weight:600;">Moderada</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Categoria</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Postagem</span></div>
+                      </div>
+                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--surface-border);">
+                        <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:8px;">Tags</span>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Social</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Viral</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Best</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Op</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-            </div>
+                <!-- ─ Doação ─ -->
+                <div id="method-doacao" style="display:none;">
+                  <div style="border-radius:18px;overflow:hidden;background:var(--bg-2);border:1px solid var(--surface-border);margin-bottom:16px;">
+                    <div style="padding:22px 24px 24px;">
+                      <div style="display:flex;gap:8px;margin-bottom:14px;">
+                        <span class="site-list-tag">Método 03</span>
+                        <span class="site-list-tag">Postagem</span>
+                      </div>
+                      <div class="tutorial-title">Doação Método</div>
+                      <div class="tutorial-desc" style="margin-bottom:18px;">Consiste em postar vídeos de doação de robux ou itens no TikTok e atraí-los para seu perfil, servidor ou grupo falso.</div>
 
+                      <!-- Como funciona -->
+                      <div style="padding:16px;background:rgba(255,255,255,0.03);border:1px solid var(--surface-border);border-radius:12px;margin-bottom:14px;line-height:1.75;">
+                        <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Como funciona</div>
+                        <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">Método simples, mas que pode lhe render algumas contas. Publique um vídeo curto simulando uma doação de <strong style="color:var(--red-glow)">Robux ou itens</strong> — não em live, mas em clipes editados de forma atrativa (veja os exemplos abaixo).</p>
+                        <p style="font-size:.88rem;color:var(--text);margin-bottom:14px;">Após atrair a vítima, direcione-a para um <strong style="color:var(--red-glow)">perfil, servidor ou grupo falso</strong> onde o beam acontece.</p>
+                        <div style="background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.2);border-radius:10px;padding:12px 14px;">
+                          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:5px;">📌 Onde colocar seu link</div>
+                          <p style="font-size:.83rem;color:var(--text-muted);margin:0;">Deixe seu link nos <strong style="color:var(--text);">comentários</strong> do vídeo ou na sua <strong style="color:var(--text);">bio</strong> do TikTok.</p>
+                        </div>
+                      </div>
+
+                      <!-- Informações -->
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;padding-top:14px;border-top:1px solid var(--surface-border);">
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Autor</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Avaliado</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 3.0</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Dificuldade</span><span style="font-size:.88rem;color:#4ade80;font-weight:600;">Fácil</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Categoria</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Postagem</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Vídeos exemplo -->
+                  <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Exemplos de vídeo</div>
+                  <div style="display:flex;flex-direction:column;gap:12px;">
+                    <div style="border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--surface-border);">
+                      <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                        <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/donate-example-1.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div style="border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--surface-border);">
+                      <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                        <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/donate-example-2.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- /metodos-detail -->
+
+            </div>
             <div class="tab-panel" data-panel="pos-beaming">
               <div style="padding:40px 0;text-align:center;color:var(--text-muted);font-size:.9rem;">
                 Esta seção está sendo preparada.
@@ -3566,5 +3558,18 @@
 
 </script>
 
+<script>
+function openMethod(name){
+  ['condo','ugc','doacao'].forEach(function(m){
+    document.getElementById('method-'+m).style.display = (m===name)?'block':'none';
+  });
+  document.getElementById('metodos-list').style.display='none';
+  document.getElementById('metodos-detail').style.display='block';
+}
+function closeMethod(){
+  document.getElementById('metodos-detail').style.display='none';
+  document.getElementById('metodos-list').style.display='block';
+}
+</script>
 </body>
 </html>
