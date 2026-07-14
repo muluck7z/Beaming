@@ -1691,170 +1691,257 @@
 
   <!-- ═══════════════ LOGIN WALL ═══════════════ -->
   <style>
-    /* ── Tela ── */
-    #login-wall {
-      position: fixed; inset: 0; z-index: 9999; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      /* Brasa: vermelho quente radial */
-      background: radial-gradient(ellipse 100% 80% at 50% 60%, #8c0018 0%, #4a000e 30%, #250006 60%, #100002 100%);
-    }
-    #login-wall.hidden { display: none !important; }
+        /* ── Tela de Login (Login Wall) ── */
+        #login-wall {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(700px 500px at 50% 62%, rgba(224, 16, 42, 0.22) 0%, transparent 68%),
+                radial-gradient(900px 600px at 15% 100%, rgba(122, 13, 28, 0.18) 0%, transparent 60%),
+                #050506;
+        }
 
-    /* Scanlines */
-    #login-wall::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(255,255,255,0.025) 2px,
-        rgba(255,255,255,0.025) 3px
-      );
-    }
+        #login-wall.hidden { display: none !important; }
 
-    /* Wrapper central */
-    #lw-wrap {
-      position: relative; z-index: 1;
-      width: min(400px, calc(100vw - 28px));
-    }
+        #login-wall::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.025) 2px,
+                rgba(255, 255, 255, 0.025) 3px
+            );
+        }
 
-    /* Banner acima do ann-outer */
-    #lw-banner-wrap {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      border-radius: 14px 14px 0 0;
-      margin-bottom: -2px;
-    }
-    #lw-banner-wrap img {
-      width: 100%; height: auto;
-      display: block; pointer-events: none; user-select: none;
-      filter: saturate(0.9) brightness(0.88);
-    }
-    #lw-banner-wrap::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 55%, rgba(224,16,42,0.08) 100%);
-    }
+        #lw-wrap {
+            position: relative;
+            z-index: 1;
+            width: min(400px, calc(100vw - 28px));
+            animation: rise 0.6s cubic-bezier(.16,.8,.24,1) both;
+        }
 
-    /* ann-outer — idêntico ao dos bypass cards */
-    #lw-outer {
-      background: rgba(224,16,42,0.08);
-      border: 1px solid rgba(255,45,71,0.45);
-      border-radius: 0 0 16px 16px;
-      padding: 16px;
-    }
+        #lw-banner-wrap {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 16px 16px 0 0;
+            margin-bottom: -2px;
+            border: 1px solid rgba(255, 45, 71, 0.3);
+            border-bottom: none;
+        }
 
-    /* ann-inner — grid igual aos bypass cards */
-    #lw-inner {
-      background: rgba(10,10,12,0.55);
-      border: 1px solid rgba(255,45,71,0.18);
-      border-radius: 12px;
-      padding: 14px;
-      display: grid;
-      grid-template-columns: 46px 1fr;
-      grid-template-rows: auto auto auto;
-      column-gap: 12px;
-      row-gap: 10px;
-      align-items: center;
-    }
+        #lw-banner-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            filter: saturate(0.9) brightness(0.82) contrast(1.05);
+            transform: scale(1.02);
+        }
 
-    /* Avatar com ring vermelho */
-    #lw-avatar {
-      grid-column: 1; grid-row: 1;
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      object-fit: cover; object-position: center 40%;
-      border: 2.5px solid rgba(255,45,71,0.95);
-      box-shadow:
-        0 0 0 4px rgba(255,45,71,0.18),
-        0 0 18px rgba(255,45,71,0.55),
-        0 0 36px rgba(255,45,71,0.20);
-      pointer-events: none; user-select: none;
-    }
+        #lw-banner-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 45%, rgba(10, 5, 6, 0.55) 100%);
+        }
 
-    /* Body: nick + subtítulo */
-    #lw-body {
-      grid-column: 2; grid-row: 1;
-      min-width: 0;
-    }
-    #lw-nick-row {
-      display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;
-    }
-    #lw-nick {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px; font-weight: 800;
-      color: #f2f1f0; line-height: 1;
-    }
-    #lw-check {
-      width: 15px; height: 15px;
-      background: #ff2d47; border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    #lw-tag {
-      background: rgba(255,45,71,0.18);
-      border: 1px solid rgba(255,45,71,0.38);
-      color: #ff2d47;
-      font-size: 9px; font-weight: 800;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 2px 7px; border-radius: 5px; line-height: 1.5;
-    }
-    #lw-sub {
-      font-size: 11px; color: rgba(255,255,255,0.35);
-      margin-top: 3px; font-family: 'Inter', sans-serif;
-    }
+        #lw-banner-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            box-shadow: inset 0 0 36px 6px rgba(0,0,0,0.45);
+            pointer-events: none;
+        }
 
-    /* Descrição — row 2 full width */
-    #lw-desc {
-      grid-column: 1 / -1; grid-row: 2;
-      font-size: 12px; line-height: 1.75;
-      color: rgba(255,255,255,0.45);
-      font-family: 'Inter', sans-serif;
-    }
-    #lw-desc strong { color: #ff2d47; font-weight: 700; }
+        #lw-outer {
+            background: linear-gradient(180deg, rgba(224, 16, 42, 0.1), rgba(224, 16, 42, 0.05));
+            border: 1px solid rgba(255, 45, 71, 0.4);
+            border-radius: 0 0 18px 18px;
+            padding: 17px;
+            box-shadow: 0 24px 50px -22px rgba(0,0,0,0.8);
+        }
 
-    /* Erro — inserido via JS antes do botão */
-    #login-error {
-      grid-column: 1 / -1;
-      background: rgba(224,16,42,0.09);
-      border: 1px solid rgba(255,45,71,0.28);
-      border-radius: 10px;
-      padding: 10px 13px;
-      font-size: 12px; color: #ff2d47;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.5;
-    }
+        #lw-inner {
+            background: rgba(8, 7, 8, 0.6);
+            border: 1px solid rgba(255, 45, 71, 0.18);
+            border-radius: 13px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            grid-template-rows: auto auto auto;
+            column-gap: 13px;
+            row-gap: 11px;
+            align-items: center;
+        }
 
-    /* Botão Discord — row 3 full width */
-    #lw-btn {
-      grid-column: 1 / -1; grid-row: 3;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 13px 18px;
-      background: rgba(224,16,42,0.14);
-      border: 1.5px solid rgba(255,45,71,0.55);
-      border-radius: 11px;
-      color: #ff2d47; text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700; font-size: 14px; letter-spacing: 0.04em;
-      box-shadow: 0 0 18px rgba(255,45,71,0.15);
-      transition: background .18s, border-color .18s, box-shadow .18s, transform .13s;
-      -webkit-tap-highlight-color: transparent; cursor: pointer;
-    }
-    #lw-btn:hover {
-      background: rgba(224,16,42,0.26);
-      border-color: rgba(255,45,71,0.9);
-      box-shadow: 0 0 30px rgba(255,45,71,0.3);
-    }
-    #lw-btn:active { transform: scale(0.97); }
+        #lw-avatar {
+            grid-column: 1;
+            grid-row: 1;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 40%;
+            border: 2.5px solid rgba(10, 10, 12, 0.9);
+            box-shadow: 0 0 0 2px rgba(255, 45, 71, 0.8), 0 0 18px rgba(255, 45, 71, 0.5), 0 0 34px rgba(255, 45, 71, 0.18);
+            pointer-events: none;
+            user-select: none;
+        }
 
-    /* Rodapé */
-    #lw-foot {
-      font-size: 10.5px; color: rgba(255,255,255,0.2);
-      margin-top: 14px; text-align: center;
-      font-family: 'Inter', sans-serif; line-height: 1.5;
-    }
+        #lw-body {
+            grid-column: 2;
+            grid-row: 1;
+            min-width: 0;
+        }
+
+        #lw-nick-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+
+        #lw-nick {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #f2f1f0;
+            line-height: 1;
+            letter-spacing: 0.01em;
+        }
+
+        #lw-check {
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(145deg, #ff2d47, #a30f22);
+            border-radius: 4.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        #lw-tag {
+            background: rgba(255, 45, 71, 0.14);
+            border: 1px solid rgba(255, 45, 71, 0.4);
+            color: #ff2d47;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            padding: 2.5px 7px;
+            border-radius: 5px;
+            line-height: 1.5;
+        }
+
+        #lw-sub {
+            font-size: 11px;
+            color: var(--text-faint);
+            margin-top: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #lw-desc {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            font-size: 12.5px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            padding-top: 2px;
+            border-top: 1px solid rgba(255, 45, 71, 0.14);
+        }
+
+        #lw-desc strong {
+            color: #ff2d47;
+            font-weight: 700;
+        }
+
+        /* Erro dinâmico — inserido via JS */
+        #login-error {
+            grid-column: 1 / -1;
+            background: rgba(224,16,42,0.09);
+            border: 1px solid rgba(255,45,71,0.28);
+            border-radius: 10px;
+            padding: 10px 13px;
+            font-size: 12px; color: #ff2d47;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+        }
+
+        #lw-btn {
+            grid-column: 1 / -1;
+            grid-row: 3;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 18px;
+            background: linear-gradient(180deg, rgba(224,16,42,0.18), rgba(224,16,42,0.08));
+            border: 1.5px solid rgba(255, 45, 71, 0.55);
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.03em;
+            overflow: hidden;
+            box-shadow: 0 8px 22px -10px rgba(224,16,42,0.55);
+            transition: background .18s, border-color .18s, box-shadow .18s, transform .13s;
+            cursor: pointer;
+            animation: float-btn 2.6s ease-in-out infinite;
+        }
+
+        #lw-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);
+            transform: translateX(-120%);
+            transition: transform .6s ease;
+        }
+
+        #lw-btn:hover {
+            background: linear-gradient(180deg, rgba(224,16,42,0.3), rgba(224,16,42,0.14));
+            border-color: rgba(255, 45, 71, 0.9);
+            box-shadow: 0 10px 30px -8px rgba(224,16,42,0.75);
+            animation-play-state: paused;
+        }
+
+        #lw-btn:hover::before { transform: translateX(120%); }
+
+        #lw-btn:active {
+            transform: scale(0.97);
+            animation-play-state: paused;
+        }
+
+        #lw-foot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 10.5px;
+            color: var(--text-faint);
+            margin-top: 14px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+        }
   </style>
 
   <div id="login-wall">
@@ -1865,17 +1952,16 @@
         <img src="https://raw.githubusercontent.com/muluck7z/Beaming/main/ilegal-banner.jpg" alt="ILEGAL">
       </div>
 
-      <!-- ann-outer -->
+      <!-- Card de Login -->
       <div id="lw-outer">
-        <!-- ann-inner -->
         <div id="lw-inner">
 
-          <!-- ícone (col 1 row 1) -->
+          <!-- Ícone -->
           <img id="lw-avatar"
             src="https://raw.githubusercontent.com/muluck7z/Beaming/main/ilegal-icon.jpg"
             alt="ILEGAL">
 
-          <!-- body (col 2 row 1) -->
+          <!-- Info -->
           <div id="lw-body">
             <div id="lw-nick-row">
               <span id="lw-nick">ILEGAL</span>
@@ -1886,52 +1972,33 @@
               </span>
               <span id="lw-tag">BOT</span>
             </div>
-            <div id="lw-sub">Ilegal | Beaming</div>
           </div>
 
-          <!-- descrição (col 1/-1 row 2) -->
+          <!-- Descrição -->
           <div id="lw-desc">
-            Acesso restrito a <strong>membros verificados</strong> do servidor Discord. Autentique-se para continuar.
+            Somente membros verificados podem acessar ao nosso site, então volte ao nosso servidor e faça a sua verificação!
           </div>
 
-          <!-- erro dinâmico -->
+          <!-- Erro dinâmico -->
           <div id="login-error" style="display:none;"></div>
 
-          <!-- botão (col 1/-1 row 3) -->
+          <!-- Botão -->
           <a id="lw-btn" href="/api/auth/discord">
-            <svg width="18" height="14" viewBox="0 0 71 55" fill="none"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z" fill="currentColor"/></svg>
+            <svg width="18" height="14" viewBox="0 0 71 55" fill="none">
+              <path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z" fill="currentColor"/>
+            </svg>
             Entrar com Discord
           </a>
 
         </div>
       </div>
 
-      <!-- Card anúncio do Muluck7z -->
-      <div class="ann-wrap" style="margin-top:12px;">
-        <div class="ann-label">
-          <span class="ann-dot"></span>
-          <span class="ann-label-text">Anúncio</span>
-        </div>
-        <div class="ann-outer">
-          <div class="ann-inner">
-            <img class="ann-avatar" src="https://raw.githubusercontent.com/muluck7z/Beaming/main/muluck_icon.gif" alt="Muluck7z">
-            <div class="ann-body">
-              <div class="ann-nick-row">
-                <span class="ann-nick">Muluck7z</span>
-                <span class="ann-check">
-                  <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <span class="ann-tag">OWNER</span>
-              </div>
-            </div>
-            <div class="ann-text">
-              <strong>Seja bem vindo(a)</strong>, para você ter <strong>acesso ao nosso site</strong> você deve <strong>fazer sua verificação</strong> no servidor no <strong>canal verifique</strong>.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <p id="lw-foot">Você precisa ter o cargo no servidor para acessar.</p>
+      <p id="lw-foot">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+          <path d="M6 10V8a6 6 0 1112 0v2M5 10h14a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8"/>
+        </svg>
+        Você precisa ter o cargo no servidor para acessar.
+      </p>
     </div>
   </div>
   <!-- ════════════════════════════════════════ -->
