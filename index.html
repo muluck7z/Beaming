@@ -1650,8 +1650,8 @@
 
   
   #metodos-list .site-list-icon {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.1);
+    background: var(--surface);
+    border-color: var(--surface-border);
   }
 </style>
   <script>
@@ -2595,7 +2595,7 @@
               <!-- ══ LISTA DE MÉTODOS ══ -->
               <div id="metodos-list">
 
-                <div class="site-list-card" style="cursor:pointer;background:var(--bg-2);" onclick="openMethod('condo')">
+                <div class="site-list-card" style="cursor:pointer;background:var(--surface);" onclick="openMethod('condo')">
                   <div class="site-list-icon">
                     <svg width="44" height="28" viewBox="0 0 44 28" fill="none"><rect x="1" y="1" width="42" height="26" rx="6" stroke="var(--red-glow)" stroke-width="2"/><text x="22" y="19" text-anchor="middle" fill="var(--red-glow)" font-family="Arial Black,Arial,sans-serif" font-size="13" font-weight="900">+18</text></svg>
                   </div>
@@ -2616,7 +2616,7 @@
                   </div>
                 </div>
 
-                <div class="site-list-card" style="cursor:pointer;background:var(--bg-2);" onclick="openMethod('ugc')">
+                <div class="site-list-card" style="cursor:pointer;background:var(--surface);" onclick="openMethod('ugc')">
                   <div class="site-list-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>
                   </div>
@@ -2640,21 +2640,10 @@
                 <div class="site-list-card" style="cursor:pointer;background:var(--surface);" onclick="openMethod('doacao')">
                   <div class="site-list-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <!-- Caixa de presente com laço -->
-                      <!-- Caixa principal -->
-                      <rect x="3" y="8" width="18" height="13" rx="2" ry="2"/>
-                      <!-- Tampa -->
-                      <path d="M3 8 Q3 4 12 2 Q21 4 21 8"/>
-                      <!-- Fita vertical -->
-                      <line x1="12" y1="2" x2="12" y2="21"/>
-                      <!-- Fita horizontal -->
-                      <line x1="3" y1="10" x2="21" y2="10"/>
-                      <!-- Laço esquerdo -->
-                      <path d="M12 8 Q8 6 7 9 Q8 11 12 10"/>
-                      <!-- Laço direito -->
-                      <path d="M12 8 Q16 6 17 9 Q16 11 12 10"/>
-                      <!-- Centro do laço -->
-                      <circle cx="12" cy="8.5" r="1.2" fill="var(--red-glow)"/>
+                      <!-- Caixa de presente simples sem laço -->
+                      <path d="M20 12v10H4V12"/>
+                      <path d="M2 7h20v5H2z"/>
+                      <path d="M12 22V7"/>
                     </svg>
                   </div>
                   <div class="site-list-body">
@@ -2681,7 +2670,7 @@
 
                 <!-- ─ Condo ─ -->
                 <div id="method-condo" style="display:none;">
-                  <div style="border-radius:18px;overflow:hidden;background:var(--bg-2);border:1px solid var(--surface-border);margin-bottom:16px;">
+                  <div style="border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);margin-bottom:16px;">
                     <video style="width:100%;display:block;" controls playsinline preload="metadata">
                       <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/condo-metodo.mp4" type="video/mp4">
                     </video>
@@ -2709,7 +2698,7 @@
                       </div>
                     </div>
                   </div>
-                  <div style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:18px;padding:22px 24px;display:flex;align-items:flex-start;gap:18px;">
+                  <div style="background:var(--surface);border:1px solid var(--surface-border);border-radius:18px;padding:22px 24px;display:flex;align-items:flex-start;gap:18px;">
                     <div style="flex-shrink:0;width:50px;height:50px;border-radius:14px;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.25);display:flex;align-items:center;justify-content:center;">
                       <svg width="26" height="20" viewBox="0 0 71 55" fill="var(--red-glow)"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg>
                     </div>
@@ -2727,7 +2716,7 @@
 
                 <!-- ─ UGC ─ -->
                 <div id="method-ugc" style="display:none;">
-                  <div style="border-radius:18px;overflow:hidden;background:var(--bg-2);border:1px solid var(--surface-border);">
+                  <div style="border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
                     <video style="width:100%;display:block;" controls playsinline preload="metadata">
                       <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/ugc-metodo.mp4" type="video/mp4">
                     </video>
@@ -2769,7 +2758,7 @@
                       <div class="tutorial-desc" style="margin-bottom:18px;">Consiste em postar vídeos de doação de robux ou itens no TikTok e atraí-los para seu perfil, servidor ou grupo falso.</div>
 
                       <!-- Como funciona -->
-                      <div style="padding:16px;background:rgba(255,255,255,0.03);border:1px solid var(--surface-border);border-radius:12px;margin-bottom:14px;line-height:1.75;">
+                      <div style="padding:16px;background:var(--surface);border:1px solid var(--surface-border);border-radius:12px;margin-bottom:14px;line-height:1.75;">
                         <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Como funciona</div>
                         <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">Método simples, mas que pode lhe render algumas contas. Publique um vídeo curto simulando uma doação de <strong style="color:var(--red-glow)">Robux ou itens</strong> — não em live, mas em clipes editados de forma atrativa (veja os exemplos abaixo).</p>
                         <p style="font-size:.88rem;color:var(--text);margin-bottom:14px;">Após atrair a vítima, direcione-a para um <strong style="color:var(--red-glow)">perfil, servidor ou grupo falso</strong> onde o beam acontece.</p>
@@ -2792,12 +2781,12 @@
                   <!-- Vídeos exemplo -->
                   <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Exemplos de vídeo</div>
                   <div style="display:flex;flex-direction:row;gap:12px;flex-wrap:wrap;">
-                    <div style="flex:1;min-width:200px;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--surface-border);">
+                    <div style="flex:1;min-width:200px;border-radius:14px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
                       <video style="width:100%;display:block;height:auto;max-height:280px;" controls playsinline preload="metadata">
                         <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/donate-example-1.mp4" type="video/mp4">
                       </video>
                     </div>
-                    <div style="flex:1;min-width:200px;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--surface-border);">
+                    <div style="flex:1;min-width:200px;border-radius:14px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
                       <video style="width:100%;display:block;height:auto;max-height:280px;" controls playsinline preload="metadata">
                         <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/donate-example-2.mp4" type="video/mp4">
                       </video>
