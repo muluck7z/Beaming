@@ -3108,87 +3108,29 @@
               <span class="site-section-badge">01</span>
               <span class="site-section-title">Auto Mensagem</span>
             </div>
-              <div class="ex-card ex-card-lg ex-card-solid">
-                <div class="ex-card-header">
-                  <span class="ex-card-title">Auto Mensagem</span>
+            <div class="ex-card ex-card-lg ex-card-solid">
+              <div class="ex-card-body">
+                <div class="ex-table-block">
+                  <div class="ex-table-label site-list-tag">Teste</div>
+                  <input class="ex-key-input" type="text" placeholder="Escreva algo">
                 </div>
-                <div class="ex-card-body">
 
-                  <!-- Token Discord -->
-                  <div class="ex-field-block">
-                    <div class="ex-table-label site-list-tag">Token Discord</div>
-                    <div style="position:relative;">
-                      <input class="ex-field-input" id="amToken" type="password" placeholder="Insira seu token do Discord..." style="padding-right:44px;font-family:monospace;">
-                      <button type="button" id="amTokenToggle" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);padding:0;display:flex;align-items:center;">
-                        <svg id="amEyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                      </button>
+                <div class="ex-toggle-block">
+                  <div class="ex-toggle-row ex-toggle-row-compact">
+                    <div class="ex-toggle-text">
+                      <span class="ex-toggle-title">Opção A</span>
                     </div>
-                    <span style="font-size:11px;color:var(--text-faint);">Mantenha seu token em seguran&ccedil;a. Nunca o compartilhe.</span>
+                    <button class="ex-switch" data-state="off"><span class="ex-switch-dot"></span></button>
                   </div>
-
-                  <!-- ID Canal -->
-                  <div class="ex-field-block">
-                    <div class="ex-table-label site-list-tag">ID Canal</div>
-                    <input class="ex-field-input" id="amCanalId" type="text" placeholder="Ex: 123456789012345678" style="font-family:monospace;">
-                  </div>
-
-                  <!-- Mensagem -->
-                  <div class="ex-field-block">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                      <div class="ex-table-label site-list-tag" style="margin-bottom:0;">Mensagem</div>
-                      <button type="button" id="amEmojiBtn" style="background:none;border:1px solid var(--surface-border);color:var(--text-muted);cursor:pointer;font-size:12px;display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;">Emoji</button>
+                  <div class="ex-toggle-row ex-toggle-row-compact">
+                    <div class="ex-toggle-text">
+                      <span class="ex-toggle-title">Opção B</span>
                     </div>
-                    <div id="amEmojiPicker" style="display:none;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--surface-border);border-radius:10px;margin-bottom:8px;flex-wrap:wrap;gap:4px;"></div>
-                    <div class="ex-edit-table" id="amMessage" contenteditable="true" data-placeholder="Digite sua mensagem..."></div>
-                    <span id="amCharCount" style="font-size:11px;color:var(--text-faint);margin-top:4px;display:block;">0 caracteres</span>
+                    <button class="ex-switch" data-state="off"><span class="ex-switch-dot"></span></button>
                   </div>
-
-                  <!-- Intervalo de Tempo -->
-                  <div class="ex-field-block">
-                    <div class="ex-table-label site-list-tag">Intervalo de Tempo (segundos)</div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
-                      <div>
-                        <div class="ex-field-label" style="margin-top:0;">M&iacute;nimo <span style="color:var(--red-glow);">(&ge; 30s)</span></div>
-                        <input class="ex-field-input" id="amMinTime" type="number" min="30" value="30">
-                      </div>
-                      <div>
-                        <div class="ex-field-label" style="margin-top:0;">M&aacute;ximo</div>
-                        <input class="ex-field-input" id="amMaxTime" type="number" min="30" value="60">
-                      </div>
-                    </div>
-                    <span id="amTimeError" style="font-size:11px;color:var(--red-glow);display:none;">O tempo m&iacute;nimo deve ser &ge; 30 segundos.</span>
-                  </div>
-
-                  <!-- Webhook -->
-                  <div class="ex-field-block">
-                    <div class="ex-table-label site-list-tag">Webhook <span style="color:var(--red-glow);font-weight:400;text-transform:none;opacity:0.6;">(Opcional)</span></div>
-                    <input class="ex-field-input" id="amWebhook" type="url" placeholder="https://discord.com/api/webhooks/..." style="font-family:monospace;">
-                    <span style="font-size:11px;color:var(--text-faint);">URL do webhook para notifica&ccedil;&otilde;es externas.</span>
-                  </div>
-
-                  <!-- Notificações -->
-                  <div class="ex-toggle-block">
-                    <div class="ex-toggle-row">
-                      <div class="ex-toggle-text">
-                        <span class="ex-toggle-title">Notifica&ccedil;&atilde;o ao ser mencionado</span>
-                        <span class="ex-toggle-sub">Receba um aviso quando algu&eacute;m te mencionar.</span>
-                      </div>
-                      <button class="ex-switch" id="amToggleMencao" data-state="off"><span class="ex-switch-dot"></span></button>
-                    </div>
-                    <div class="ex-toggle-row">
-                      <div class="ex-toggle-text">
-                        <span class="ex-toggle-title">Notifica&ccedil;&atilde;o por DM</span>
-                        <span class="ex-toggle-sub">Receba notifica&ccedil;&otilde;es via mensagem direta.</span>
-                      </div>
-                      <button class="ex-switch" id="amToggleDm" data-state="off"><span class="ex-switch-dot"></span></button>
-                    </div>
-                  </div>
-
                 </div>
-                <div class="ex-card-footer">
-                  <button class="ex-btn ex-btn-ghost" id="amCancelBtn">Cancelar</button>
-                  <button class="ex-btn ex-btn-primary" id="amIniciarBtn">Iniciar</button>
-                </div>
+
+                <a class="site-list-btn" href="#" id="exExecutarBtn" style="justify-content:center;">Executar</a>
               </div>
             </div>
           </div>
@@ -3341,38 +3283,6 @@
   });
 
   if(exSaveBtn) exSaveBtn.addEventListener('click', () => {}); // fantasma: sem ação
-
-    // ── AUTO MENSAGEM ─────────────────────────────────────────────────
-    (function(){
-      var AM_EMOJIS=['😀','😂','😍','🥰','😎','🤔','😅','🙂','😊','🤩','👍','👎','❤️','🔥','✨','💯','🎉','🚀','⚡','💀','🤣','😭','😤','🥺','😏','🤯','🫡','💪','🙏','👀'];
-      var amTok=document.getElementById('amToken');
-      var amTokTgl=document.getElementById('amTokenToggle');
-      var amEye=document.getElementById('amEyeIcon');
-      var amEB=document.getElementById('amEmojiBtn');
-      var amEP=document.getElementById('amEmojiPicker');
-      var amMsg=document.getElementById('amMessage');
-      var amCC=document.getElementById('amCharCount');
-      var amMn=document.getElementById('amMinTime');
-      var amMx=document.getElementById('amMaxTime');
-      var amTE=document.getElementById('amTimeError');
-      var amTM=document.getElementById('amToggleMencao');
-      var amTD=document.getElementById('amToggleDm');
-      var amIN=document.getElementById('amIniciarBtn');
-      var amCN=document.getElementById('amCancelBtn');
-
-      if(amTokTgl&&amTok){amTokTgl.addEventListener('click',function(){var s=amTok.type==='password';amTok.type=s?'text':'password';if(amEye)amEye.innerHTML=s?'<line x1="1" y1="1" x2="23" y2="23"/><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>':'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';});}
-      if(amEP){AM_EMOJIS.forEach(function(em){var b=document.createElement('button');b.type='button';b.textContent=em;b.style.cssText='background:none;border:none;font-size:20px;cursor:pointer;padding:2px;border-radius:4px;';b.addEventListener('click',function(){if(amMsg){amMsg.focus();document.execCommand('insertText',false,em);}amEP.style.display='none';});amEP.appendChild(b);});}
-      if(amEB&&amEP){amEB.addEventListener('click',function(e){e.stopPropagation();amEP.style.display=amEP.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(e){if(!amEP.contains(e.target)&&e.target!==amEB)amEP.style.display='none';});}
-      if(amMsg&&amCC){amMsg.addEventListener('input',function(){amCC.textContent=amMsg.innerText.length+' caracteres';});}
-      if(amMn){amMn.addEventListener('change',function(){var v=Math.max(30,parseInt(amMn.value)||30);amMn.value=v;if(amMx&&parseInt(amMx.value)<v)amMx.value=v;if(amTE)amTE.style.display=v<30?'block':'none';});}
-      if(amMx){amMx.addEventListener('change',function(){var mn=parseInt(amMn?amMn.value:30)||30;if(parseInt(amMx.value)<mn)amMx.value=mn;});}
-      if(amTM)amTM.addEventListener('click',function(){amTM.dataset.state=amTM.dataset.state==='on'?'off':'on';});
-      if(amTD)amTD.addEventListener('click',function(){amTD.dataset.state=amTD.dataset.state==='on'?'off':'on';});
-      function resetForm(){if(amTok)amTok.value='';var c=document.getElementById('amCanalId');if(c)c.value='';if(amMsg)amMsg.innerText='';if(amMn)amMn.value=30;if(amMx)amMx.value=60;var w=document.getElementById('amWebhook');if(w)w.value='';if(amTM)amTM.dataset.state='off';if(amTD)amTD.dataset.state='off';if(amCC)amCC.textContent='0 caracteres';if(amIN){amIN.textContent='Iniciar';amIN.disabled=false;amIN.style.background='';amIN.style.borderColor='';}}
-      if(amCN)amCN.addEventListener('click',resetForm);
-      if(amIN)amIN.addEventListener('click',function(){var tk=amTok?amTok.value.trim():'';var c=document.getElementById('amCanalId');var cv=c?c.value.trim():'';var mv=amMsg?amMsg.innerText.trim():'';var mn=parseInt(amMn?amMn.value:30)||30;var mx=parseInt(amMx?amMx.value:60)||60;if(!tk){alert('Insira o Token do Discord.');return;}if(!cv){alert('Insira o ID do Canal.');return;}if(!mv){alert('Insira a mensagem a ser enviada.');return;}if(mn<30){alert('O tempo mínimo deve ser de pelo menos 30 segundos.');return;}if(mx<mn){alert('O tempo máximo deve ser maior ou igual ao mínimo.');return;}amIN.textContent='Iniciando...';amIN.disabled=true;setTimeout(function(){amIN.textContent='Ativo ✓';amIN.style.background='#1a7f3c';amIN.style.borderColor='#1a7f3c';},800);});
-    })();
-    // ── FIM AUTO MENSAGEM ─────────────────────────────────────────────
   if(exCancelBtn) exCancelBtn.addEventListener('click', () => {}); // fantasma: sem ação
 
   allTabCards.forEach(tab => {
