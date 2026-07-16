@@ -3116,7 +3116,7 @@
 
                   <!-- Token Discord -->
                   <div class="ex-field-block">
-                    <div class="ex-field-label">TOKEN DISCORD</div>
+                    <div class="ex-table-label site-list-tag">Token Discord</div>
                     <div style="position:relative;">
                       <input class="ex-field-input" id="amToken" type="password" placeholder="Insira seu token do Discord..." style="padding-right:44px;font-family:monospace;">
                       <button type="button" id="amTokenToggle" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);padding:0;display:flex;align-items:center;">
@@ -3128,15 +3128,15 @@
 
                   <!-- ID Canal -->
                   <div class="ex-field-block">
-                    <div class="ex-field-label">ID CANAL</div>
+                    <div class="ex-table-label site-list-tag">ID Canal</div>
                     <input class="ex-field-input" id="amCanalId" type="text" placeholder="Ex: 123456789012345678" style="font-family:monospace;">
                   </div>
 
                   <!-- Mensagem -->
                   <div class="ex-field-block">
-                    <div class="ex-field-label" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                      <span>MENSAGEM</span>
-                      <button type="button" id="amEmojiBtn" style="background:none;border:1px solid var(--surface-border);color:var(--text-muted);cursor:pointer;font-size:12px;display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;">&#128522; Emoji</button>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                      <div class="ex-table-label site-list-tag" style="margin-bottom:0;">Mensagem</div>
+                      <button type="button" id="amEmojiBtn" style="background:none;border:1px solid var(--surface-border);color:var(--text-muted);cursor:pointer;font-size:12px;display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;">Emoji</button>
                     </div>
                     <div id="amEmojiPicker" style="display:none;padding:8px;background:rgba(0,0,0,0.3);border:1px solid var(--surface-border);border-radius:10px;margin-bottom:8px;flex-wrap:wrap;gap:4px;"></div>
                     <div class="ex-edit-table" id="amMessage" contenteditable="true" data-placeholder="Digite sua mensagem..."></div>
@@ -3145,7 +3145,7 @@
 
                   <!-- Intervalo de Tempo -->
                   <div class="ex-field-block">
-                    <div class="ex-field-label">INTERVALO DE TEMPO (SEGUNDOS)</div>
+                    <div class="ex-table-label site-list-tag">Intervalo de Tempo (segundos)</div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
                       <div>
                         <div class="ex-field-label" style="margin-top:0;">M&iacute;nimo <span style="color:var(--red-glow);">(&ge; 30s)</span></div>
@@ -3161,7 +3161,7 @@
 
                   <!-- Webhook -->
                   <div class="ex-field-block">
-                    <div class="ex-field-label">WEBHOOK <span style="color:var(--text-faint);font-weight:400;text-transform:none;">(Opcional)</span></div>
+                    <div class="ex-table-label site-list-tag">Webhook <span style="color:var(--red-glow);font-weight:400;text-transform:none;opacity:0.6;">(Opcional)</span></div>
                     <input class="ex-field-input" id="amWebhook" type="url" placeholder="https://discord.com/api/webhooks/..." style="font-family:monospace;">
                     <span style="font-size:11px;color:var(--text-faint);">URL do webhook para notifica&ccedil;&otilde;es externas.</span>
                   </div>
