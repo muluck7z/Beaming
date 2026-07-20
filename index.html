@@ -1680,6 +1680,78 @@
     .ext-tut-cursor.show{opacity:1}
     @keyframes extBlink{0%,100%{opacity:1}50%{opacity:0}}
     .ext-tut-cursor svg{width:12px;height:12px}
+
+  /* ══════════════════════════════════════════
+     AUTO MENSAGEM — MODAL
+  ══════════════════════════════════════════ */
+  .am-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.78);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility .3s ease;}
+  .am-overlay.show{opacity:1;visibility:visible;pointer-events:auto;}
+  .am-modal{width:100%;max-width:480px;background:#111118;border:1px solid rgba(255,255,255,0.1);border-radius:22px;overflow:hidden;transform:scale(0.91) translateY(18px);transition:transform .38s cubic-bezier(.34,1.4,.4,1),opacity .32s ease;opacity:0;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.65);}
+  .am-overlay.show .am-modal{transform:scale(1) translateY(0);opacity:1;}
+  .am-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.025);flex-shrink:0;}
+  .am-header-left{display:flex;align-items:center;gap:13px;}
+  .am-header-icon{width:38px;height:38px;border-radius:12px;background:rgba(224,16,42,0.13);border:1px solid rgba(224,16,42,0.3);display:flex;align-items:center;justify-content:center;color:var(--red-glow);flex-shrink:0;}
+  .am-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);}
+  .am-subtitle{font-size:12px;color:var(--text-muted);margin-top:1px;}
+  .am-status-badge{display:none;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:rgba(62,207,106,0.1);border:1px solid rgba(62,207,106,0.3);font-size:11px;font-weight:700;color:#3ecf6a;}
+  .am-status-badge.show{display:flex;}
+  .am-status-dot{width:7px;height:7px;border-radius:50%;background:#3ecf6a;animation:am-pulse 1.6s ease-in-out infinite;}
+  @keyframes am-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.5);}}
+  .am-close{width:34px;height:34px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:border-color .2s,color .2s,transform .2s;flex-shrink:0;}
+  .am-close:hover{border-color:rgba(224,16,42,0.5);color:var(--text);}
+  .am-close:active{transform:scale(0.9);}
+  .am-body{overflow-y:auto;flex:1;padding:22px;}
+  .am-body::-webkit-scrollbar{width:4px;}
+  .am-body::-webkit-scrollbar-thumb{background:rgba(255,45,71,0.25);border-radius:2px;}
+  .am-field{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+  .am-field:last-child{margin-bottom:0;}
+  .am-label{font-size:11.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);}
+  .am-label-row{display:flex;align-items:center;justify-content:space-between;}
+  .am-input-wrap{position:relative;}
+  .am-input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:11px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .2s,background .2s;}
+  .am-input::placeholder{color:var(--text-faint);}
+  .am-input:focus{border-color:rgba(224,16,42,0.5);background:rgba(224,16,42,0.04);}
+  .am-input.am-mono{font-family:monospace;font-size:13px;}
+  .am-input-pr{padding-right:44px;}
+  .am-eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);transition:color .2s;padding:0;display:flex;align-items:center;}
+  .am-eye:hover{color:var(--text);}
+  .am-hint{font-size:11.5px;color:var(--text-faint);line-height:1.5;}
+  .am-textarea{width:100%;min-height:90px;resize:vertical;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:11px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .2s,background .2s;}
+  .am-textarea::placeholder{color:var(--text-faint);}
+  .am-textarea:focus{border-color:rgba(224,16,42,0.5);background:rgba(224,16,42,0.04);}
+  .am-char-count{font-size:11px;color:var(--text-faint);text-align:right;}
+  .am-emoji-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-size:12px;color:var(--text-muted);padding:4px 8px;border-radius:7px;transition:background .2s,color .2s;}
+  .am-emoji-btn:hover{background:rgba(255,255,255,0.07);color:var(--text);}
+  .am-emoji-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:10px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:12px;margin-bottom:8px;}
+  .am-emoji-item{font-size:17px;background:none;border:none;cursor:pointer;padding:3px;border-radius:6px;line-height:1;transition:background .15s;}
+  .am-emoji-item:hover{background:rgba(255,255,255,0.08);}
+  .am-time-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  .am-time-col{display:flex;flex-direction:column;gap:6px;}
+  .am-time-label{font-size:11px;color:var(--text-muted);}
+  .am-time-accent{color:var(--red-glow);}
+  .am-time-optional{color:var(--text-faint);font-weight:400;}
+  .am-time-hint{font-size:11px;color:var(--text-faint);line-height:1.55;margin-top:2px;}
+  .am-divider{height:1px;background:rgba(255,255,255,0.07);margin:6px 0 18px;}
+  .am-footer{display:flex;gap:10px;padding:16px 22px 20px;border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
+  .am-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+  .am-stat{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;gap:4px;}
+  .am-stat-icon{color:var(--text-muted);margin-bottom:2px;}
+  .am-stat-icon.green{color:#3ecf6a;}.am-stat-icon.red{color:var(--red-glow);}.am-stat-icon.blue{color:#5b8dee;}
+  .am-stat-num{font-size:22px;font-weight:800;font-family:'Space Grotesk',sans-serif;color:var(--text);}
+  .am-stat-label{font-size:11px;color:var(--text-muted);}
+  .am-config-info{padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:11px;font-size:12px;color:var(--text-muted);margin-bottom:18px;line-height:1.8;}
+  .am-config-info span{color:var(--text);font-weight:600;}
+  .am-log-wrap{margin-bottom:4px;}
+  .am-log-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:8px;}
+  .am-log{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 12px;max-height:160px;overflow-y:auto;font-family:monospace;font-size:11.5px;display:flex;flex-direction:column;gap:3px;}
+  .am-log::-webkit-scrollbar{width:3px;}
+  .am-log::-webkit-scrollbar-thumb{background:rgba(255,45,71,0.25);border-radius:2px;}
+  .am-log-line{display:flex;gap:8px;align-items:baseline;}
+  .am-log-time{color:var(--text-faint);flex-shrink:0;font-size:10.5px;}
+  .am-log-text{color:#3ecf6a;}.am-log-text.err{color:var(--red-glow);}.am-log-text.info{color:var(--text-muted);}
+  .am-btn-stop{width:100%;padding:13px 0;background:rgba(224,16,42,0.12);border:1px solid rgba(224,16,42,0.35);border-radius:13px;color:var(--red-glow);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .2s,border-color .2s;}
+  .am-btn-stop:hover{background:rgba(224,16,42,0.22);border-color:var(--red-glow);}
+  .am-desc{font-size:13.5px;color:var(--text-muted);line-height:1.6;margin-bottom:18px;}
 </style>
   <script>
     // Script imediato para evitar flash de conteúdo e restaurar estado
@@ -3108,29 +3180,131 @@
               <span class="site-section-badge">01</span>
               <span class="site-section-title">Auto Mensagem</span>
             </div>
+            <!-- Trigger -->
             <div class="ex-card ex-card-lg ex-card-solid">
               <div class="ex-card-body">
-                <div class="ex-table-block">
-                  <div class="ex-table-label site-list-tag">Teste</div>
-                  <input class="ex-key-input" type="text" placeholder="Escreva algo">
+                <div class="am-desc">
+                  Envie mensagens automáticas em um canal do Discord em intervalos aleatórios humanizados. Configure token, canal, mensagem, intervalo e slowmode do canal.
+                </div>
+                <button class="site-list-btn" onclick="amOpen()" style="justify-content:center;width:100%;cursor:pointer;border:none;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 01-8.5 8.5 8.4 8.4 0 01-4-1L3 21l1.5-4.5A8.4 8.4 0 013.5 12 8.5 8.5 0 0112 3.5 8.5 8.5 0 0121 12z"/></svg>
+                  Configurar Auto Mensagem
+                </button>
+              </div>
+            </div>
+
+            <!-- AUTO MENSAGEM MODAL -->
+            <div class="am-overlay" id="amOverlay" onclick="if(event.target===this)amClose()">
+              <div class="am-modal" id="amModal">
+                <div class="am-header">
+                  <div class="am-header-left">
+                    <div class="am-header-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 01-8.5 8.5 8.4 8.4 0 01-4-1L3 21l1.5-4.5A8.4 8.4 0 013.5 12 8.5 8.5 0 0112 3.5 8.5 8.5 0 0121 12z"/></svg>
+                    </div>
+                    <div>
+                      <div class="am-title">Auto Mensagem</div>
+                      <div class="am-subtitle" id="amSubtitle">Configure o envio automático</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="am-status-badge" id="amBadge"><span class="am-status-dot"></span>Ativo</div>
+                    <button class="am-close" onclick="amClose()" aria-label="Fechar">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </div>
                 </div>
 
-                <div class="ex-toggle-block">
-                  <div class="ex-toggle-row ex-toggle-row-compact">
-                    <div class="ex-toggle-text">
-                      <span class="ex-toggle-title">Opção A</span>
+                <!-- FORMULÁRIO -->
+                <div id="amFormPanel">
+                  <div class="am-body">
+                    <div class="am-field">
+                      <label class="am-label">Token Discord</label>
+                      <div class="am-input-wrap">
+                        <input class="am-input am-mono am-input-pr" id="amToken" type="password" placeholder="Seu token do Discord…" autocomplete="off">
+                        <button type="button" class="am-eye" onclick="amToggleToken()">
+                          <svg id="amEyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                      </div>
+                      <span class="am-hint">Mantenha seu token em segurança. Nunca o compartilhe.</span>
                     </div>
-                    <button class="ex-switch" data-state="off"><span class="ex-switch-dot"></span></button>
+                    <div class="am-field">
+                      <label class="am-label">ID do Canal</label>
+                      <input class="am-input am-mono" id="amCanalId" type="text" placeholder="Ex: 123456789012345678">
+                    </div>
+                    <div class="am-field">
+                      <div class="am-label-row">
+                        <label class="am-label">Mensagem</label>
+                        <button type="button" class="am-emoji-btn" onclick="amToggleEmoji()">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                          Emoji
+                        </button>
+                      </div>
+                      <div class="am-emoji-grid" id="amEmojiGrid" style="display:none;"><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😀')">😀</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😂')">😂</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😍')">😍</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🥰')">🥰</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😎')">😎</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🤔')">🤔</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😅')">😅</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🙂')">🙂</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😊')">😊</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🤩')">🤩</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('👍')">👍</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('👎')">👎</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('❤️')">❤️</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🔥')">🔥</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('✨')">✨</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('💯')">💯</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🎉')">🎉</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🚀')">🚀</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('⚡')">⚡</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('💀')">💀</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🤣')">🤣</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😭')">😭</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😤')">😤</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🥺')">🥺</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('😏')">😏</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🤯')">🤯</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🫡')">🫡</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('💪')">💪</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('🙏')">🙏</button><button type="button" class="am-emoji-item" onclick="amInsertEmoji('👀')">👀</button></div>
+                      <textarea class="am-textarea" id="amMessage" placeholder="Digite sua mensagem…" oninput="amUpdateCharCount()"></textarea>
+                      <div class="am-char-count"><span id="amCharCount">0</span> / 2000</div>
+                    </div>
+                    <div class="am-divider"></div>
+                    <div class="am-field">
+                      <label class="am-label">Intervalo de Tempo (segundos)</label>
+                      <div class="am-time-row">
+                        <div class="am-time-col">
+                          <span class="am-time-label">Mínimo <span class="am-time-accent">(≥ 30s)</span></span>
+                          <input class="am-input" id="amMinTime" type="number" min="30" value="30" oninput="amUpdateHint()">
+                        </div>
+                        <div class="am-time-col">
+                          <span class="am-time-label">Máximo</span>
+                          <input class="am-input" id="amMaxTime" type="number" min="30" value="60" oninput="amUpdateHint()">
+                        </div>
+                        <div class="am-time-col">
+                          <span class="am-time-label">Lock <span class="am-time-optional">(opcional)</span></span>
+                          <input class="am-input" id="amLockTime" type="number" min="1" placeholder="—">
+                        </div>
+                      </div>
+                      <div class="am-time-hint" id="amTimeHint">Mensagens a cada <strong>30s–60s</strong> aleatório. Lock = slowmode do canal.</div>
+                    </div>
                   </div>
-                  <div class="ex-toggle-row ex-toggle-row-compact">
-                    <div class="ex-toggle-text">
-                      <span class="ex-toggle-title">Opção B</span>
-                    </div>
-                    <button class="ex-switch" data-state="off"><span class="ex-switch-dot"></span></button>
+                  <div class="am-footer">
+                    <button class="ex-btn ex-btn-ghost" style="flex:1;" onclick="amClose()">Cancelar</button>
+                    <button class="ex-btn ex-btn-primary" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;" onclick="amStart()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                      Iniciar
+                    </button>
                   </div>
                 </div>
 
-                <a class="site-list-btn" href="#" id="exExecutarBtn" style="justify-content:center;">Executar</a>
+                <!-- PAINEL EM EXECUÇÃO -->
+                <div id="amRunPanel" style="display:none;">
+                  <div class="am-body">
+                    <div class="am-stats">
+                      <div class="am-stat">
+                        <svg class="am-stat-icon green" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="am-stat-num" id="amSentCount">0</span>
+                        <span class="am-stat-label">Enviadas</span>
+                      </div>
+                      <div class="am-stat">
+                        <svg class="am-stat-icon red" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                        <span class="am-stat-num" id="amErrCount">0</span>
+                        <span class="am-stat-label">Erros</span>
+                      </div>
+                      <div class="am-stat">
+                        <svg class="am-stat-icon blue" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span class="am-stat-num" id="amCdNum">—</span>
+                        <span class="am-stat-label">Próxima (s)</span>
+                      </div>
+                    </div>
+                    <div class="am-config-info" id="amConfigInfo"></div>
+                    <div class="am-log-wrap">
+                      <div class="am-log-title">Log ao vivo</div>
+                      <div class="am-log" id="amLog"></div>
+                    </div>
+                  </div>
+                  <div class="am-footer">
+                    <button class="am-btn-stop" onclick="amStop()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+                      Parar Auto Mensagem
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -3764,5 +3938,188 @@ function runExtTutorial(){
     </div>
   </div>
 </div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   AUTO MENSAGEM — lógica client-side
+═══════════════════════════════════════════════════ */
+(function(){
+  var amRunning   = false;
+  var amTimer     = null;
+  var amCdInterval= null;
+  var amSent      = 0;
+  var amErr       = 0;
+  var amNextIn    = 0;
+  var amConfig    = {};
+
+  /* ── UI helpers ─────────────────────────────────── */
+  function amOpen(){
+    document.getElementById('amOverlay').classList.add('show');
+    document.body.style.overflow='hidden';
+    amUpdateHint();
+  }
+  function amClose(){
+    if(amRunning) return; // não fechar enquanto roda
+    document.getElementById('amOverlay').classList.remove('show');
+    document.body.style.overflow='';
+  }
+  function amToggleToken(){
+    var el=document.getElementById('amToken');
+    var ic=document.getElementById('amEyeIcon');
+    if(el.type==='password'){
+      el.type='text';
+      ic.innerHTML='<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+    }else{
+      el.type='password';
+      ic.innerHTML='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    }
+  }
+  function amToggleEmoji(){
+    var g=document.getElementById('amEmojiGrid');
+    g.style.display=g.style.display==='none'?'grid':'none';
+  }
+  function amInsertEmoji(e){
+    var ta=document.getElementById('amMessage');
+    var s=ta.selectionStart, en=ta.selectionEnd;
+    ta.value=ta.value.slice(0,s)+e+ta.value.slice(en);
+    ta.selectionStart=ta.selectionEnd=s+e.length;
+    ta.focus();
+    amUpdateCharCount();
+  }
+  function amUpdateCharCount(){
+    var v=document.getElementById('amMessage').value;
+    document.getElementById('amCharCount').textContent=v.length;
+  }
+  function amUpdateHint(){
+    var mn=parseInt(document.getElementById('amMinTime').value)||30;
+    var mx=parseInt(document.getElementById('amMaxTime').value)||60;
+    document.getElementById('amTimeHint').innerHTML=
+      'Mensagens a cada <strong>'+mn+'s&ndash;'+mx+'s</strong> aleatório. Lock = slowmode do canal.';
+  }
+  function amLog(msg,type){
+    var log=document.getElementById('amLog');
+    var now=new Date();
+    var t=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0')+':'+now.getSeconds().toString().padStart(2,'0');
+    var line=document.createElement('div');
+    line.className='am-log-line';
+    line.innerHTML='<span class="am-log-time">'+t+'</span><span class="am-log-text'+(type?' '+type:'')+'">'+msg+'</span>';
+    log.appendChild(line);
+    log.scrollTop=log.scrollHeight;
+    if(log.children.length>120){log.removeChild(log.firstChild);}
+  }
+
+  /* ── Validation ─────────────────────────────────── */
+  function amValidate(){
+    var token=document.getElementById('amToken').value.trim();
+    var canal=document.getElementById('amCanalId').value.trim();
+    var msg  =document.getElementById('amMessage').value.trim();
+    var mn   =parseInt(document.getElementById('amMinTime').value);
+    var mx   =parseInt(document.getElementById('amMaxTime').value);
+    var lk   =parseInt(document.getElementById('amLockTime').value)||0;
+    if(!token){alert('Preencha o Token Discord.');return null;}
+    if(!canal){alert('Preencha o ID do Canal.');return null;}
+    if(!msg){alert('Escreva uma mensagem.');return null;}
+    if(isNaN(mn)||mn<30){alert('O tempo mínimo deve ser ≥ 30 segundos.');return null;}
+    if(isNaN(mx)||mx<mn){alert('O tempo máximo deve ser ≥ ao tempo mínimo.');return null;}
+    return {token,canal,msg,mn,mx,lk};
+  }
+
+  /* ── Start/Stop ─────────────────────────────────── */
+  function amStart(){
+    var cfg=amValidate();
+    if(!cfg)return;
+    amConfig=cfg;
+    amRunning=true;
+    amSent=0;amErr=0;
+    document.getElementById('amFormPanel').style.display='none';
+    document.getElementById('amRunPanel').style.display='block';
+    document.getElementById('amBadge').classList.add('show');
+    document.getElementById('amSubtitle').textContent='Rodando…';
+    document.getElementById('amSentCount').textContent='0';
+    document.getElementById('amErrCount').textContent='0';
+    document.getElementById('amLog').innerHTML='';
+    document.getElementById('amConfigInfo').innerHTML=
+      'Canal: <span>#'+cfg.canal+'</span> &nbsp;|&nbsp; '+
+      'Intervalo: <span>'+cfg.mn+'s – '+cfg.mx+'s</span>'+
+      (cfg.lk?' &nbsp;|&nbsp; Lock: <span>'+cfg.lk+'s</span>':'');
+    amLog('Auto Mensagem iniciada.','info');
+    amScheduleNext();
+  }
+  function amStop(){
+    amRunning=false;
+    clearTimeout(amTimer);
+    clearInterval(amCdInterval);
+    document.getElementById('amFormPanel').style.display='block';
+    document.getElementById('amRunPanel').style.display='none';
+    document.getElementById('amBadge').classList.remove('show');
+    document.getElementById('amSubtitle').textContent='Configure o envio automático';
+    document.getElementById('amCdNum').textContent='—';
+  }
+
+  /* ── Send loop ──────────────────────────────────── */
+  function amRandInt(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+  function amScheduleNext(){
+    if(!amRunning)return;
+    var delay=amRandInt(amConfig.mn,amConfig.mx)*1000;
+    if(amConfig.lk>0) delay=Math.max(delay,(amConfig.lk+1)*1000);
+    amNextIn=Math.round(delay/1000);
+    document.getElementById('amCdNum').textContent=amNextIn;
+    clearInterval(amCdInterval);
+    amCdInterval=setInterval(function(){
+      if(!amRunning){clearInterval(amCdInterval);return;}
+      amNextIn--;
+      document.getElementById('amCdNum').textContent=amNextIn>0?amNextIn:'…';
+    },1000);
+    amTimer=setTimeout(function(){
+      clearInterval(amCdInterval);
+      if(!amRunning)return;
+      amSendMessage();
+    },delay);
+  }
+  function amSendMessage(){
+    var url='https://discord.com/api/v9/channels/'+amConfig.canal+'/messages';
+    fetch(url,{
+      method:'POST',
+      headers:{
+        'Authorization': amConfig.token,
+        'Content-Type' : 'application/json',
+        'User-Agent'   : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      },
+      body:JSON.stringify({content:amConfig.msg,tts:false})
+    })
+    .then(function(r){
+      if(r.ok){
+        amSent++;
+        document.getElementById('amSentCount').textContent=amSent;
+        amLog('✓ Mensagem #'+amSent+' enviada');
+      }else{
+        return r.json().then(function(d){
+          throw new Error(r.status+' – '+(d.message||'Erro desconhecido'));
+        });
+      }
+    })
+    .catch(function(e){
+      amErr++;
+      document.getElementById('amErrCount').textContent=amErr;
+      amLog('✗ '+e.message,'err');
+    })
+    .finally(function(){
+      if(amRunning) amScheduleNext();
+    });
+  }
+
+  /* ── Expose globals ─────────────────────────────── */
+  window.amOpen=amOpen;
+  window.amClose=amClose;
+  window.amToggleToken=amToggleToken;
+  window.amToggleEmoji=amToggleEmoji;
+  window.amInsertEmoji=amInsertEmoji;
+  window.amUpdateCharCount=amUpdateCharCount;
+  window.amUpdateHint=amUpdateHint;
+  window.amStart=amStart;
+  window.amStop=amStop;
+})();
+</script>
+
 </body>
 </html>
