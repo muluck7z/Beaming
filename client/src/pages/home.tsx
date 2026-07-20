@@ -23,9 +23,21 @@ const categories = [
   },
 ];
 
+const STORAGE_KEY = "beaming_automessage_state";
+
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("ferramentas");
-  const [autoMensagemOpen, setAutoMensagemOpen] = useState(false);
+  // Se estava rodando antes do reload/fechamento, reabre o modal automaticamente
+  const [autoMensagemOpen, setAutoMensagemOpen] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return parsed.status === "running";
+      }
+    } catch {}
+    return false;
+  });
 
   const filteredTools = tools.filter(
     (t) => t.category.toLowerCase() === activeCategory
