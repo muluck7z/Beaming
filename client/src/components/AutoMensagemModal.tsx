@@ -28,6 +28,8 @@ const DISCORD_EMOJIS = [
   "🤣","😭","😤","🥺","😏","🤯","🫡","💪","🙏","👀",
 ];
 
+const STORAGE_KEY = "beaming_automessage_state";
+
 async function tick(ms: number) {
   return new Promise<void>(r => setTimeout(r, ms));
 }
@@ -56,15 +58,51 @@ export default function AutoMensagemModal({ open, onClose }: Props) {
   const cdIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const logEndRef     = useRef<HTMLDivElement>(null);
 
+  // Carregar estado inicial do LocalStorage
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setToken(parsed.token || "");
+        setCanalId(parsed.canalId || "");
+        setMessage(parsed.message || "");
+        setMinTime(parsed.minTime || 30);
+        setMaxTime(parsed.maxTime || 60);
+        setLockTime(parsed.lockTime ?? "");
+        setSent(parsed.sent || 0);
+        setErrors(parsed.errors || 0);
+        setLogs(parsed.logs || []);
+        
+        // Se estava rodando, retoma automaticamente
+        if (parsed.status === "running") {
+          handleResume(parsed);
+        } else {
+          setStatus(parsed.status || "idle");
+        }
+      } catch (e) {
+        console.error("Erro ao carregar estado salvo:", e);
+      }
+    }
+  }, []);
+
+  // Salvar estado sempre que algo mudar
+  useEffect(() => {
+    const state = {
+      token, canalId, message, minTime, maxTime, lockTime,
+      status, sent, errors, logs
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }, [token, canalId, message, minTime, maxTime, lockTime, status, sent, errors, logs]);
+
   useEffect(() => {
     logEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [logs]);
 
   useEffect(() => {
-    if (!open) stop();
+    // Não paramos mais o script ao fechar o modal, apenas se o usuário explicitamente parar
+    // if (!open) stop(); 
   }, [open]);
-
-  if (!open) return null;
 
   /* ── Helpers ───────────────────────────────────── */
   function addLog(text: string, ok: boolean) {
@@ -101,9 +139,10 @@ export default function AutoMensagemModal({ open, onClose }: Props) {
   /* ── Main loop ─────────────────────────────────── */
   async function runLoop(
     tok: string, ch: string, msg: string,
-    mn: number, mx: number, lk: number
+    mn: number, mx: number, lk: number,
+    initialSent = 0, initialErrors = 0
   ) {
-    let sentN = 0, errN = 0;
+    let sentN = initialSent, errN = initialErrors;
 
     while (runningRef.current) {
       const rand  = mn + Math.random() * (mx - mn);
@@ -174,6 +213,15 @@ export default function AutoMensagemModal({ open, onClose }: Props) {
     setShowEmojiPicker(false);
   }
 
+  /* ── Resume Logic ───────────────────────────────── */
+  function handleResume(saved: any) {
+    runningRef.current = true;
+    setStatus("running");
+    addLog("🔄 Retomando script após recarregamento.", true);
+    const lk = saved.lockTime !== "" ? Number(saved.lockTime) : 0;
+    runLoop(saved.token, saved.canalId, saved.message, saved.minTime, saved.maxTime, lk, saved.sent, saved.errors);
+  }
+
   /* ── Submit ─────────────────────────────────────── */
   function handleStart(e: React.FormEvent) {
     e.preventDefault();
@@ -214,11 +262,13 @@ export default function AutoMensagemModal({ open, onClose }: Props) {
   const isRunning = status === "running";
   const isStopped = status === "stopped";
 
+  if (!open) return null;
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
       data-testid="auto-mensagem-modal-overlay"
-      onClick={e => { if (e.target === e.currentTarget) { stop(); onClose(); } }}
+      onClick={e => { if (e.target === e.currentTarget) { onClose(); } }}
     >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
@@ -250,7 +300,7 @@ export default function AutoMensagemModal({ open, onClose }: Props) {
             )}
             <button
               data-testid="button-close-modal"
-              onClick={() => { stop(); onClose(); }}
+              onClick={() => { onClose(); }}
               className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             >
               <X className="w-4 h-4" />
@@ -370,7 +420,7 @@ export default function AutoMensagemModal({ open, onClose }: Props) {
                 <div className="grid grid-cols-3 gap-3">
                   <div className="space-y-1">
                     <Label htmlFor="min-time" className="text-xs text-muted-foreground">
-                      Mínimo <span className="text-primary">(≥ 30s)</span>
+                      Mínimo (≥ 30s)
                     </Label>
                     <Input
                       id="min-time"
