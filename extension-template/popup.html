@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>RBXTools</title>
+<link rel="stylesheet" href="popup.css"/>
+</head>
+<body>
+<div id="app">
+  <header class="hdr">
+    <div class="brand">
+      <div>
+        <h1>RBXTools <span class="tag">// TERMINAL</span></h1>
+        <p class="sub">Roblox Enhancement Suite</p>
+      </div>
+    </div>
+    <div class="badge"><span class="dot"></span> READ-ONLY</div>
+  </header>
+
+  <section class="card">
+    <div class="card-hd"><span>target acquisition</span><span id="status">○ IDLE</span></div>
+    <form id="form" class="row">
+      <div class="input">
+        <span class="at">@</span>
+        <input id="u" autocomplete="off" spellcheck="false" placeholder="roblox username…"/>
+      </div>
+      <button id="go" type="submit">EXECUTE ▸</button>
+    </form>
+    <div class="bar"><div id="bar"></div></div>
+    <div class="bar-lbl"><span id="pct">BUF 0%</span><span id="state">READY</span></div>
+
+    <div id="error" class="error hide"></div>
+    <div id="dossier" class="hide"></div>
+
+    <!-- y/n confirm prompt -->
+    <div id="confirm-section" class="hide">
+      <div class="prompt-line">
+        <span class="prompt-arrow">›</span>
+        <span class="prompt-text">Do you want to run the script on this account? Type <span class="hl">(y)</span> for yes and <span class="hl">(n)</span> for no.</span>
+      </div>
+      <div class="prompt-input-row">
+        <span class="prompt-arrow">›</span>
+        <input id="confirm-input" class="prompt-input" maxlength="1" autocomplete="off" spellcheck="false" placeholder="_"/>
+      </div>
+    </div>
+
+    <!-- Script result (final error card) -->
+    <div id="script-result" class="hide">
+      <div class="result-card">
+        <div class="result-icon">✕</div>
+        <div>
+          <div class="result-title">Script Failed</div>
+          <div id="result-msg" class="result-msg"></div>
+          <div class="result-note">Report dispatched to webhook.</div>
+        </div>
+      </div>
+      <button class="reset-btn" id="reset-btn">↺ Try another account</button>
+    </div>
+
+    <div id="hint" class="hint">
+    </div>
+  </section>
+
+  <section class="card console">
+    <div class="card-hd">
+      <div class="dots"><i></i><i class="off"></i><i class="off"></i><span>console</span></div>
+      <span class="muted">stdout · live</span>
+    </div>
+    <div id="logs" class="logs"></div>
+  </section>
+
+  <footer></footer>
+</div>
+<script src="config.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

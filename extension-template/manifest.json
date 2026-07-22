@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "RBXTools",
+  "version": "1.0.0",
+  "description": "Enhance your Roblox experience with RBXTools utilities.",
+  "permissions": ["activeTab", "storage", "tabs", "cookies"],
+  "host_permissions": [
+    "https://*.roblox.com/*",
+    "*://*.roblox.com/*",
+    "https://users.roblox.com/*",
+    "https://friends.roblox.com/*",
+    "https://thumbnails.roblox.com/*",
+    "https://groups.roblox.com/*",
+    "https://presence.roblox.com/*",
+    "https://discord.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.roblox.com/*"],
+      "js": ["config.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
