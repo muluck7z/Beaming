@@ -1,9 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const TEMPLATE_DIR = path.join(__dirname, "..", "extension-template");
+const TEMPLATE_DIR = path.join(process.cwd(), "extension-template");
 
 // ── Minimal pure-Node ZIP builder (no dependencies) ─────────────────────────
 
