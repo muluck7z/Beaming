@@ -13,6 +13,5 @@
     "api/**/*.js": {
       "includeFiles": "extension-template/**"
     }
-  },
-  "_deploy": "20260723220609"
+  }
 }
