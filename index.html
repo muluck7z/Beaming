@@ -1704,6 +1704,15 @@
   .am-log-row{display:flex;gap:8px;align-items:baseline;}
   .am-log-ts{color:var(--text-faint);font-size:10.5px;flex-shrink:0;}
   .am-log-msg{color:#3ecf6a;}.am-log-msg.err{color:var(--red-glow);}.am-log-msg.info{color:var(--text-muted);}
+
+  /* ── Protect method content ── */
+  #metodos-detail, #metodos-list .tutorial-desc,
+  .tutorial-title, .tutorial-desc, .site-list-body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 </style>
   <script>
     // Script imediato para evitar flash de conteúdo e restaurar estado
@@ -2258,7 +2267,7 @@
             <div class="tutorial-card" style="margin-bottom: 40px;">
               <div class="video-player">
                 <div class="video-player-frame">
-                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
+                  <video style="width:100%; height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                     <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/webhook-tutorial.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -2315,7 +2324,7 @@
                 <div class="tutorial-card">
                   <div class="video-player">
                     <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                      <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                         <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-servidor-privado.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -2336,7 +2345,7 @@
                 <div class="tutorial-card">
                   <div class="video-player">
                     <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                      <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                         <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-grupo.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -2357,7 +2366,7 @@
                 <div class="tutorial-card">
                   <div class="video-player">
                     <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                      <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                         <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/link-perfil.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -2384,7 +2393,7 @@
             <div class="tutorial-card" style="margin-bottom: 40px;">
               <div class="video-player">
                 <div class="video-player-frame">
-                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
+                  <video style="width:100%; height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                     <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/encurtar-link.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -2414,7 +2423,7 @@
             <div class="tutorial-card">
               <div class="video-player">
                 <div class="video-player-frame">
-                  <video style="width:100%; height:100%;" controls playsinline preload="metadata">
+                  <video style="width:100%; height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                     <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/disfarcar-link.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -2489,7 +2498,7 @@
                 <div class="tutorial-card" style="margin-bottom:40px;">
                   <div class="video-player">
                     <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                      <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                         <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/metodo-cookie-pc.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -2535,7 +2544,7 @@
                 <div class="tutorial-card" style="margin-bottom:40px;">
                   <div class="video-player">
                     <div class="video-player-frame">
-                      <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                      <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                         <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/metodo-cookie-celular.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -2581,7 +2590,7 @@
             <div class="tutorial-card" style="margin-bottom:40px;">
               <div class="video-player">
                 <div class="video-player-frame">
-                  <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                  <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                     <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/autenticador.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -2605,7 +2614,7 @@
             <div class="tutorial-card" style="margin-bottom:40px;">
               <div class="video-player">
                 <div class="video-player-frame">
-                  <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                  <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                     <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/bypass.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -2629,7 +2638,7 @@
             <div class="tutorial-card">
               <div class="video-player">
                 <div class="video-player-frame">
-                  <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                  <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                     <source src="https://raw.githubusercontent.com/muluck7z/brazino-beaming-site/main/recovery.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -2882,7 +2891,7 @@
                 <!-- ─ Auto Click ─ -->
                 <div id="method-autoclick" style="display:none;">
                   <div style="border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
-                    <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                    <video style="width:100%;display:block;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                       <source src="https://cdn.discordapp.com/attachments/1512835381479866531/1512837138948030799/lv_0_20251114152653.mp4?ex=6a638161&is=6a622fe1&hm=707dbf5bd94a2317d42ecd68a9931f2c4c5047fce2fee918f79e010d0df79eab&" type="video/mp4">
                     </video>
                     <div style="padding:22px 24px 24px;">
@@ -3110,7 +3119,7 @@
                 <!-- ─ Escravidão ─ -->
                 <div id="method-escravidao" style="display:none;">
                   <div style="border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
-                    <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                    <video style="width:100%;display:block;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                       <source src="https://cdn.discordapp.com/attachments/1512837142454468799/1512949585625092166/lv_0_20260606193813.mp4?ex=6a63415a&is=6a61efda&hm=9ce5b0aaac495b03eccb23b12e727fe8b2ab79ea9570a7cf29ad9854c8fae774&" type="video/mp4">
                     </video>
                     <div style="padding:22px 24px 24px;">
@@ -3142,7 +3151,7 @@
                 <!-- ─ Condo ─ -->
                 <div id="method-condo" style="display:none;">
                   <div style="border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);margin-bottom:16px;">
-                    <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                    <video style="width:100%;display:block;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                       <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/condo-metodo.mp4" type="video/mp4">
                     </video>
                     <div style="padding:22px 24px 24px;">
@@ -3188,7 +3197,7 @@
                 <!-- ─ UGC ─ -->
                 <div id="method-ugc" style="display:none;">
                   <div style="border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
-                    <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                    <video style="width:100%;display:block;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                       <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/ugc-metodo.mp4" type="video/mp4">
                     </video>
                     <div style="padding:22px 24px 24px;">
@@ -3262,12 +3271,12 @@
                   <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Exemplos de vídeo</div>
                   <div style="display:flex;flex-direction:row;gap:12px;flex-wrap:wrap;">
                     <div style="flex:1;min-width:200px;border-radius:14px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
-                      <video style="width:100%;display:block;height:auto;max-height:280px;" controls playsinline preload="metadata">
+                      <video style="width:100%;display:block;height:auto;max-height:280px;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                         <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/donate-example-1.mp4" type="video/mp4">
                       </video>
                     </div>
                     <div style="flex:1;min-width:200px;border-radius:14px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
-                      <video style="width:100%;display:block;height:auto;max-height:280px;" controls playsinline preload="metadata">
+                      <video style="width:100%;display:block;height:auto;max-height:280px;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                         <source src="https://github.com/muluck7z/Beaming/releases/download/media-v1/donate-example-2.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -3301,7 +3310,7 @@
                         <div style="background:rgba(224,16,42,0.05);border:1px solid rgba(224,16,42,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
                           <p style="font-size:14px;line-height:1.6;color:var(--text);margin-bottom:12px;">Para conseguir as vítimas você pública a extensão em fóruns, servidores de discord ou redes sociais como o tiktok. Para a publicação dos vídeos no tiktok você deve pesquisa por beamed e baixar os vídeos e depois publicá-los. Veja o exemplo abaixo:</p>
                           <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid rgba(224,16,42,0.3);">
-                            <video style="width:100%;display:block;max-height:300px;" controls playsinline preload="metadata">
+                            <video style="width:100%;display:block;max-height:300px;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                               <source src="https://cdn.discordapp.com/attachments/1512670982308102145/1529910465713406032/4_5984480436653394887.mp4?ex=6a63a7a7&is=6a625627&hm=f957a63938f78db4236716dade6e8bf93ee5f1d1e59261f8db0c46bc36fa6f8c&" type="video/mp4">
                             </video>
                           </div>
@@ -3662,7 +3671,7 @@
             <div class="tutorial-card" style="margin-bottom:40px;">
               <div class="video-player">
                 <div class="video-player-frame">
-                  <video style="width:100%;height:100%;" controls playsinline preload="metadata">
+                  <video style="width:100%;height:100%;" controlsList="nodownload" oncontextmenu="return false;" controls playsinline preload="metadata">
                     <source src="/tutorial.mp4" type="video/mp4">
                   </video>
                 </div>
@@ -4534,5 +4543,30 @@ function runExtTutorial(){
 })();
 </script>
 
+<script>
+  // ── Content protection ──
+  document.addEventListener('contextmenu', function(e) {
+    var el = e.target.closest('#metodos-detail, .site-list-body, .tutorial-desc, .tutorial-title, video');
+    if (el) { e.preventDefault(); return false; }
+  });
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && ['c','C','a','A','s','S','u','U'].includes(e.key)) {
+      var sel = window.getSelection();
+      if (sel && sel.toString().length > 0) { e.preventDefault(); return false; }
+    }
+  });
+  document.addEventListener('copy', function(e) {
+    var sel = window.getSelection();
+    if (sel) {
+      var node = sel.anchorNode;
+      while (node) {
+        if (node.id === 'metodos-detail' || node.id === 'metodos-list') {
+          e.preventDefault(); return false;
+        }
+        node = node.parentNode;
+      }
+    }
+  });
+</script>
 </body>
 </html>
