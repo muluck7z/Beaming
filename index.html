@@ -2908,48 +2908,120 @@
                         <span class="site-list-tag">Ferramenta</span>
                       </div>
                       <div class="tutorial-title">Extensão Falsa</div>
-                      <div class="tutorial-desc" style="margin-bottom:18px;">Uns dos melhores métodos que quase ninguém conhece, possivelmente sou umas das primeiras ou se não o primeiro a trazer esse método no servidor BR. Esse foi o método que três jovens ucranianos conseguiram +600mil contas, mas no final foram presos, não é querendo assustar vocês, estou apenas mostrando o quanto ele é eficiente, e se você não quiser ser preso é só não roubar +600mil contas, eles foram presos por conta da alta quantia de contas.</div>
                       
-                      <div style="margin-bottom:20px;">
-                        <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">Sobre o método é uma extensão que ao ser adicionada no navegador ela captura o cookie do usuário e envia para ti. No caso a extensão que eu mesmo desenvolvi mas com o suporte do servidor da Beamse para a formatação dos dados que forem capturados, é uma extensão que promete hackear uma conta de Roblox, mas com uma limitação: você precisa ser amigo desse usuário (isso força o usuário utilizar sua conta principal).</p>
+                      <!-- Botões que abrem os modais -->
+                      <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;">
                         
-                        <div style="background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.2);border-radius:10px;padding:12px 14px;margin-bottom:12px;">
-                          <p style="font-size:.83rem;color:var(--text-muted);margin:0;">Para conseguir as vítimas você pública a extensão em fóruns, servidores de discord ou redes sociais como o tiktok. Para a publicação dos vídeos no tiktok você deve pesquisa por beamed e baixar os vídeos e depois publicá-los. Vou deixar os vídeos de exemplos abaixo.</p>
+                        <!-- Card 1: História e Eficiência (Vermelho) -->
+                        <div onclick="openTutModal('historia')" style="cursor:pointer;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.3);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s ease;">
+                          <div style="display:flex;flex-direction:column;gap:4px;">
+                            <span style="font-size:11px;font-weight:700;color:var(--red-glow);text-transform:uppercase;letter-spacing:0.05em;">História e Eficiência</span>
+                            <span style="font-size:13px;color:var(--text);">O método que pegou +600mil contas</span>
+                          </div>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
                         </div>
 
-                        <div style="background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.2);border-radius:10px;padding:12px 14px;">
-                          <p style="font-size:.83rem;color:var(--text-muted);margin:0;">Crie um servidor de discord estilo beaming gringo, com canais de anúncios, updates, tutorial-cookie, tutorial-bypass e a extensão feke como beaming ou beamed. Faça os tutoriais de cada ou procure, não vou fornecer. Vou deixar servidores gringos de exemplos também abaixo.</p>
+                        <!-- Card 2: Sobre o Método (Cinza) -->
+                        <div onclick="openTutModal('sobre')" style="cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid var(--surface-border);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s ease;">
+                          <div style="display:flex;flex-direction:column;gap:4px;">
+                            <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Sobre o Método</span>
+                            <span style="font-size:13px;color:var(--text);">Como funciona a captura de cookies</span>
+                          </div>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
                         </div>
+
+                        <!-- Card 3: Conseguindo Vítimas (Vermelho) -->
+                        <div onclick="openTutModal('vitimas')" style="cursor:pointer;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.3);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s ease;">
+                          <div style="display:flex;flex-direction:column;gap:4px;">
+                            <span style="font-size:11px;font-weight:700;color:var(--red-glow);text-transform:uppercase;letter-spacing:0.05em;">Conseguindo Vítimas</span>
+                            <span style="font-size:13px;color:var(--text);">Divulgação em Fóruns, Discord e TikTok</span>
+                          </div>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        </div>
+
+                        <!-- Card 4: Teatro do Engano (Cinza) -->
+                        <div onclick="openTutModal('teatro')" style="cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid var(--surface-border);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s ease;">
+                          <div style="display:flex;flex-direction:column;gap:4px;">
+                            <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Teatro do Engano</span>
+                            <span style="font-size:13px;color:var(--text);">Criação de Servidor Discord Falso</span>
+                          </div>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        </div>
+
                       </div>
 
-                      <div style="margin-bottom:20px;">
-                        <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">Procure fazer sorteios falsos com quantidades enormes de robux e também drops falsos.</p>
-                        <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">Para criar sua extensão basta ir em ferramentas > extensão falsa e veja o vídeo ou apenas aperte neste botão para ir direto.</p>
-                        <button class="site-list-btn" style="border:none;cursor:pointer;width:100%;justify-content:center;margin-top:10px;" onclick="closeMethod();showView('ferramentas');document.querySelector('[data-tab=\'y2\']').click();">
+                      <div style="margin-top:24px;">
+                        <button class="site-list-btn" style="border:none;cursor:pointer;width:100%;justify-content:center;" onclick="closeMethod();showView('ferramentas');document.querySelector('[data-tab=\'y2\']').click();">
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                          <span>Ir para Extensão Falsa</span>
+                          <span>Ir para Ferramentas</span>
                         </button>
                       </div>
 
                       <!-- Informações -->
-                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;padding-top:14px;border-top:1px solid var(--surface-border);">
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;padding-top:14px;border-top:1px solid var(--surface-border);margin-top:20px;">
                         <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Autor</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span></div>
                         <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Avaliado</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 5.0</span></div>
                         <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Dificuldade</span><span style="font-size:.88rem;color:var(--red-glow);font-weight:600;">Avançada</span></div>
                         <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Categoria</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Ferramenta</span></div>
                       </div>
-                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--surface-border);">
-                        <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:8px;">Tags</span>
-                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Cookie</span>
-                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Furtivo</span>
-                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Avançado</span>
-                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Discord</span>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
+
+                <!-- Estrutura dos Modais (Ocultos) -->
+                <div id="tut-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px);">
+                  <div id="tut-modal-content" style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:18px;width:100%;max-width:450px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+                    <div style="padding:20px;border-bottom:1px solid var(--surface-border);display:flex;justify-content:between;align-items:center;">
+                      <h3 id="tut-modal-title" style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);"></h3>
+                      <button onclick="closeTutModal()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:5px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                      </button>
+                    </div>
+                    <div id="tut-modal-body" style="padding:24px;font-size:14px;line-height:1.6;color:var(--text-muted);"></div>
+                    <div style="padding:16px 20px;background:rgba(255,255,255,0.02);border-top:1px solid var(--surface-border);text-align:right;">
+                      <button onclick="closeTutModal()" style="background:var(--surface);border:1px solid var(--surface-border);color:var(--text);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">Fechar</button>
+                    </div>
+                  </div>
+                </div>
+
+                <script>
+                  const tutTexts = {
+                    historia: {
+                      title: "História e Eficiência",
+                      text: "Uns dos melhores métodos que quase ninguém conhece, possivelmente sou umas das primeiras ou se não o primeiro a trazer esse método no servidor BR. Esse foi o método que três jovens ucranianos conseguiram +600mil contas, mas no final foram presos, não é querendo assustar vocês, estou apenas mostrando o quanto ele é eficiente, e se você não quiser ser preso é só não roubar +600mil contas, eles foram presos por conta da alta quantia de contas."
+                    },
+                    sobre: {
+                      title: "Sobre o Método",
+                      text: "Sobre o método é uma extensão que ao ser adicionada no navegador ela captura o cookie do usuário e envia para ti. No caso a extensão que eu mesmo desenvolvi mas com o suporte do servidor da Beamse para a formatação dos dados que forem capturados, é uma extensão que promete hackear uma conta de Roblox, mas com uma limitação: você precisa ser amigo desse usuário (isso força o usuário utilizar sua conta principal)."
+                    },
+                    vitimas: {
+                      title: "Conseguindo Vítimas",
+                      text: "Para conseguir as vítimas você pública a extensão em fóruns, servidores de discord ou redes sociais como o tiktok. Para a publicação dos vídeos no tiktok você deve pesquisa por beamed e baixar os vídeos e depois publicá-los. Vou deixar os vídeos de exemplos abaixo."
+                    },
+                    teatro: {
+                      title: "Teatro do Engano",
+                      text: "Crie um servidor de discord estilo beaming gringo, com canais de anúncios, updates, tutorial-cookie, tutorial-bypass e a extensão feke como beaming ou beamed. Faça os tutoriais de cada ou procure, não vou fornecer. Vou deixar servidores gringos de exemplos também abaixo. Procure fazer sorteios falsos com quantidades enormes de robux e também drops falsos."
+                    }
+                  };
+
+                  function openTutModal(key) {
+                    const data = tutTexts[key];
+                    document.getElementById('tut-modal-title').innerText = data.title;
+                    document.getElementById('tut-modal-body').innerText = data.text;
+                    document.getElementById('tut-overlay').style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                  }
+
+                  function closeTutModal() {
+                    document.getElementById('tut-overlay').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                  }
+
+                  // Fechar ao clicar fora
+                  document.getElementById('tut-overlay').addEventListener('click', function(e) {
+                    if (e.target === this) closeTutModal();
+                  });
+                </script>
 
             </div>
             <div class="tab-panel" data-panel="pos-beaming">
