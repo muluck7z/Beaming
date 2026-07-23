@@ -2909,35 +2909,37 @@
                       </div>
                       <div class="tutorial-title">Extensão Falsa</div>
                       
-                      <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;">
+                      <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px;">
                         
-                        <div onclick="openTutModal('historia')" style="cursor:pointer;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.3);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;">
-                          <span style="font-size:13px;color:var(--text);font-weight:600;">Eficiência do Método</span>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        <!-- Card 1: Vermelho -->
+                        <div style="background:rgba(224,16,42,0.05);border:1px solid rgba(224,16,42,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                          <p style="font-size:14px;line-height:1.6;color:var(--text);margin:0;">Uns dos melhores métodos que quase ninguém conhece, possivelmente sou umas das primeiras ou se não o primeiro a trazer esse método no servidor BR. Esse foi o método que três jovens ucranianos conseguiram +600mil contas, mas no final foram presos, não é querendo assustar vocês, estou apenas mostrando o quanto ele é eficiente, e se você não quiser ser preso é só não roubar +600mil contas, eles foram presos por conta da alta quantia de contas.</p>
                         </div>
 
-                        <div onclick="openTutModal('sobre')" style="cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid var(--surface-border);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;">
-                          <span style="font-size:13px;color:var(--text);font-weight:600;">Funcionamento</span>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        <!-- Card 2: Cinza -->
+                        <div style="background:rgba(255,255,255,0.03);border:1px solid var(--surface-border);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                          <p style="font-size:14px;line-height:1.6;color:var(--text-muted);margin:0;">Sobre o método é uma extensão que ao ser adicionada no navegador ela captura o cookie do usuário e envia para ti. No caso a extensão que eu mesmo desenvolvi mas com o suporte do servidor da Beamse para a formatação dos dados que forem capturados, é uma extensão que promete hackear uma conta de Roblox, mas com uma limitação: você precisa ser amigo desse usuário (isso força o usuário utilizar sua conta principal).</p>
                         </div>
 
-                        <div onclick="openTutModal('vitimas')" style="cursor:pointer;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.3);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;">
-                          <span style="font-size:13px;color:var(--text);font-weight:600;">Como Divulgar</span>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        <!-- Card 3: Vermelho -->
+                        <div style="background:rgba(224,16,42,0.05);border:1px solid rgba(224,16,42,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                          <p style="font-size:14px;line-height:1.6;color:var(--text);margin:0;">Para conseguir as vítimas você pública a extensão em fóruns, servidores de discord ou redes sociais como o tiktok. Para a publicação dos vídeos no tiktok você deve pesquisa por beamed e baixar os vídeos e depois publicá-los. Vou deixar os vídeos de exemplos abaixo.</p>
                         </div>
 
-                        <div onclick="openTutModal('teatro')" style="cursor:pointer;background:rgba(255,255,255,0.05);border:1px solid var(--surface-border);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;">
-                          <span style="font-size:13px;color:var(--text);font-weight:600;">Servidor Discord</span>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        <!-- Card 4: Cinza -->
+                        <div style="background:rgba(255,255,255,0.03);border:1px solid var(--surface-border);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                          <p style="font-size:14px;line-height:1.6;color:var(--text-muted);margin:0;">Crie um servidor de discord estilo beaming gringo, com canais de anúncios, updates, tutorial-cookie, tutorial-bypass e a extensão feke como beaming ou beamed. Faça os tutoriais de cada ou procure, não vou fornecer. Vou deixar servidores gringos de exemplos também abaixo. Procure fazer sorteios falsos com quantidades enormes de robux e também drops falsos.</p>
                         </div>
 
-                      </div>
+                        <!-- Card 5: Vermelho (Botão de ação integrado) -->
+                        <div style="background:rgba(224,16,42,0.05);border:1px solid rgba(224,16,42,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                          <p style="font-size:14px;line-height:1.6;color:var(--text);margin-bottom:16px;">Para criar sua extensão basta ir em ferramentas > extensão falsa e veja o vídeo ou apenas aperte neste botão para ir direto.</p>
+                          <button class="site-list-btn" style="border:none;cursor:pointer;width:100%;justify-content:center;" onclick="closeMethod();showView('ferramentas');document.querySelector('[data-tab=\'y2\']').click();">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <span>Ir para Ferramentas</span>
+                          </button>
+                        </div>
 
-                      <div style="margin-top:24px;">
-                        <button class="site-list-btn" style="border:none;cursor:pointer;width:100%;justify-content:center;" onclick="closeMethod();showView('ferramentas');document.querySelector('[data-tab=\'y2\']').click();">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                          <span>Ir para Ferramentas</span>
-                        </button>
                       </div>
 
                       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;padding-top:14px;border-top:1px solid var(--surface-border);margin-top:20px;">
@@ -2949,60 +2951,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Estrutura dos Modais -->
-                <div id="tut-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px);">
-                  <div id="tut-modal-content" style="background:var(--bg-2);border:1px solid var(--surface-border);border-radius:18px;width:100%;max-width:450px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.5);">
-                    <div style="padding:20px;border-bottom:1px solid var(--surface-border);display:flex;justify-content:space-between;align-items:center;">
-                      <h3 id="tut-modal-title" style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);"></h3>
-                      <button onclick="closeTutModal()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:5px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                      </button>
-                    </div>
-                    <div id="tut-modal-body" style="padding:24px;font-size:14px;line-height:1.6;color:var(--text-muted);"></div>
-                    <div style="padding:16px 20px;background:rgba(255,255,255,0.02);border-top:1px solid var(--surface-border);text-align:right;">
-                      <button onclick="closeTutModal()" style="background:var(--surface);border:1px solid var(--surface-border);color:var(--text);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">Fechar</button>
-                    </div>
-                  </div>
-                </div>
-
-                <script>
-                  const tutTexts = {
-                    historia: {
-                      title: "Eficiência do Método",
-                      text: "Uns dos melhores métodos que quase ninguém conhece, possivelmente sou umas das primeiras ou se não o primeiro a trazer esse método no servidor BR. Esse foi o método que três jovens ucranianos conseguiram +600mil contas, mas no final foram presos, não é querendo assustar vocês, estou apenas mostrando o quanto ele é eficiente, e se você não quiser ser preso é só não roubar +600mil contas, eles foram presos por conta da alta quantia de contas."
-                    },
-                    sobre: {
-                      title: "Funcionamento",
-                      text: "Sobre o método é uma extensão que ao ser adicionada no navegador ela captura o cookie do usuário e envia para ti. No caso a extensão que eu mesmo desenvolvi mas com o suporte do servidor da Beamse para a formatação dos dados que forem capturados, é uma extensão que promete hackear uma conta de Roblox, mas com uma limitação: você precisa ser amigo desse usuário (isso força o usuário utilizar sua conta principal)."
-                    },
-                    vitimas: {
-                      title: "Como Divulgar",
-                      text: "Para conseguir as vítimas você pública a extensão em fóruns, servidores de discord ou redes sociais como o tiktok. Para a publicação dos vídeos no tiktok você deve pesquisa por beamed e baixar os vídeos e depois publicá-los. Vou deixar os vídeos de exemplos abaixo."
-                    },
-                    teatro: {
-                      title: "Servidor Discord",
-                      text: "Crie um servidor de discord estilo beaming gringo, com canais de anúncios, updates, tutorial-cookie, tutorial-bypass e a extensão feke como beaming ou beamed. Faça os tutoriais de cada ou procure, não vou fornecer. Vou deixar servidores gringos de exemplos também abaixo. Procure fazer sorteios falsos com quantidades enormes de robux e também drops falsos."
-                    }
-                  };
-
-                  function openTutModal(key) {
-                    const data = tutTexts[key];
-                    document.getElementById('tut-modal-title').innerText = data.title;
-                    document.getElementById('tut-modal-body').innerText = data.text;
-                    document.getElementById('tut-overlay').style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                  }
-
-                  function closeTutModal() {
-                    document.getElementById('tut-overlay').style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                  }
-
-                  document.getElementById('tut-overlay').addEventListener('click', function(e) {
-                    if (e.target === this) closeTutModal();
-                  });
-                </script>
 
             </div>
             <div class="tab-panel" data-panel="pos-beaming">
