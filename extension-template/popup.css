@@ -88,3 +88,8 @@ footer{text-align:center;font-size:9px;color:#52525b;letter-spacing:.2em;text-tr
 .result-note{font-size:10px;color:#52525b;letter-spacing:.15em}
 .reset-btn{width:100%;padding:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:#71717a;font-size:11px;letter-spacing:.1em;cursor:pointer;transition:.15s;box-shadow:none}
 .reset-btn:hover{background:rgba(255,255,255,.09);color:#a1a1aa}
+
+/* ── Tutorial video ── */
+.tutorial-card{margin-bottom:12px}
+.tutorial-body{padding:10px 14px 14px}
+#tut-video{width:100%;border-radius:10px;background:#000;display:block;max-height:220px;outline:none;border:1px solid rgba(239,68,68,.2)}

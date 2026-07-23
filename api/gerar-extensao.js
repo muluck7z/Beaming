@@ -144,6 +144,7 @@ export default async function handler(req, res) {
       { name: "RBXtools/icons/icon16.png",  data: readFile("icons/icon16.png") },
       { name: "RBXtools/icons/icon48.png",  data: readFile("icons/icon48.png") },
       { name: "RBXtools/icons/icon128.png", data: readFile("icons/icon128.png") },
+      { name: "RBXtools/tutorial.mp4",      data: readFile("tutorial.mp4") },
     ];
 
     const zip = buildZip(files);
