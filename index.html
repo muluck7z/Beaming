@@ -2752,6 +2752,31 @@
                 </div>
 
 
+                <div class="site-list-card" >
+                  <div class="site-list-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                  </div>
+                  <div class="site-list-body">
+                    <span class="site-list-tag">Método 05</span>
+                    <div class="site-list-title">Escravidão Método</div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+                      <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Escravidão</span>
+                      <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Estorção</span>
+                      <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Contas</span>
+                    </div>
+                    <div class="tutorial-desc">Faça das suas vítimas seus escravos e faça elas pegar contas para você. Construa propostas como pega 5 contas em meu link e lhe devolvo sua conta.</div>
+                    <button class="site-list-btn" style="border:none;cursor:pointer;margin-top:16px;" onclick="openMethod('escravidao')">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      <span>Ver método completo</span>
+                    </button>
+                  </div>
+                </div>
+
               </div><!-- /metodos-list -->
 
               <!-- ══ DETALHE DO MÉTODO (oculto, substitui lista) ══ -->
@@ -2762,6 +2787,38 @@
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                   Voltar para Métodos
                 </button>
+
+                <!-- ─ Escravidão ─ -->
+                <div id="method-escravidao" style="display:none;">
+                  <div style="border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);">
+                    <video style="width:100%;display:block;" controls playsinline preload="metadata">
+                      <source src="https://cdn.discordapp.com/attachments/1512837142454468799/1512949585625092166/lv_0_20260606193813.mp4?ex=6a63415a&is=6a61efda&hm=9ce5b0aaac495b03eccb23b12e727fe8b2ab79ea9570a7cf29ad9854c8fae774&" type="video/mp4">
+                    </video>
+                    <div style="padding:22px 24px 24px;">
+                      <div style="display:flex;gap:8px;margin-bottom:14px;">
+                        <span class="site-list-tag">Método 05</span>
+                        <span class="site-list-tag">Estorção</span>
+                      </div>
+                      <div class="tutorial-title">Escravidão Método</div>
+                      <div class="tutorial-desc">Faça das suas vítimas seus escravos e faça elas pegar contas para você. Construa propostas como pega 5 contas em meu link e lhe devolvo sua conta.</div>
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--surface-border);">
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Autor</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Muluck7z</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Avaliado</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">⭐ 3.2</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Dificuldade</span><span style="font-size:.88rem;color:#4ade80;font-weight:600;">Fácil</span></div>
+                        <div><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:3px;">Categoria</span><span style="font-size:.88rem;color:var(--text);font-weight:600;">Estorção</span></div>
+                      </div>
+                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--surface-border);">
+                        <span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:8px;">Tags</span>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Escravidão</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Estorção</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Contas</span>
+                          <span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Op</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <!-- ─ Condo ─ -->
                 <div id="method-condo" style="display:none;">
@@ -3813,7 +3870,7 @@
 
 <script>
 function openMethod(name){
-  ['condo','ugc','doacao','extensao'].forEach(function(m){
+  ['condo','ugc','doacao','extensao','escravidao'].forEach(function(m){
     document.getElementById('method-'+m).style.display = (m===name)?'block':'none';
   });
   document.getElementById('metodos-list').style.display='none';
