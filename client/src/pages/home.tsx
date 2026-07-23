@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { MessageSquare, Zap, Shield, Settings, ChevronRight, Bot, Wrench } from "lucide-react";
+import { MessageSquare, Zap, Shield, Settings, ChevronRight, Bot, Wrench, Gem, BookOpen } from "lucide-react";
 import AutoMensagemModal from "@/components/AutoMensagemModal";
+import LimitedMetodoModal from "@/components/LimitedMetodoModal";
 
 const tools = [
   {
@@ -11,7 +12,17 @@ const tools = [
     color: "text-blue-400",
     bgColor: "bg-blue-500/10",
     borderColor: "border-blue-500/20",
-    category: "Ferramentas",
+    category: "ferramentas",
+  },
+  {
+    id: "limited-metodo",
+    name: "Limited Método",
+    description: "Roube limiteds de usuários usando RoPro e Rolimons para encontrar e abordar suas vítimas.",
+    icon: Gem,
+    color: "text-violet-400",
+    bgColor: "bg-violet-500/10",
+    borderColor: "border-violet-500/20",
+    category: "metodos",
   },
 ];
 
@@ -21,13 +32,17 @@ const categories = [
     label: "Ferramentas",
     icon: Wrench,
   },
+  {
+    id: "metodos",
+    label: "Métodos",
+    icon: BookOpen,
+  },
 ];
 
 const STORAGE_KEY = "beaming_automessage_state";
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("ferramentas");
-  // Se estava rodando antes do reload/fechamento, reabre o modal automaticamente
   const [autoMensagemOpen, setAutoMensagemOpen] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -38,10 +53,9 @@ export default function Home() {
     } catch {}
     return false;
   });
+  const [limitedMetodoOpen, setLimitedMetodoOpen] = useState(false);
 
-  const filteredTools = tools.filter(
-    (t) => t.category.toLowerCase() === activeCategory
-  );
+  const filteredTools = tools.filter((t) => t.category === activeCategory);
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
@@ -125,6 +139,7 @@ export default function Home() {
                   data-testid={`tool-card-${tool.id}`}
                   onClick={() => {
                     if (tool.id === "auto-mensagem") setAutoMensagemOpen(true);
+                    if (tool.id === "limited-metodo") setLimitedMetodoOpen(true);
                   }}
                   className="group text-left bg-card border border-card-border rounded-xl p-5 hover:border-primary/40 hover:bg-card/80 transition-all duration-200 shadow-sm hover:shadow-md"
                 >
@@ -143,10 +158,14 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Auto Mensagem Modal */}
+      {/* Modals */}
       <AutoMensagemModal
         open={autoMensagemOpen}
         onClose={() => setAutoMensagemOpen(false)}
+      />
+      <LimitedMetodoModal
+        open={limitedMetodoOpen}
+        onClose={() => setLimitedMetodoOpen(false)}
       />
     </div>
   );
