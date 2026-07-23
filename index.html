@@ -3362,6 +3362,33 @@
   if(exSaveBtn) exSaveBtn.addEventListener('click', () => {}); // fantasma: sem ação
   if(exCancelBtn) exCancelBtn.addEventListener('click', () => {}); // fantasma: sem ação
 
+  // Gerenciamento de vídeos nas tabs: pausar e liberar memória de tabs inativas
+  function clearVideoSources(panel) {
+    panel.querySelectorAll('video').forEach(v => {
+      try { v.pause(); } catch(e) {}
+      // Guardar src original antes de limpar
+      if (!v.dataset.origSrc && v.currentSrc) {
+        v.dataset.origSrc = v.currentSrc;
+      }
+      v.removeAttribute('src');
+      v.load();
+    });
+  }
+  function restoreVideoSources(panel) {
+    panel.querySelectorAll('video').forEach(v => {
+      const origSrc = v.dataset.origSrc;
+      if (origSrc && !v.currentSrc) {
+        v.setAttribute('src', origSrc);
+        v.load();
+      }
+    });
+  }
+
+  // Inicializar: esconder vídeos de todas as tabs exceto a ativa
+  document.querySelectorAll('.tab-panel:not(.active)').forEach(p => {
+    clearVideoSources(p);
+  });
+
   allTabCards.forEach(tab => {
     tab.addEventListener('click', () => {
       const group = tab.closest('.tutorial-tabs');
@@ -3371,7 +3398,13 @@
       const panels = group.parentElement.querySelector('.tab-panels');
       if(panels){
         panels.querySelectorAll(':scope > .tab-panel').forEach(p => {
-          p.classList.toggle('active', p.dataset.panel === tab.dataset.tab);
+          const isActive = p.dataset.panel === tab.dataset.tab;
+          p.classList.toggle('active', isActive);
+          if (isActive) {
+            restoreVideoSources(p);
+          } else {
+            clearVideoSources(p);
+          }
         });
       }
     });
