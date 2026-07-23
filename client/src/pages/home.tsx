@@ -126,7 +126,7 @@ export default function Home() {
                   onClick={() => {
                     if (tool.id === "auto-mensagem") setAutoMensagemOpen(true);
                   }}
-                  className="group text-left bg-card border border-card-border rounded-xl p-5 hover:border-primary/40 transition-all duration-200 shadow-sm hover:shadow-md"
+                  className="group text-left bg-card border border-card-border rounded-xl p-5 hover:border-primary/40 hover:bg-card/80 transition-all duration-200 shadow-sm hover:shadow-md"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className={`w-10 h-10 rounded-lg ${tool.bgColor} ${tool.borderColor} border flex items-center justify-center`}>
