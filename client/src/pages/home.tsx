@@ -44,7 +44,7 @@ export default function Home() {
             <Bot className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <span className="font-bold text-sidebar-foreground text-sm tracking-wide">Beaming</span>
+            <span className="font-bold text-sidebar-foreground text-sm tracking-wide">Nexus</span>
             <p className="text-xs text-muted-foreground">Discord Tools</p>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function Home() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium text-sidebar-foreground truncate">v1.0.0</p>
-              <p className="text-xs text-muted-foreground">Beaming Bot</p>
+              <p className="text-xs text-muted-foreground">Nexus Bot</p>
             </div>
             <Settings className="w-4 h-4 text-muted-foreground" />
           </div>
