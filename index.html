@@ -2031,17 +2031,17 @@
           </span>
           <span class="label">Sites</span>
         </li>
-        <li class="nav-item" data-view="ferramentas">
-          <span class="icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-          </span>
-          <span class="label">Ferramentas</span>
-        </li>
         <li class="nav-item" data-view="vip" id="vipNavItem" style="display:none;" aria-hidden="true">
           <span class="icon-box">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z"/></svg>
           </span>
           <span class="label">VIP</span>
+        </li>
+        <li class="nav-item" data-view="ferramentas">
+          <span class="icon-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </span>
+          <span class="label">Ferramentas</span>
         </li>
       </ul>
     </nav>
@@ -3389,17 +3389,50 @@
       <div class="view-inner">
         <div class="hero-eyebrow">Acesso exclusivo</div>
         <h1 class="hero-title" style="font-size:clamp(32px,6vw,52px);margin-bottom:14px;">Área <span class="accent">VIP</span></h1>
-        <div class="tutorial-card" style="max-width:560px;margin:18px auto 0;text-align:center;">
-          <div class="tutorial-card-body" style="padding:34px 26px 30px;">
-            <div style="width:58px;height:58px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:rgba(224,16,42,.12);border:1px solid rgba(224,16,42,.35);color:var(--red-glow);">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z"/></svg>
+
+        <div class="tutorial-tabs">
+          <div class="tab-float">
+            <button class="tab-card active" data-tab="vip-metodos">
+              <span class="tab-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              </span>
+              <span class="tab-label">Métodos VIPs</span>
+            </button>
+          </div>
+          <div class="tab-float">
+            <button class="tab-card" data-tab="vip-extensao">
+              <span class="tab-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+              </span>
+              <span class="tab-label">Extensão Pro</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="tab-panels">
+          <div class="tab-panel active" data-panel="vip-metodos">
+            <div class="tutorial-card" style="max-width:560px;margin:18px auto 0;text-align:center;">
+              <div class="tutorial-card-body" style="padding:34px 26px 30px;">
+                <div class="tutorial-tags" style="justify-content:center;margin-bottom:12px;">
+                  <span class="site-list-tag">MÉTODOS VIPS</span>
+                  <span class="site-list-tag">EM PROGRESSO</span>
+                </div>
+                <div class="tutorial-title">Métodos VIPs em desenvolvimento</div>
+                <div class="tutorial-desc" style="margin-top:10px;">Os conteúdos exclusivos desta categoria serão disponibilizados em breve.</div>
+              </div>
             </div>
-            <div class="tutorial-tags" style="justify-content:center;margin-bottom:12px;">
-              <span class="site-list-tag">VIP</span>
-              <span class="site-list-tag">EM PROGRESSO</span>
+          </div>
+          <div class="tab-panel" data-panel="vip-extensao">
+            <div class="tutorial-card" style="max-width:560px;margin:18px auto 0;text-align:center;">
+              <div class="tutorial-card-body" style="padding:34px 26px 30px;">
+                <div class="tutorial-tags" style="justify-content:center;margin-bottom:12px;">
+                  <span class="site-list-tag">EXTENSÃO PRO</span>
+                  <span class="site-list-tag">EM PROGRESSO</span>
+                </div>
+                <div class="tutorial-title">Extensão Pro em desenvolvimento</div>
+                <div class="tutorial-desc" style="margin-top:10px;">Este recurso está sendo preparado e será liberado futuramente.</div>
+              </div>
             </div>
-            <div class="tutorial-title">Área VIP em desenvolvimento</div>
-            <div class="tutorial-desc" style="margin-top:10px;">Os conteúdos e ferramentas exclusivas para membros VIP serão disponibilizados em breve.</div>
           </div>
         </div>
       </div>
