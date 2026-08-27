@@ -74,13 +74,9 @@ module.exports = async function handler(req, res) {
   const base = proto + "://" + host;
 
   function send(res, dest) {
-    res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.setHeader("Cache-Control", "no-store");
-    res.status(200).send(
-      "<!DOCTYPE html><html><head><meta charset=\"utf-8\">" +
-        "<script>window.location.replace(" + JSON.stringify(dest) + ");<\\/script>" +
-        "</head><body></body></html>"
-    );
+    res.setHeader("Location", dest);
+    res.status(302).end();
   }
 
   const code = req.query.code;
