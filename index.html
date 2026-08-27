@@ -3411,30 +3411,119 @@
 
         <div class="tab-panels">
           <div class="tab-panel active" data-panel="vip-metodos">
-            <div class="site-list-card" style="max-width:680px;margin:18px auto 0;">
-              <div class="site-list-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10M15 9.5c-.7-.7-1.7-1-3-1-1.7 0-3 .8-3 2s1.3 2 3 2 3 .8 3 2-1.3 2-3 2c-1.3 0-2.3-.3-3-1"/></svg>
-              </div>
-              <div class="site-list-body">
-                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
-                  <span class="site-list-tag">Método 01</span>
-                  <span class="site-list-tag">Em progresso</span>
+            <div id="robuxMethodList">
+              <div class="site-list-card" role="button" tabindex="0" onclick="openRobuxMethod()" onkeydown="if(event.key==='Enter'||event.key===' ')openRobuxMethod()" style="max-width:680px;margin:18px auto 0;cursor:pointer;">
+                <div class="site-list-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10M15 9.5c-.7-.7-1.7-1-3-1-1.7 0-3 .8-3 2s1.3 2 3 2 3 .8 3 2-1.3 2-3 2c-1.3 0-2.3-.3-3-1"/></svg>
                 </div>
-                <div class="site-list-title">Método Robux</div>
-                <div class="tutorial-desc">Aprenda a como transferir robux de uma conta para outra utilizando grupo e experiência.</div>
+                <div class="site-list-body">
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+                    <span class="site-list-tag">Método 01</span>
+                    <span class="site-list-tag">Em progresso</span>
+                  </div>
+                  <div class="site-list-title">Método Robux</div>
+                  <div class="tutorial-desc">Aprenda a como transferir robux de uma conta para outra utilizando grupo e experiência.</div>
+                </div>
               </div>
             </div>
-            <div class="site-list-card" style="max-width:680px;margin:18px auto 0;">
-              <div class="site-list-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.1.1l2-2a5 5 0 00-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 00-7.1-.1l-2 2a5 5 0 007.1 7.1l1.1-1.1"/></svg>
+
+            <div id="robuxMethodDetail" style="display:none;">
+              <button class="site-list-btn" type="button" onclick="closeRobuxMethod()" style="border:none;cursor:pointer;margin:18px 0 18px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Voltar para Métodos VIPs
+              </button>
+
+              <div class="site-section-header">
+                <span class="site-section-badge">01</span>
+                <span class="site-section-title">Método Robux</span>
               </div>
-              <div class="site-list-body">
-                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
-                  <span class="site-list-tag">Método 02</span>
-                  <span class="site-list-tag">Em progresso</span>
+
+              <div class="tutorial-tabs" style="margin-bottom:28px;">
+                <div class="tab-float">
+                  <button class="tab-card active" id="robuxProfileTab" data-tab="robux-profile">
+                    <span class="tab-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3"/><path d="M5 21a7 7 0 0114 0"/></svg>
+                    </span>
+                    <span class="tab-label">Profile</span>
+                  </button>
                 </div>
-                <div class="site-list-title">Método Referencial</div>
-                <div class="tutorial-desc">Ao compartilhar este link, você terá acesso aos registros de usuários que se cadastrarem por meio dele, bem como daqueles que se cadastrarem através de seus indicados.</div>
+                <div class="tab-float">
+                  <button class="tab-card" data-tab="robux-grupo">
+                    <span class="tab-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 21a6 6 0 0112 0M14 21a5 5 0 016 0"/></svg>
+                    </span>
+                    <span class="tab-label">Grupo</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="tab-panels">
+                <div class="tab-panel active" data-panel="robux-profile">
+                  <div class="tutorial-card" style="margin-bottom:28px;">
+                    <div class="tutorial-card-body" style="text-align:left;">
+                      <div class="tutorial-tags" style="margin-bottom:12px;">
+                        <span class="site-list-tag">Método 01</span>
+                        <span class="site-list-tag">Profile</span>
+                      </div>
+                      <div class="tutorial-title">Transferência por Profile</div>
+                      <div class="tutorial-desc" style="margin-top:10px;">Uma das formas mais fáceis de transferir Robux entre contas é utilizar uma experiência e uma game pass associada a ela.</div>
+                    </div>
+                  </div>
+
+                  <div class="site-section-header">
+                    <span class="site-section-badge">01</span>
+                    <span class="site-section-title">Como funciona</span>
+                  </div>
+
+                  <div class="tutorial-card" style="margin-bottom:28px;">
+                    <div class="tutorial-card-body" style="text-align:left;">
+                      <div style="display:flex;flex-direction:column;gap:18px;">
+                        <div style="display:flex;gap:14px;align-items:flex-start;">
+                          <span class="site-section-badge">1</span>
+                          <div><div style="font-weight:700;color:var(--text);margin-bottom:4px;">Crie a game pass</div><div class="tutorial-desc">Na conta que receberá os Robux, acesse <strong style="color:var(--text);">Criações</strong>, abra uma experiência criada por você e crie uma game pass associada a ela.</div></div>
+                        </div>
+                        <div style="display:flex;gap:14px;align-items:flex-start;">
+                          <span class="site-section-badge">2</span>
+                          <div><div style="font-weight:700;color:var(--text);margin-bottom:4px;">Defina o valor</div><div class="tutorial-desc">Configure o preço da game pass de acordo com o valor que deseja transferir. O Roblox desconta <strong style="color:var(--red-glow);">30%</strong> da transação.</div></div>
+                        </div>
+                        <div style="display:flex;gap:14px;align-items:flex-start;">
+                          <span class="site-section-badge">3</span>
+                          <div><div style="font-weight:700;color:var(--text);margin-bottom:4px;">Encontre a experiência</div><div class="tutorial-desc">Na conta que possui os Robux, pesquise pelo seu próprio usuário e abra o perfil que contém a game pass.</div></div>
+                        </div>
+                        <div style="display:flex;gap:14px;align-items:flex-start;">
+                          <span class="site-section-badge">4</span>
+                          <div><div style="font-weight:700;color:var(--text);margin-bottom:4px;">Abra a loja</div><div class="tutorial-desc">No perfil, entre em <strong style="color:var(--text);">Criações</strong>, selecione a experiência e abra a área <strong style="color:var(--text);">Loja</strong> para encontrar a game pass.</div></div>
+                        </div>
+                        <div style="display:flex;gap:14px;align-items:flex-start;">
+                          <span class="site-section-badge">5</span>
+                          <div><div style="font-weight:700;color:var(--text);margin-bottom:4px;">Conclua a compra</div><div class="tutorial-desc">Compre a game pass pela conta que possui os Robux. O saldo pode ficar pendente e levar de <strong style="color:var(--text);">3 a 7 dias</strong> para ser liberado.</div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="site-section-header">
+                    <span class="site-section-badge">02</span>
+                    <span class="site-section-title">Atenção</span>
+                  </div>
+                  <div style="padding:18px 20px;border-radius:14px;background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.28);color:var(--text-muted);font-size:13px;line-height:1.7;text-align:left;">
+                    <strong style="display:block;color:var(--red-glow);margin-bottom:6px;">ATENÇÃO</strong>
+                    Este método tem uma alta taxa de banimento caso o usuário denuncie a transferência e não recomendamos sua utilização.
+                  </div>
+                </div>
+
+                <div class="tab-panel" data-panel="robux-grupo">
+                  <div class="tutorial-card" style="margin:18px auto 0;text-align:center;">
+                    <div class="tutorial-card-body" style="padding:34px 26px 30px;">
+                      <div class="tutorial-tags" style="justify-content:center;margin-bottom:12px;">
+                        <span class="site-list-tag">GRUPO</span>
+                        <span class="site-list-tag">EM PROGRESSO</span>
+                      </div>
+                      <div class="tutorial-title">Método por Grupo em desenvolvimento</div>
+                      <div class="tutorial-desc" style="margin-top:10px;">O conteúdo desta categoria será adicionado em breve.</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -3549,6 +3638,24 @@
     if(target) target.classList.add('active');
     navItems.forEach(i => i.classList.toggle('active', i.dataset.view === name));
     localStorage.setItem('ilegal_active_view', name);
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function openRobuxMethod(){
+    const list = document.getElementById('robuxMethodList');
+    const detail = document.getElementById('robuxMethodDetail');
+    if(list) list.style.display = 'none';
+    if(detail) detail.style.display = 'block';
+    const profileTab = document.getElementById('robuxProfileTab');
+    if(profileTab) profileTab.click();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function closeRobuxMethod(){
+    const list = document.getElementById('robuxMethodList');
+    const detail = document.getElementById('robuxMethodDetail');
+    if(detail) detail.style.display = 'none';
+    if(list) list.style.display = 'block';
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
