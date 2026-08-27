@@ -1695,7 +1695,8 @@
           '#site-topbar { display: flex !important; }' +
           '#site-main { display: block !important; }' +
           '.view { display: none !important; }' +
-          '#view-' + activeView + ' { display: flex !important; }';
+          '#view-' + activeView + ' { display: flex !important; }' +
+          '#view-vip { display: none !important; }';
         document.head.appendChild(style);
       } else {
         // Caso contrário, garantimos que a wall apareça
@@ -2035,6 +2036,12 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
           </span>
           <span class="label">Ferramentas</span>
+        </li>
+        <li class="nav-item" data-view="vip" id="vipNavItem" style="display:none;" aria-hidden="true">
+          <span class="icon-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z"/></svg>
+          </span>
+          <span class="label">VIP</span>
         </li>
       </ul>
     </nav>
@@ -3377,6 +3384,26 @@
         </div>
       </div>
     </section>
+
+    <section class="view view-top" id="view-vip">
+      <div class="view-inner">
+        <div class="hero-eyebrow">Acesso exclusivo</div>
+        <h1 class="hero-title" style="font-size:clamp(32px,6vw,52px);margin-bottom:14px;">Área <span class="accent">VIP</span></h1>
+        <div class="tutorial-card" style="max-width:560px;margin:18px auto 0;text-align:center;">
+          <div class="tutorial-card-body" style="padding:34px 26px 30px;">
+            <div style="width:58px;height:58px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:rgba(224,16,42,.12);border:1px solid rgba(224,16,42,.35);color:var(--red-glow);">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z"/></svg>
+            </div>
+            <div class="tutorial-tags" style="justify-content:center;margin-bottom:12px;">
+              <span class="site-list-tag">VIP</span>
+              <span class="site-list-tag">EM PROGRESSO</span>
+            </div>
+            <div class="tutorial-title">Área VIP em desenvolvimento</div>
+            <div class="tutorial-desc" style="margin-top:10px;">Os conteúdos e ferramentas exclusivas para membros VIP serão disponibilizados em breve.</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
 <script>
@@ -3408,6 +3435,8 @@
   const closeBtn = document.getElementById('closeBtn');
   const navItems = document.querySelectorAll('.nav-item');
   const views = document.querySelectorAll('.view');
+  var currentUser = null;
+  const vipNavItem = document.getElementById('vipNavItem');
 
   function openMenu(){
     menuBtn.classList.add('open');
@@ -3463,6 +3492,9 @@
   });
 
   function showView(name){
+    if (name === 'vip' && !(currentUser && currentUser.hasVipAccess)) {
+      name = 'dashboard';
+    }
     views.forEach(v => v.classList.remove('active'));
     const target = document.getElementById('view-' + name);
     if(target) target.classList.add('active');
@@ -3782,6 +3814,13 @@
         topbar.style.display = 'flex';
         siteMain.style.display = 'block';
         errBox.style.display = 'none';
+
+        currentUser = user || {};
+        if (vipNavItem) {
+          const canAccessVip = Boolean(currentUser.hasVipAccess);
+          vipNavItem.style.display = canAccessVip ? 'flex' : 'none';
+          vipNavItem.setAttribute('aria-hidden', canAccessVip ? 'false' : 'true');
+        }
 
         // Restaura a view ativa persistida
         const savedView = localStorage.getItem('ilegal_active_view') || 'dashboard';

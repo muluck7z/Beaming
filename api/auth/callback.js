@@ -78,6 +78,7 @@ module.exports = async function handler(req, res) {
   const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
   const GUILD_ID = process.env.DISCORD_GUILD_ID;
   const ROLE_ID = process.env.DISCORD_ROLE_ID;
+  const VIP_ROLE_ID = process.env.DISCORD_VIP_ROLE_ID || "1542665006917619732";
   const SECRET = process.env.SESSION_SECRET || "fallback";
 
   const host = req.headers["x-forwarded-host"] || req.headers.host;
@@ -127,13 +128,16 @@ module.exports = async function handler(req, res) {
     const user = await userRes.json();
 
     let hasAccess = false;
+    let hasVipAccess = false;
     const memberRes = await fetch(
       "https://discord.com/api/users/@me/guilds/" + GUILD_ID + "/member",
       { headers: { Authorization: "Bearer " + access_token } }
     );
     if (memberRes.ok) {
       const member = await memberRes.json();
-      hasAccess = Array.isArray(member.roles) && member.roles.includes(ROLE_ID);
+      const roles = Array.isArray(member.roles) ? member.roles : [];
+      hasAccess = roles.includes(ROLE_ID);
+      hasVipAccess = roles.includes(VIP_ROLE_ID);
     }
 
     if (!hasAccess) {
@@ -149,6 +153,7 @@ module.exports = async function handler(req, res) {
         username: user.global_name || user.username,
         avatar: user.avatar || null,
         hasAccess,
+        hasVipAccess,
       },
       SECRET
     );

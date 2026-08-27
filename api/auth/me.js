@@ -19,6 +19,11 @@ const { verifyJwt, parseCookies } = require("../_jwt");
       return;
     }
 
-    res.json({ userId: payload.userId, username: payload.username, avatar: payload.avatar || null });
+    res.json({
+      userId: payload.userId,
+      username: payload.username,
+      avatar: payload.avatar || null,
+      hasVipAccess: Boolean(payload.hasVipAccess),
+    });
   };
   
