@@ -14,6 +14,16 @@ function getClientIp(req) {
   return req.socket?.remoteAddress || "desconhecido";
 }
 
+function getUserAvatarUrl(user) {
+  if (user.avatar) {
+    const extension = user.avatar.startsWith("a_") ? "gif" : "png";
+    return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=128`;
+  }
+
+  const defaultAvatarIndex = Number((BigInt(user.id) >> 22n) % 6n);
+  return `https://cdn.discordapp.com/embed/avatars/${defaultAvatarIndex}.png`;
+}
+
 async function logVerification(req, user) {
   const webhookUrl = process.env.VERIFICATION_LOG_WEBHOOK;
   if (!webhookUrl) {
@@ -26,6 +36,7 @@ async function logVerification(req, user) {
     embeds: [
       {
         title: "Verificação",
+        thumbnail: { url: getUserAvatarUrl(user) },
         fields: [
           { name: "ID", value: String(user.id), inline: true },
           { name: "Usuário", value: String(username).slice(0, 1024), inline: true },
