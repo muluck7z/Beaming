@@ -222,7 +222,7 @@ export default function LimitedMetodoModal({ open, onClose }: Props) {
         {/* Footer */}
         <div className="flex-shrink-0 border-t border-white/8 px-5 py-3 bg-white/2 flex items-center justify-between">
           <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-            <span className="px-2 py-0.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-medium">Extensão Falsa</span>
+            <span className="px-2 py-0.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-medium">Limiteds</span>
             <span>•</span>
             <span>Categoria: Métodos</span>
           </div>
