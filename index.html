@@ -3412,7 +3412,7 @@
         <div class="tab-panels">
           <div class="tab-panel active" data-panel="vip-metodos">
             <div id="robuxMethodList">
-              <div class="site-list-card" role="button" tabindex="0" onclick="openRobuxMethod()" onkeydown="if(event.key==='Enter'||event.key===' ')openRobuxMethod()" style="max-width:680px;margin:18px auto 0;cursor:pointer;">
+              <div class="site-list-card" style="max-width:680px;margin:18px auto 0;">
                 <div class="site-list-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10M15 9.5c-.7-.7-1.7-1-3-1-1.7 0-3 .8-3 2s1.3 2 3 2 3 .8 3 2-1.3 2-3 2c-1.3 0-2.3-.3-3-1"/></svg>
                 </div>
@@ -3423,6 +3423,28 @@
                   </div>
                   <div class="site-list-title">Método Robux</div>
                   <div class="tutorial-desc">Aprenda a como transferir robux de uma conta para outra utilizando grupo e experiência.</div>
+                  <button class="site-list-btn" type="button" onclick="openRobuxMethod()" style="border:none;margin-top:16px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    Ver método completo
+                  </button>
+                </div>
+              </div>
+
+              <div class="site-list-card" style="max-width:680px;margin:18px auto 0;">
+                <div class="site-list-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.1.1l2-2a5 5 0 00-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 00-7.1-.1l-2 2a5 5 0 007.1 7.1l1.1-1.1"/></svg>
+                </div>
+                <div class="site-list-body">
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+                    <span class="site-list-tag">Método 02</span>
+                    <span class="site-list-tag">Em progresso</span>
+                  </div>
+                  <div class="site-list-title">Método Referencial</div>
+                  <div class="tutorial-desc">Ao compartilhar este link, você terá acesso aos registros de usuários que se cadastrarem por meio dele, bem como daqueles que se cadastrarem através de seus indicados.</div>
+                  <button class="site-list-btn" type="button" onclick="openReferencialMethod()" style="border:none;margin-top:16px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    Ver método completo
+                  </button>
                 </div>
               </div>
             </div>
@@ -3467,6 +3489,25 @@
                       </div>
                       <div class="tutorial-title">Transferência por Profile</div>
                       <div class="tutorial-desc" style="margin-top:10px;">Uma das formas mais fáceis de transferir Robux entre contas é utilizar uma experiência e uma game pass associada a ela.</div>
+                    </div>
+                  </div>
+
+                  <div class="tutorial-card" style="margin-bottom:28px;">
+                    <div class="tutorial-card-body" style="text-align:left;">
+                      <div class="tutorial-tags" style="margin-bottom:12px;">
+                        <span class="site-list-tag">INFORMAÇÕES</span>
+                        <span class="site-list-tag">ANTES DE COMEÇAR</span>
+                      </div>
+                      <div class="tutorial-title" style="font-size:20px;">Pontos importantes</div>
+                      <div class="tutorial-desc" style="margin-top:10px;">
+                        O valor líquido recebido corresponde aproximadamente a <strong style="color:var(--red-glow);">70%</strong> do preço da game pass, pois a plataforma desconta uma taxa de 30% da venda.
+                      </div>
+                      <div class="tutorial-desc" style="margin-top:10px;">
+                        Depois da compra, a transação pode aparecer como pendente. Consulte o histórico de vendas e aguarde a liberação do saldo antes de considerar a transferência concluída.
+                      </div>
+                      <div class="tutorial-desc" style="margin-top:10px;">
+                        Utilize apenas contas, experiências e transações que você administra ou para as quais possui autorização. Nunca compartilhe senha, cookie ou código de autenticação.
+                      </div>
                     </div>
                   </div>
 
@@ -3524,6 +3565,33 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div id="referencialMethodDetail" style="display:none;">
+              <button class="site-list-btn" type="button" onclick="closeReferencialMethod()" style="border:none;cursor:pointer;margin:18px 0 18px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Voltar para Métodos VIPs
+              </button>
+
+              <div class="site-section-header">
+                <span class="site-section-badge">02</span>
+                <span class="site-section-title">Método Referencial</span>
+              </div>
+
+              <div class="tutorial-card" style="margin-bottom:28px;">
+                <div class="tutorial-card-body" style="text-align:left;">
+                  <div class="tutorial-tags" style="margin-bottom:12px;">
+                    <span class="site-list-tag">Método 02</span>
+                    <span class="site-list-tag">Em progresso</span>
+                  </div>
+                  <div class="tutorial-title">Programa Referencial</div>
+                  <div class="tutorial-desc" style="margin-top:10px;">Ao compartilhar este link, você terá acesso aos registros de usuários que se cadastrarem por meio dele, bem como daqueles que se cadastrarem através de seus indicados.</div>
+                </div>
+              </div>
+
+              <div style="padding:18px 20px;border-radius:14px;background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.28);color:var(--text-muted);font-size:13px;line-height:1.7;text-align:left;">
+                <strong style="display:block;color:var(--red-glow);margin-bottom:6px;">EM PROGRESSO</strong>
+                Os detalhes do programa referencial serão adicionados futuramente, sempre com participação voluntária e respeito à privacidade dos usuários.
               </div>
             </div>
           </div>
@@ -3654,6 +3722,22 @@
   function closeRobuxMethod(){
     const list = document.getElementById('robuxMethodList');
     const detail = document.getElementById('robuxMethodDetail');
+    if(detail) detail.style.display = 'none';
+    if(list) list.style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function openReferencialMethod(){
+    const list = document.getElementById('robuxMethodList');
+    const detail = document.getElementById('referencialMethodDetail');
+    if(list) list.style.display = 'none';
+    if(detail) detail.style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function closeReferencialMethod(){
+    const list = document.getElementById('robuxMethodList');
+    const detail = document.getElementById('referencialMethodDetail');
     if(detail) detail.style.display = 'none';
     if(list) list.style.display = 'block';
     window.scrollTo({top:0, behavior:'smooth'});
