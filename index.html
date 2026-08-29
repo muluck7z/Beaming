@@ -1135,7 +1135,7 @@
   .journey-card{
     display:grid;
     grid-template-columns:64px minmax(0, 1fr);
-    grid-template-rows:auto auto auto auto;
+    grid-template-rows:auto auto auto;
     column-gap:20px;
     min-height:0;
     padding:24px;
@@ -1153,7 +1153,7 @@
   .journey-card-head{ display:contents; }
   .journey-icon{
     grid-column:1;
-    grid-row:1 / span 4;
+    grid-row:1 / span 3;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -1185,38 +1185,50 @@
     line-height:1.15;
     color:var(--text);
   }
-  .journey-card-text{
+  .journey-card-list{
     grid-column:2;
     grid-row:3;
-    margin-top:10px;
-    color:var(--text-muted);
-    font-size:13.5px;
-    line-height:1.7;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-top:13px;
   }
-  .journey-card-hint{
-    grid-column:2;
-    grid-row:4;
-    display:inline-flex;
+  .journey-card-point{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .journey-card-point-content{ flex:1; min-width:0; }
+  .journey-card-point-title{
+    display:block;
+    margin:2px 0 4px;
+    color:var(--text);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14px;
+    font-weight:700;
+  }
+  .journey-card-number{
+    display:flex;
     align-items:center;
-    justify-self:start;
-    gap:10px;
-    margin-top:16px;
-    padding:13px 22px;
+    justify-content:center;
+    flex:0 0 28px;
+    width:28px;
+    height:28px;
+    margin-top:1px;
     color:var(--red-glow);
     border:1px solid rgba(224,16,42,0.4);
-    border-radius:999px;
+    border-radius:10px;
     background:rgba(224,16,42,0.12);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    font-weight:700;
+  }
+  .journey-card-point p{
+    margin:2px 0 0;
+    color:var(--text-muted);
     font-size:13.5px;
-    font-weight:600;
-    letter-spacing:0;
-    text-transform:none;
-    transition:background .2s ease, border-color .2s ease, transform .2s ease;
+    line-height:1.65;
   }
-  .journey-card:hover .journey-card-hint{
-    border-color:rgba(224,16,42,0.6);
-    background:rgba(224,16,42,0.17);
-  }
-  .journey-card-hint svg{ width:16px; height:16px; }
 
   /* ---------- Tab panels (Sites links) ---------- */
   .tab-panels{ margin-top: 30px; text-align:left; }
@@ -1476,8 +1488,9 @@
     .journey-icon{ width:54px; height:54px; border-radius:14px; }
     .journey-icon svg{ width:24px; height:24px; }
     .journey-card-title{ font-size:21px; }
-    .journey-card-text{ font-size:12.5px; }
-    .journey-card-hint{ padding:11px 16px; font-size:12px; }
+    .journey-card-list{ gap:12px; }
+    .journey-card-point{ gap:11px; }
+    .journey-card-point p{ font-size:12.5px; }
   }
 
   /* Novos estilos para modelos de links e encurtador */
@@ -2237,7 +2250,7 @@
                   <span class="ann-tag">Dono</span>
                 </div>
               </div>
-                <p class="ann-text">Para conseguir <strong>concorrer aos TOPs</strong> você deve abrir um <strong>ticket e apresentar seu painel de hits</strong> e se possível <strong>seus summary roubados.</strong> Somente aos <strong>Domingos.</strong></p>
+                <p class="ann-text">Somos uma <strong>comunidade de Beaming no Roblox</strong> e este site tem como objetivo <strong>ensinar o nosso método</strong>.</p>
             </div>
           </div>
         </div>
@@ -2262,8 +2275,16 @@
                 <span class="journey-step">01 / 05</span>
               </div>
               <h3 class="journey-card-title">Link Falso</h3>
-              <p class="journey-card-text">O primeiro passo é aprender a como criar um link falso. Veja todos os vídeos e aplique tudo na prática antes de prosseguir.</p>
-              <div class="journey-card-hint">Comece por aqui <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+              <div class="journey-card-list">
+                <div class="journey-card-point">
+                  <span class="journey-card-number">1</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Entenda a base</span><p>Assista aos vídeos desta categoria e conheça a estrutura dos links apresentados.</p></div>
+                </div>
+                <div class="journey-card-point">
+                  <span class="journey-card-number">2</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Pratique com atenção</span><p>Aplique o conteúdo somente em ambientes autorizados e avance quando dominar os conceitos básicos.</p></div>
+                </div>
+              </div>
             </article>
 
             <article class="journey-card">
@@ -2274,8 +2295,16 @@
                 <span class="journey-step">02 / 05</span>
               </div>
               <h3 class="journey-card-title">Roubo</h3>
-              <p class="journey-card-text">Segundo passo após a criação e entendimento do link falso. Aqui você vai aprender coisas mais avançadas e de extrema importância.</p>
-              <div class="journey-card-hint">Atenção ao conteúdo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+              <div class="journey-card-list">
+                <div class="journey-card-point">
+                  <span class="journey-card-number">1</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Revise antes de avançar</span><p>Esta é uma etapa avançada; retorne à categoria anterior se ainda houver dúvidas sobre a base.</p></div>
+                </div>
+                <div class="journey-card-point">
+                  <span class="journey-card-number">2</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Tenha responsabilidade</span><p>Compreenda os riscos, limites e responsabilidades envolvidos antes de continuar o aprendizado.</p></div>
+                </div>
+              </div>
             </article>
 
             <article class="journey-card">
@@ -2286,8 +2315,16 @@
                 <span class="journey-step">03 / 05</span>
               </div>
               <h3 class="journey-card-title">Métodos</h3>
-              <p class="journey-card-text">Terceira etapa: escolha um método com base nos seus gostos para aplicar o beaming. Aqui é a parte crucial.</p>
-              <div class="journey-card-hint">Escolha seu caminho <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+              <div class="journey-card-list">
+                <div class="journey-card-point">
+                  <span class="journey-card-number">1</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Compare as opções</span><p>Conheça os métodos disponíveis e escolha o conteúdo mais adequado ao seu objetivo.</p></div>
+                </div>
+                <div class="journey-card-point">
+                  <span class="journey-card-number">2</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Siga a explicação</span><p>Acompanhe cada etapa com atenção e mantenha o aprendizado dentro das regras da plataforma.</p></div>
+                </div>
+              </div>
             </article>
 
             <article class="journey-card">
@@ -2298,8 +2335,16 @@
                 <span class="journey-step">04 / 05</span>
               </div>
               <h3 class="journey-card-title">Pós Beaming</h3>
-              <p class="journey-card-text">Aprenda coisas um pouco fora da área, além de conteúdos adicionais para os métodos, como a criação de sites.</p>
-              <div class="journey-card-hint">Conteúdo extra <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+              <div class="journey-card-list">
+                <div class="journey-card-point">
+                  <span class="journey-card-number">1</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Explore conteúdos extras</span><p>Veja materiais complementares que ficam fora da área principal dos métodos.</p></div>
+                </div>
+                <div class="journey-card-point">
+                  <span class="journey-card-number">2</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Desenvolva seus projetos</span><p>Aprenda noções de criação e organização de sites para ampliar sua experiência.</p></div>
+                </div>
+              </div>
             </article>
 
             <article class="journey-card">
@@ -2310,8 +2355,16 @@
                 <span class="journey-step">05 / 05</span>
               </div>
               <h3 class="journey-card-title">Sites</h3>
-              <p class="journey-card-text">Aqui ficam todas as ferramentas do nosso site, incluindo os geradores, bypass e refreshers.</p>
-              <div class="journey-card-hint">Ver ferramentas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+              <div class="journey-card-list">
+                <div class="journey-card-point">
+                  <span class="journey-card-number">1</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Encontre os recursos</span><p>Consulte as ferramentas reunidas nesta área, incluindo geradores e recursos de apoio.</p></div>
+                </div>
+                <div class="journey-card-point">
+                  <span class="journey-card-number">2</span>
+                  <div class="journey-card-point-content"><span class="journey-card-point-title">Verifique antes de usar</span><p>Confirme a origem e a segurança de qualquer ferramenta antes de utilizá-la.</p></div>
+                </div>
+              </div>
             </article>
           </div>
         </section>
