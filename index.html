@@ -2718,6 +2718,10 @@
                     <div style="margin-top:20px;padding:16px;background:rgba(224,16,42,0.06);border:1px solid rgba(224,16,42,0.25);border-radius:10px;">
                       <div style="font-weight:700;color:var(--red-glow);margin-bottom:8px;font-size:.875rem;">Extensão Atualizada</div>
                       <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">O tutorial mostra a extensão <strong style="color:var(--text)">EditThisCookie</strong>, mas ela foi substituída. Use o arquivo abaixo no lugar dela. O funcionamento é idêntico.</div>
+                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(224,16,42,0.2);">
+                        <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">A extensão atual está disponível na categoria <strong style="color:var(--text)">Sites &gt; Extensão</strong>.</div>
+                        <button class="site-list-btn" type="button" onclick="openExtension()" style="display:inline-flex;margin-top:12px;border:1px solid rgba(224,16,42,0.45);">→ Ir para Extensão</button>
+                      </div>
                     </div>
 
                     <div style="margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--surface-border);border-radius:10px;">
@@ -2754,6 +2758,10 @@
                     <div style="margin-top:20px;padding:16px;background:rgba(224,16,42,0.06);border:1px solid rgba(224,16,42,0.25);border-radius:10px;">
                       <div style="font-weight:700;color:var(--red-glow);margin-bottom:8px;font-size:.875rem;">Extensão Atualizada</div>
                       <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">O tutorial mostra a extensão <strong style="color:var(--text)">EditThisCookie</strong>, mas ela foi substituída. Use o arquivo abaixo no lugar dela. O funcionamento é idêntico.</div>
+                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(224,16,42,0.2);">
+                        <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">A extensão atual está disponível na categoria <strong style="color:var(--text)">Sites &gt; Extensão</strong>.</div>
+                        <button class="site-list-btn" type="button" onclick="openExtension()" style="display:inline-flex;margin-top:12px;border:1px solid rgba(224,16,42,0.45);">→ Ir para Extensão</button>
+                      </div>
                     </div>
 
                     <div style="margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--surface-border);border-radius:10px;">
@@ -4022,6 +4030,12 @@
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
+  function openExtension(){
+    showView('sites');
+    const extensionTab = document.querySelector('#view-sites [data-tab="x4"]');
+    if (extensionTab) extensionTab.click();
+    closeMenu();
+  }
   function openRobuxMethod(){
     const list = document.getElementById('robuxMethodList');
     const detail = document.getElementById('robuxMethodDetail');
