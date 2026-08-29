@@ -1062,6 +1062,173 @@
 
   .lb-stat-robux svg{ color: #ffffff; }
 
+  /* ---------- Dashboard overview ---------- */
+  .journey-intro{
+    position:relative;
+    overflow:hidden;
+    margin: 34px 0 28px;
+    padding: 26px;
+    text-align:left;
+    border: 1px solid rgba(224,16,42,0.24);
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.025) 48%, rgba(224,16,42,0.075) 100%);
+    box-shadow: 0 18px 42px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.04);
+    backdrop-filter: blur(16px);
+  }
+  .journey-intro::after{
+    content:"";
+    position:absolute;
+    width: 220px;
+    height: 220px;
+    right: -100px;
+    top: -120px;
+    border-radius:50%;
+    background: rgba(224,16,42,0.16);
+    filter: blur(42px);
+    pointer-events:none;
+  }
+  .journey-heading,
+  .journey-grid{
+    position:relative;
+    z-index:1;
+  }
+  .journey-heading{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:18px;
+    margin-bottom:22px;
+  }
+  .journey-kicker{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+    color: var(--red-glow);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.19em;
+    text-transform:uppercase;
+  }
+  .journey-kicker-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--red-glow);
+    box-shadow:0 0 10px rgba(255,45,71,0.75);
+  }
+  .journey-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(24px, 4vw, 31px);
+    line-height:1.05;
+    letter-spacing:-0.025em;
+  }
+  .journey-subtitle{
+    max-width:470px;
+    margin-top:10px;
+    color:var(--text-muted);
+    font-size:13px;
+    line-height:1.65;
+  }
+  .journey-count{
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 12px;
+    color:var(--text-muted);
+    border:1px solid var(--surface-border);
+    border-radius:999px;
+    background:rgba(255,255,255,0.035);
+    font-size:11px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .journey-count strong{ color:var(--text); font-family:'Space Grotesk',sans-serif; }
+  .journey-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:12px;
+  }
+  .journey-card{
+    position:relative;
+    min-height:175px;
+    overflow:hidden;
+    padding:17px;
+    border:1px solid var(--surface-border);
+    border-radius:17px;
+    background:rgba(10,10,12,0.32);
+    transition:transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+  }
+  .journey-card::before{
+    content:"";
+    position:absolute;
+    left:17px;
+    right:17px;
+    top:0;
+    height:2px;
+    border-radius:999px;
+    background:linear-gradient(90deg, transparent, var(--card-accent), transparent);
+    opacity:0.85;
+  }
+  .journey-card:hover{
+    transform:translateY(-3px);
+    border-color:color-mix(in srgb, var(--card-accent) 50%, transparent);
+    background:rgba(255,255,255,0.055);
+    box-shadow:0 12px 26px rgba(0,0,0,0.22);
+  }
+  .journey-card:nth-child(5){ grid-column:1 / -1; min-height:148px; }
+  .journey-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:15px;
+  }
+  .journey-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:39px;
+    height:39px;
+    color:var(--card-accent);
+    border:1px solid color-mix(in srgb, var(--card-accent) 36%, transparent);
+    border-radius:12px;
+    background:color-mix(in srgb, var(--card-accent) 12%, transparent);
+  }
+  .journey-icon svg{ width:19px; height:19px; }
+  .journey-step{
+    color:var(--text-faint);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.12em;
+  }
+  .journey-card-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:0.01em;
+  }
+  .journey-card-text{
+    margin-top:7px;
+    color:var(--text-muted);
+    font-size:12px;
+    line-height:1.62;
+  }
+  .journey-card-hint{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin-top:14px;
+    color:var(--card-accent);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+  .journey-card-hint svg{ width:13px; height:13px; }
+
   /* ---------- Tab panels (Sites links) ---------- */
   .tab-panels{ margin-top: 30px; text-align:left; }
   .tab-panel{ display:none; }
@@ -1312,6 +1479,11 @@
   @media (max-width: 480px){
     .panel{ padding: calc(18px + env(safe-area-inset-top, 0px)) 16px 18px; border-radius: 0 0 22px 22px; }
     .nav-item .label{ font-size:15px; }
+    .journey-intro{ margin-top:26px; padding:20px 16px; border-radius:20px; }
+    .journey-heading{ align-items:flex-start; flex-direction:column; gap:14px; }
+    .journey-subtitle{ font-size:12px; }
+    .journey-grid{ grid-template-columns:1fr; }
+    .journey-card:nth-child(5){ grid-column:auto; min-height:175px; }
   }
 
   /* Novos estilos para modelos de links e encurtador */
@@ -2075,6 +2247,80 @@
             </div>
           </div>
         </div>
+
+        <!-- Resumo do Dashboard -->
+        <section class="journey-intro" aria-labelledby="journey-title">
+          <div class="journey-heading">
+            <div>
+              <div class="journey-kicker"><span class="journey-kicker-dot"></span>Guia rápido · Dashboard</div>
+              <h2 class="journey-title" id="journey-title">Aonde começar?</h2>
+              <p class="journey-subtitle">Um breve roteiro para você entender a ordem das categorias e aproveitar todos os recursos disponíveis no site.</p>
+            </div>
+            <div class="journey-count"><strong>05</strong> etapas</div>
+          </div>
+
+          <div class="journey-grid">
+            <article class="journey-card" style="--card-accent:#61c7ff;">
+              <div class="journey-card-head">
+                <div class="journey-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
+                </div>
+                <span class="journey-step">01 / 05</span>
+              </div>
+              <h3 class="journey-card-title">Link Falso</h3>
+              <p class="journey-card-text">O primeiro passo é aprender a como criar um link falso. Veja todos os vídeos e aplique tudo na prática antes de prosseguir.</p>
+              <div class="journey-card-hint">Comece por aqui <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+            </article>
+
+            <article class="journey-card" style="--card-accent:#ff6b83;">
+              <div class="journey-card-head">
+                <div class="journey-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 14v2"/></svg>
+                </div>
+                <span class="journey-step">02 / 05</span>
+              </div>
+              <h3 class="journey-card-title">Roubo</h3>
+              <p class="journey-card-text">Segundo passo após a criação e entendimento do link falso. Aqui você vai aprender coisas mais avançadas e de extrema importância.</p>
+              <div class="journey-card-hint">Atenção ao conteúdo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+            </article>
+
+            <article class="journey-card" style="--card-accent:#b58bff;">
+              <div class="journey-card-head">
+                <div class="journey-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.4 4.6-4.6 2.4 2.4-4.6 4.6-2.4Z"/></svg>
+                </div>
+                <span class="journey-step">03 / 05</span>
+              </div>
+              <h3 class="journey-card-title">Métodos</h3>
+              <p class="journey-card-text">Terceira etapa: escolha um método com base nos seus gostos para aplicar o beaming. Aqui é a parte crucial.</p>
+              <div class="journey-card-hint">Escolha seu caminho <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+            </article>
+
+            <article class="journey-card" style="--card-accent:#ffc15c;">
+              <div class="journey-card-head">
+                <div class="journey-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3Z"/><path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"/></svg>
+                </div>
+                <span class="journey-step">04 / 05</span>
+              </div>
+              <h3 class="journey-card-title">Pós Beaming</h3>
+              <p class="journey-card-text">Aprenda coisas um pouco fora da área, além de conteúdos adicionais para os métodos, como a criação de sites.</p>
+              <div class="journey-card-hint">Conteúdo extra <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+            </article>
+
+            <article class="journey-card" style="--card-accent:#55e39a;">
+              <div class="journey-card-head">
+                <div class="journey-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+                </div>
+                <span class="journey-step">05 / 05</span>
+              </div>
+              <h3 class="journey-card-title">Sites</h3>
+              <p class="journey-card-text">Aqui ficam todas as ferramentas do nosso site, incluindo os geradores, bypass e refreshers.</p>
+              <div class="journey-card-hint">Ver ferramentas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>
+            </article>
+          </div>
+        </section>
 
         <div class="lb-card">
           <div class="lb-title-row">
