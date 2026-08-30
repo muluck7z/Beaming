@@ -3917,15 +3917,43 @@
             </div>
           </div>
           <div class="tab-panel" data-panel="vip-extensao">
-            <div class="tutorial-card" style="max-width:560px;margin:18px auto 0;text-align:center;">
-              <div class="tutorial-card-body" style="padding:34px 26px 30px;">
-                <div class="tutorial-tags" style="justify-content:center;margin-bottom:12px;">
+            <div id="vipExtensionGate" class="tutorial-card" style="max-width:720px;margin:18px auto 0;text-align:left;">
+              <div class="tutorial-card-body" style="padding:28px 26px;">
+                <div class="tutorial-tags" style="margin-bottom:14px;">
                   <span class="site-list-tag">EXTENSÃO PRO</span>
-                  <span class="site-list-tag">EM PROGRESSO</span>
+                  <span class="site-list-tag">ACESSO RESTRITO</span>
                 </div>
-                <div class="tutorial-title">Extensão Pro em desenvolvimento</div>
-                <div class="tutorial-desc" style="margin-top:10px;">Este recurso está sendo preparado e será liberado futuramente.</div>
+                <div class="tutorial-title">Antes de continuar</div>
+                <div class="tutorial-desc" style="margin-top:12px;line-height:1.7;">É estritamente proibido revender ou divulgar materiais desta área, mesmo para usuários VIP. O conteúdo é destinado exclusivamente a quem o adquiriu através de nós. O descumprimento pode resultar em banimento permanente.</div>
+                <div style="margin-top:18px;padding:16px;border-radius:12px;background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.28);color:var(--text-muted);font-size:13px;line-height:1.7;">
+                  <strong style="display:block;color:var(--red-glow);margin-bottom:6px;">AVISO DE SEGURANÇA</strong>
+                  Não use ferramentas que coletem, preencham ou armazenem senhas, cookies, tokens ou credenciais. Também não tente automatizar logins, alterar contas ou prolongar sessões. Respeite as regras do Roblox e use apenas recursos autorizados.
+                </div>
+                <div style="margin-top:20px;">
+                  <label for="vipExtensionAgreement" style="display:block;font-size:.8rem;font-weight:700;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;">Digite “concordo” para liberar</label>
+                  <input id="vipExtensionAgreement" class="ex-key-input" type="text" autocomplete="off" placeholder="concordo" style="max-width:none;">
+                  <div id="vipExtensionCountdown" class="tutorial-desc" style="margin-top:10px;">Aguarde 30 segundos nesta página para continuar.</div>
+                  <button id="vipExtensionAgree" class="site-list-btn" type="button" disabled style="margin-top:14px;opacity:.5;cursor:not-allowed;">Concordo e continuar</button>
+                </div>
               </div>
+            </div>
+            <div id="vipExtensionContent" style="display:none;max-width:720px;margin:18px auto 0;">
+              <div class="site-section-header">
+                <span class="site-section-badge">01</span>
+                <span class="site-section-title">Extensão Pro</span>
+              </div>
+              <div class="tutorial-card" style="margin-bottom:22px;">
+                <div class="tutorial-card-body" style="text-align:left;">
+                  <div class="tutorial-title">Como funciona</div>
+                  <div class="tutorial-desc" style="margin-top:10px;line-height:1.7;">Esta página apresenta, de forma informativa, as áreas e os cuidados relacionados a uma extensão. Não fornecemos arquivo para download nem instruções para manipular credenciais, cookies, tokens, logins ou sessões.</div>
+                </div>
+              </div>
+              <div class="site-section-header"><span class="site-section-badge">02</span><span class="site-section-title">Secret</span></div>
+              <div class="tutorial-card" style="margin-bottom:22px;"><div class="tutorial-card-body" style="text-align:left;"><div class="tutorial-title">Secret</div><div class="tutorial-desc" style="margin-top:10px;line-height:1.7;">Área conceitual para configurações sensíveis. Nunca insira senhas, Auth Keys, tokens, cookies ou outros dados de acesso em ferramentas não verificadas.</div></div></div>
+              <div class="site-section-header"><span class="site-section-badge">03</span><span class="site-section-title">Contas</span></div>
+              <div class="tutorial-card" style="margin-bottom:22px;"><div class="tutorial-card-body" style="text-align:left;"><div class="tutorial-title">Contas</div><div class="tutorial-desc" style="margin-top:10px;line-height:1.7;">Área conceitual para organização de perfis. Não armazene credenciais em extensões, compartilhe senhas ou use automações de login; mantenha suas contas em um gerenciador confiável.</div></div></div>
+              <div class="site-section-header"><span class="site-section-badge">04</span><span class="site-section-title">Refresher</span></div>
+              <div class="tutorial-card"><div class="tutorial-card-body" style="text-align:left;"><div class="tutorial-title">Refresher</div><div class="tutorial-desc" style="margin-top:10px;line-height:1.7;">Não utilize recursos para manter sessões ativas artificialmente ou contornar controles de segurança. Encerre sessões e faça login novamente pelos meios oficiais quando necessário.</div></div></div>
             </div>
           </div>
         </div>
@@ -4025,6 +4053,7 @@
     views.forEach(v => v.classList.remove('active'));
     const target = document.getElementById('view-' + name);
     if(target) target.classList.add('active');
+    if (name === 'vip') startVipExtensionGate();
     navItems.forEach(i => i.classList.toggle('active', i.dataset.view === name));
     localStorage.setItem('ilegal_active_view', name);
     window.scrollTo({top:0, behavior:'smooth'});
@@ -4035,6 +4064,33 @@
     const extensionTab = document.querySelector('#view-sites [data-tab="x4"]');
     if (extensionTab) extensionTab.click();
     closeMenu();
+  }
+  let vipExtensionGateStartedAt = null;
+  let vipExtensionGateTimer = null;
+  function startVipExtensionGate(){
+    const countdown = document.getElementById('vipExtensionCountdown');
+    const input = document.getElementById('vipExtensionAgreement');
+    const agree = document.getElementById('vipExtensionAgree');
+    if (!countdown || !input || !agree || vipExtensionGateStartedAt) return;
+    vipExtensionGateStartedAt = Date.now();
+    const updateGate = () => {
+      const remaining = Math.max(0, 30000 - (Date.now() - vipExtensionGateStartedAt));
+      const seconds = Math.ceil(remaining / 1000);
+      const ready = remaining === 0 && input.value.trim().toLowerCase() === 'concordo';
+      countdown.textContent = remaining ? `Aguarde ${seconds} segundo${seconds === 1 ? '' : 's'} nesta página para continuar.` : 'Digite “concordo” e clique no botão para continuar.';
+      agree.disabled = !ready;
+      agree.style.opacity = ready ? '1' : '.5';
+      agree.style.cursor = ready ? 'pointer' : 'not-allowed';
+      if (remaining === 0 && vipExtensionGateTimer) { clearInterval(vipExtensionGateTimer); vipExtensionGateTimer = null; }
+    };
+    input.addEventListener('input', updateGate);
+    agree.addEventListener('click', () => {
+      if (agree.disabled) return;
+      document.getElementById('vipExtensionGate').style.display = 'none';
+      document.getElementById('vipExtensionContent').style.display = 'block';
+    });
+    updateGate();
+    vipExtensionGateTimer = setInterval(updateGate, 250);
   }
   function openRobuxMethod(){
     const list = document.getElementById('robuxMethodList');
