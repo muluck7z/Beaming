@@ -5,7 +5,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/((?!api/).*)",
+      "source": "/((?!api/|NexusPro\\.zip$).*)",
       "destination": "/index.html"
     }
   ],
