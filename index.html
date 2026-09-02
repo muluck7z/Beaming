@@ -3754,7 +3754,7 @@
                   </div>
                   <div class="site-list-title">Método Robux</div>
                   <div class="tutorial-desc">Aprenda a como transferir robux de uma conta para outra utilizando grupo e experiência.</div>
-                  <button class="site-list-btn" type="button" data-method-open="robux" style="border:none;margin-top:16px;">
+                  <button class="site-list-btn" type="button" onclick="openRobuxMethod()" style="border:none;margin-top:16px;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     Ver método completo
                   </button>
@@ -3771,7 +3771,7 @@
                   </div>
                   <div class="site-list-title">Método Referencial</div>
                   <div class="tutorial-desc">Ao compartilhar este link, você terá acesso aos registros de usuários que se cadastrarem por meio dele, bem como daqueles que se cadastrarem através de seus indicados.</div>
-                  <button class="site-list-btn" type="button" data-method-open="referencial" style="border:none;margin-top:16px;">
+                  <button class="site-list-btn" type="button" onclick="openReferencialMethod()" style="border:none;margin-top:16px;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     Ver método completo
                   </button>
@@ -4141,13 +4141,6 @@
     if(list) list.style.display = 'block';
     window.scrollTo({top:0, behavior:'smooth'});
   }
-
-  document.querySelectorAll('[data-method-open]').forEach(button => {
-    button.addEventListener('click', () => {
-      if (button.dataset.methodOpen === 'robux') openRobuxMethod();
-      if (button.dataset.methodOpen === 'referencial') openReferencialMethod();
-    });
-  });
 
   function goHome(){
     showView('dashboard');
@@ -4549,6 +4542,8 @@ function closeMethod(){
   document.getElementById('metodos-detail').style.display='none';
   document.getElementById('metodos-list').style.display='block';
 }
+
+</script>
 
 <script>
   // ── Content protection ──
