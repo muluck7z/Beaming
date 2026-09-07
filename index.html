@@ -877,6 +877,32 @@
 
 
 
+
+  .admin-bell{position:relative;width:38px;height:38px;border-radius:11px;border:1px solid var(--surface-border);background:var(--surface);color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .admin-bell:hover{color:var(--red-glow);border-color:rgba(224,16,42,.45);}
+  .admin-badge{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--red-glow);color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;}
+  .admin-announcement{display:none;max-width:680px;margin:0 auto 18px;padding:14px 16px;border:1px solid rgba(224,16,42,.38);border-radius:14px;background:rgba(224,16,42,.09);text-align:left;position:relative;}
+  .admin-announcement.show{display:block;}
+  .admin-announcement h3{margin:0 28px 5px 0;font-size:15px;color:var(--text);}
+  .admin-announcement p{margin:0;color:var(--text-muted);font-size:13px;line-height:1.55;}
+  .admin-announcement small{display:block;margin-top:7px;color:var(--text-faint);font-size:11px;}
+  .admin-announcement-close{position:absolute;right:10px;top:10px;border:0;background:none;color:var(--text-muted);cursor:pointer;font-size:18px;}
+  .admin-shell{width:100%;max-width:980px;margin:0 auto;text-align:left;}
+  .admin-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,360px);gap:18px;align-items:start;}
+  .admin-box{background:var(--surface);border:1px solid var(--surface-border);border-radius:18px;padding:20px;}
+  .admin-box h2{margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:20px;}
+  .admin-box input,.admin-box textarea{width:100%;box-sizing:border-box;margin:0 0 10px;padding:11px 12px;border-radius:10px;border:1px solid var(--surface-border);background:rgba(0,0,0,.18);color:var(--text);font:inherit;}
+  .admin-box textarea{min-height:100px;resize:vertical;}
+  .admin-primary{border:0;border-radius:10px;padding:11px 14px;background:var(--red-glow);color:#fff;font-weight:800;cursor:pointer;}
+  .admin-members{display:flex;flex-direction:column;gap:8px;max-height:560px;overflow:auto;}
+  .admin-member{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid var(--surface-border);border-radius:12px;background:rgba(255,255,255,.025);}
+  .admin-member img{width:34px;height:34px;border-radius:50%;object-fit:cover;}
+  .admin-member-main{min-width:0;flex:1;}.admin-member-name{font-weight:700;font-size:13px;}.admin-member-meta{color:var(--text-faint);font-size:11px;margin-top:3px;line-height:1.4;}
+  .admin-member-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;}.admin-member-actions button{border:1px solid var(--surface-border);background:transparent;color:var(--text-muted);border-radius:8px;padding:6px 8px;font-size:10px;cursor:pointer;}.admin-member-actions button:hover{color:var(--text);border-color:var(--red-glow);}
+  .admin-status{font-size:10px;font-weight:800;text-transform:uppercase;color:#4ade80;}.admin-status.banned{color:var(--red-glow);}.admin-status.limited{color:#fbbf24;}
+  .admin-list{display:flex;flex-direction:column;gap:8px;margin-top:14px;}.admin-list-item{padding:10px;border:1px solid var(--surface-border);border-radius:10px;color:var(--text-muted);font-size:12px;line-height:1.45;}
+  @media(max-width:760px){.admin-grid{grid-template-columns:1fr;}.admin-shell{padding-bottom:24px;}}
+
   /* ---------- Main views ---------- */
   .view{
     min-height:100vh;
@@ -2161,6 +2187,10 @@
       <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
+      <button class="admin-bell" id="announcementBell" aria-label="Últimos anúncios" title="Últimos anúncios">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg><span class="admin-badge" id="announcementBadge">0</span>
+      </button>
+
       <div class="account-wrap">
         <button class="avatar-slot" id="avatarBtn" aria-label="Conta" aria-expanded="false">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -2214,11 +2244,15 @@
           </span>
           <span class="label">Ferramentas</span>
         </li>
+        <li class="nav-item" data-view="admin" id="adminNavItem" style="display:none;" aria-hidden="true">
+          <span class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 7v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9V7l-8-4Z"></path><path d="m9 12 2 2 4-4"></path></svg></span><span class="label">Administrador</span>
+        </li>
       </ul>
     </nav>
   </div>
 
   <main id="site-main" style="display:none;">
+    <div id="announcementBanner" class="admin-announcement" role="status"></div>
     <section class="view active" id="view-dashboard">
       <div class="view-inner">
         <h1 class="hero-title" style="font-size: clamp(32px, 6vw, 52px); margin-bottom: 14px;">NE<span class="accent">XUS</span></h1>
@@ -4102,6 +4136,19 @@
         </div>
       </div>
     </section>
+
+    <section class="view view-top" id="view-admin">
+      <div class="admin-shell">
+        <div class="site-section-header"><span class="site-section-badge">A</span><span class="site-section-title">Administrador</span></div>
+        <div class="admin-grid">
+          <div class="admin-box"><h2>Membros registrados</h2><div id="adminMembers" class="admin-members"><div class="admin-member-meta">Carregando membros...</div></div></div>
+          <div>
+            <div class="admin-box"><h2>Novo anúncio</h2><input id="adminAnnTitle" maxlength="120" placeholder="Título do anúncio"><textarea id="adminAnnMessage" maxlength="2000" placeholder="Mensagem que aparecerá no topo do site"></textarea><input id="adminAnnImage" maxlength="500" placeholder="URL da sua foto (opcional)"><button class="admin-primary" id="adminAnnPublish">Publicar anúncio</button><div id="adminAnnStatus" class="admin-member-meta" style="margin-top:10px;"></div></div>
+            <div class="admin-box" style="margin-top:18px;"><h2>Anúncios recentes</h2><div id="adminAnnouncements" class="admin-list"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
 <script>
@@ -4190,6 +4237,7 @@
   });
 
   function showView(name){
+    if (name === 'admin' && !(currentUser && currentUser.isAdmin)) { name = 'dashboard'; }
     if (name === 'vip' && !(currentUser && currentUser.hasVipAccess)) {
       name = 'dashboard';
     }
@@ -4585,6 +4633,8 @@
         if (vipNavItem) {
           const canAccessVip = Boolean(currentUser.hasVipAccess);
           vipNavItem.style.display = canAccessVip ? 'flex' : 'none';
+          const adminNavItem = document.getElementById('adminNavItem');
+          if (adminNavItem) { adminNavItem.style.display = currentUser.isAdmin ? 'flex' : 'none'; adminNavItem.setAttribute('aria-hidden', currentUser.isAdmin ? 'false' : 'true'); }
           vipNavItem.setAttribute('aria-hidden', canAccessVip ? 'false' : 'true');
         }
 
@@ -4696,6 +4746,44 @@ function closeMethod(){
       }
     }
   });
+</script>
+
+<script>
+(function(){
+  var adminNav = document.getElementById('adminNavItem');
+  var adminMembers = document.getElementById('adminMembers');
+  var adminAnnouncements = document.getElementById('adminAnnouncements');
+  var adminPublish = document.getElementById('adminAnnPublish');
+  var banner = document.getElementById('announcementBanner');
+  var bell = document.getElementById('announcementBell');
+  var badge = document.getElementById('announcementBadge');
+  var lastAnnouncements = [];
+  function token(){ try{return localStorage.getItem('ilegal_jwt');}catch(e){return null;} }
+  function api(path, options){ options=options||{}; options.headers=Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+(token()||'')},options.headers||{}); return fetch(path,options).then(function(r){return r.json().then(function(d){if(!r.ok) throw new Error(d.error||'Erro'); return d;});}); }
+  function formatSeconds(v){var n=Number(v||0),h=Math.floor(n/3600),m=Math.floor((n%3600)/60);return h+'h '+m+'min';}
+  function safe(v){return String(v||'').replace(/[&<>'"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c];});}
+  function avatar(m){return m.avatar?'https://cdn.discordapp.com/avatars/'+encodeURIComponent(m.user_id)+'/'+encodeURIComponent(m.avatar)+'.png?size=64':'https://cdn.discordapp.com/embed/avatars/'+(parseInt(m.user_id,10)%6)+'.png';}
+  function renderAnnouncements(rows){
+    lastAnnouncements=rows||[];
+    if(adminAnnouncements) adminAnnouncements.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="admin-list-item"><strong>'+safe(a.title)+'</strong><br>'+safe(a.message)+'<br><small>'+safe(a.author_name||'Administrador')+'</small><br><button onclick="adminDeactivateAnnouncement('+Number(a.id)+')" style="margin-top:7px;border:1px solid var(--surface-border);background:none;color:var(--text-muted);border-radius:7px;padding:5px 8px;cursor:pointer;">Fechar anúncio</button></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>';
+    if(badge){badge.textContent=String(lastAnnouncements.length);badge.style.display=lastAnnouncements.length?'flex':'none';}
+    var a=lastAnnouncements[0];
+    if(banner && a){banner.innerHTML='<button class="admin-announcement-close" aria-label="Fechar anúncio">×</button>'+(a.image_url?'<img src="'+safe(a.image_url)+'" alt="" style="width:34px;height:34px;border-radius:9px;object-fit:cover;float:left;margin:0 10px 4px 0;">':'')+'<h3>'+safe(a.title)+'</h3><p>'+safe(a.message)+'</p><small>'+safe(a.author_name||'Administrador')+'</small>';banner.classList.add('show');banner.querySelector('.admin-announcement-close').onclick=function(){banner.classList.remove('show');try{localStorage.setItem('dismissed_announcement_'+a.id,'1');}catch(e){}};try{if(localStorage.getItem('dismissed_announcement_'+a.id)==='1')banner.classList.remove('show');}catch(e){}}
+  }
+  function renderMembers(rows){
+    if(!adminMembers)return;
+    adminMembers.innerHTML=(rows||[]).map(function(m){var st=m.status||'active';return '<div class="admin-member"><img src="'+avatar(m)+'" alt=""><div class="admin-member-main"><div class="admin-member-name">'+safe(m.username)+' <span class="admin-status '+st+'">'+safe(st)+'</span></div><div class="admin-member-meta">ID: '+safe(m.user_id)+'<br>Local: '+safe([m.city,m.region,m.country].filter(Boolean).join(', ')||'indisponível')+'<br>Entrada: '+new Date(m.first_seen_at).toLocaleString('pt-BR')+' · Tempo: '+formatSeconds(m.total_seconds)+'</div></div><div class="admin-member-actions"><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'limited\')">Limitar</button><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'banned\')">Banir</button><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'active\')">Liberar</button></div></div>';}).join('')||'<div class="admin-member-meta">Nenhum membro registrado.</div>';
+  }
+  window.adminSetMember=function(id,status){if(!confirm(status==='banned'?'Banir este membro?':status==='limited'?'Limitar este membro?':'Liberar este membro?'))return;api('/api/admin',{method:'POST',body:JSON.stringify({action:'member_status',userId:id,status:status})}).then(loadAdmin).catch(function(e){alert(e.message);});};
+  window.adminDeactivateAnnouncement=function(id){api('/api/admin',{method:'POST',body:JSON.stringify({action:'deactivate_announcement',id:id})}).then(loadAdmin).catch(function(e){alert(e.message);});};
+  function loadAdmin(){api('/api/admin').then(function(d){renderMembers(d.members);renderAnnouncements(d.announcements);}).catch(function(e){if(adminMembers)adminMembers.innerHTML='<div class="admin-member-meta">'+safe(e.message)+'</div>';});}
+  if(adminNav)adminNav.addEventListener('click',function(){setTimeout(loadAdmin,60);});
+  if(adminPublish)adminPublish.addEventListener('click',function(){var title=document.getElementById('adminAnnTitle').value.trim(),message=document.getElementById('adminAnnMessage').value.trim(),imageUrl=document.getElementById('adminAnnImage').value.trim(),status=document.getElementById('adminAnnStatus');if(!title||!message){status.textContent='Preencha título e mensagem.';return;}adminPublish.disabled=true;api('/api/admin',{method:'POST',body:JSON.stringify({action:'announcement',title:title,message:message,imageUrl:imageUrl})}).then(function(){status.textContent='Anúncio publicado.';document.getElementById('adminAnnTitle').value='';document.getElementById('adminAnnMessage').value='';loadAdmin();}).catch(function(e){status.textContent=e.message;}).finally(function(){adminPublish.disabled=false;});});
+  if(bell)bell.addEventListener('click',function(){if(lastAnnouncements[0]&&banner){banner.classList.add('show');}});
+  function loadPublicAnnouncements(){fetch('/api/announcements',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){renderAnnouncements(d.announcements||[]);}).catch(function(){});}
+  function heartbeat(){fetch('/api/admin/heartbeat',{method:'POST',headers:{Authorization:'Bearer '+(token()||''),'Content-Type':'application/json'},body:'{}'}).catch(function(){});}
+  setTimeout(function(){loadPublicAnnouncements();heartbeat();setInterval(heartbeat,60000);setInterval(loadPublicAnnouncements,60000);},1800);
+})();
 </script>
 </body>
 </html>

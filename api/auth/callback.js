@@ -73,6 +73,35 @@ async function logVerification(req, user) {
   }
 }
 
+async function registerMember(req, user) {
+  const supabaseUrl = process.env.SUPABASE_URL || "https://ofxrufnajnncstlrlswm.supabase.co";
+  const supabaseKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseKey) return;
+  const headers = {
+    apikey: supabaseKey,
+    Authorization: "Bearer " + supabaseKey,
+    "Content-Type": "application/json",
+    Prefer: "resolution=merge-duplicates,return=minimal",
+  };
+  const location = {
+    country: String(req.headers["x-vercel-ip-country"] || "").slice(0, 80) || null,
+    region: String(req.headers["x-vercel-ip-country-region"] || "").slice(0, 120) || null,
+    city: String(req.headers["x-vercel-ip-city"] || "").slice(0, 120) || null,
+  };
+  await fetch(supabaseUrl.replace(/\/$/, "") + "/rest/v1/members?on_conflict=user_id", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      user_id: String(user.id),
+      username: String(user.global_name || user.username || "desconhecido").slice(0, 120),
+      avatar: user.avatar || null,
+      ...location,
+      last_seen_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }),
+  });
+}
+
 module.exports = async function handler(req, res) {
   const CLIENT_ID = process.env.DISCORD_CLIENT_ID;
   const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
@@ -145,6 +174,11 @@ module.exports = async function handler(req, res) {
       return;
     }
 
+    try {
+      await registerMember(req, user);
+    } catch (memberError) {
+      console.error("Falha ao registrar membro:", memberError.message);
+    }
     await logVerification(req, user);
 
     const jwt = makeJwt(
@@ -168,4 +202,3 @@ module.exports = async function handler(req, res) {
 
 module.exports.logVerification = logVerification;
 module.exports.getClientIp = getClientIp;
-
