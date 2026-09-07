@@ -946,6 +946,12 @@
   .admin-tab.active{background:var(--red-glow);color:#fff;box-shadow:0 7px 18px rgba(224,16,42,.25);}
   .admin-pane{display:none;width:100%;min-width:0;}.admin-pane.active{display:block;}
 
+
+  .admin-member-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px;}
+  .admin-member-toolbar h2{margin:0!important;}.admin-member-search{width:210px;max-width:48%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--surface-border);border-radius:10px;background:rgba(0,0,0,.18);color:var(--text);font:inherit;font-size:12px;outline:none;}.admin-member-search:focus{border-color:rgba(224,16,42,.7);}
+  .admin-member-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px;}.admin-stat{padding:12px;border:1px solid var(--surface-border);border-radius:13px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));}.admin-stat-icon{display:flex;align-items:center;justify-content:space-between;color:var(--red-glow);font-size:15px;}.admin-stat-label{margin-top:8px;color:var(--text-faint);font-size:10px;text-transform:uppercase;letter-spacing:.06em;}.admin-stat-value{margin-top:2px;color:var(--text);font-size:20px;font-weight:800;}
+  @media(max-width:540px){.admin-member-toolbar{align-items:stretch;flex-direction:column;}.admin-member-search{width:100%;max-width:none;}.admin-member-stats{gap:6px;}.admin-stat{padding:10px 8px;}.admin-stat-value{font-size:17px;}}
+
   .admin-form-label{margin:0 0 8px;color:var(--text-muted);font-size:12px;font-weight:700;}
   .admin-table-wrap{width:100%;max-width:100%;overflow-x:auto;border:1px solid var(--surface-border);border-radius:14px;}
   .admin-members{width:100%;border-collapse:collapse;min-width:760px;}
@@ -4218,7 +4224,11 @@
           <button class="admin-tab" id="adminTabPosts" role="tab" aria-selected="false">Postagens</button>
         </div>
         <div class="admin-pane active" id="adminPaneMembers" role="tabpanel">
-          <div class="admin-box"><h2>Membros registrados</h2><div id="adminMembers" class="admin-member-cards"><div class="admin-member-empty">Carregando membros...</div></div></div>
+          <div class="admin-box">
+            <div class="admin-member-toolbar"><h2>Membros</h2><input id="adminMemberSearch" class="admin-member-search" type="search" placeholder="Buscar nome, ID ou IP" aria-label="Buscar membros"></div>
+            <div class="admin-member-stats"><div class="admin-stat"><div class="admin-stat-icon">◉ <span>●</span></div><div class="admin-stat-label">Total</div><div id="adminStatTotal" class="admin-stat-value">0</div></div><div class="admin-stat"><div class="admin-stat-icon">◌ <span>●</span></div><div class="admin-stat-label">Online</div><div id="adminStatOnline" class="admin-stat-value">0</div></div><div class="admin-stat"><div class="admin-stat-icon">⚠ <span>●</span></div><div class="admin-stat-label">Atenção</div><div id="adminStatAttention" class="admin-stat-value">0</div></div></div>
+            <div id="adminMembers" class="admin-member-cards"><div class="admin-member-empty">Carregando membros...</div></div>
+          </div>
         </div>
         <div class="admin-pane" id="adminPanePosts" role="tabpanel">
           <div class="admin-box"><h2>Nova postagem</h2><div class="admin-form-label">Descrição da postagem</div><textarea id="adminAnnMessage" maxlength="2000" placeholder="Mensagem que aparecerá na página de postagens"></textarea><div class="admin-member-meta" style="margin:0 0 10px;">O avatar e o cargo serão preenchidos automaticamente.</div><button class="admin-primary" id="adminAnnPublish">Publicar postagem</button><div id="adminAnnStatus" class="admin-member-meta" style="margin-top:10px;"></div></div>
@@ -4837,6 +4847,8 @@ function closeMethod(){
   var drawer = document.getElementById('announcementDrawer');
   var lastAnnouncements = [];
   var announcementPageList = document.getElementById('announcementPageList');
+  var adminMemberSearch = document.getElementById('adminMemberSearch');
+  var allMemberRows = [];
   var adminTabMembers = document.getElementById('adminTabMembers');
   var adminTabPosts = document.getElementById('adminTabPosts');
   var adminPaneMembers = document.getElementById('adminPaneMembers');
@@ -4862,11 +4874,15 @@ function closeMethod(){
     var a=lastAnnouncements[0];
     if(false && banner && a){banner.innerHTML='<button class="ann-close" aria-label="Fechar anúncio">×</button>'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<span class="ann-label"><span class="ann-dot"></span> Anúncio</span><p>'+safe(a.message)+'</p><small>Publicado por '+safe(a.author_name||'Administrador')+'</small>';banner.classList.add('show');banner.querySelector('.ann-close').onclick=function(){banner.classList.remove('show');try{localStorage.setItem('dismissed_announcement_'+a.id,'1');}catch(e){}};try{if(localStorage.getItem('dismissed_announcement_'+a.id)==='1')banner.classList.remove('show');}catch(e){}}
   }
-  window.adminToggleMember=function(card){card.classList.toggle('open');};
+  window.adminToggleMember=function(card){document.querySelectorAll('.admin-member-card.open').forEach(function(other){if(other!==card)other.classList.remove('open');});card.classList.toggle('open');};
   function renderMembers(rows){
+    allMemberRows=rows||[];var query=(adminMemberSearch?.value||'').trim().toLowerCase();var filtered=allMemberRows.filter(function(m){return !query||[m.username,m.user_id,m.ip_address,m.city,m.region,m.country].join(' ').toLowerCase().includes(query);});
+    var onlineCount=allMemberRows.filter(function(m){return m.last_seen_at&&(Date.now()-new Date(m.last_seen_at).getTime()<120000);}).length;var attentionCount=allMemberRows.filter(function(m){return m.status==='banned'||m.status==='limited';}).length;
+    var total=document.getElementById('adminStatTotal'),online=document.getElementById('adminStatOnline'),attention=document.getElementById('adminStatAttention');if(total)total.textContent=allMemberRows.length;if(online)online.textContent=onlineCount;if(attention)attention.textContent=attentionCount;
     if(!adminMembers)return;
-    adminMembers.innerHTML=(rows||[]).map(function(m){var st=m.status||'active';var online=m.last_seen_at&&(Date.now()-new Date(m.last_seen_at).getTime()<120000);var statusClass=st!=='active'?st:(online?'online':'');var statusText=st==='banned'?'Banido':st==='limited'?'Limitado':online?'Online':'Offline';return '<div class="admin-member-card" onclick="adminToggleMember(this)"><img class="admin-member-card-avatar" src="'+avatar(m)+'" alt=""><div><div class="admin-member-card-name"><span>◉ @'+safe(m.username)+'</span></div><div class="admin-member-card-id">⌁ '+safe(m.user_id)+'</div><div class="admin-member-card-meta"><span><b class="admin-member-card-icon">◷</b>'+safe(m.ip_address||'IP indisponível')+'</span><span><b class="admin-member-card-icon">↗</b>'+new Date(m.first_seen_at).toLocaleDateString('pt-BR')+'</span><span><b class="admin-member-card-icon">◴</b>'+formatSeconds(m.total_seconds)+'</span></div></div><div class="admin-member-card-status '+statusClass+'"><i></i>'+statusText+'</div><div class="admin-member-action-panel" onclick="event.stopPropagation()"><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'limited\')">⚠ Limitar</button><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'banned\')">⊘ Banir</button><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'active\')">✓ Liberar</button></div></div>';}).join('')||'<div class="admin-member-empty">Nenhum membro registrado.</div>';
+    adminMembers.innerHTML=filtered.map(function(m){var st=m.status||'active';var online=m.last_seen_at&&(Date.now()-new Date(m.last_seen_at).getTime()<120000);var statusClass=st!=='active'?st:(online?'online':'');var statusText=st==='banned'?'Banido':st==='limited'?'Limitado':online?'Online':'Offline';return '<div class="admin-member-card" onclick="adminToggleMember(this)"><img class="admin-member-card-avatar" src="'+avatar(m)+'" alt=""><div><div class="admin-member-card-name"><span>◉ @'+safe(m.username)+'</span></div><div class="admin-member-card-id">⌁ '+safe(m.user_id)+'</div><div class="admin-member-card-meta"><span><b class="admin-member-card-icon">◷</b>'+safe(m.ip_address||'IP indisponível')+'</span><span><b class="admin-member-card-icon">↗</b>'+new Date(m.first_seen_at).toLocaleDateString('pt-BR')+'</span><span><b class="admin-member-card-icon">◴</b>'+formatSeconds(m.total_seconds)+'</span></div></div><div class="admin-member-card-status '+statusClass+'"><i></i>'+statusText+'</div><div class="admin-member-action-panel" onclick="event.stopPropagation()"><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'limited\')">⚠ Limitar</button><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'banned\')">⊘ Banir</button><button onclick="adminSetMember(\''+safe(m.user_id)+'\',\'active\')">✓ Liberar</button></div></div>';}).join('')||'<div class="admin-member-empty">Nenhum membro encontrado.</div>';
   }
+  if(adminMemberSearch)adminMemberSearch.addEventListener('input',function(){renderMembers(allMemberRows);});
   window.adminSetMember=function(id,status){if(!confirm(status==='banned'?'Banir este membro?':status==='limited'?'Limitar este membro?':'Liberar este membro?'))return;api('/api/admin',{method:'POST',body:JSON.stringify({action:'member_status',userId:id,status:status})}).then(loadAdmin).catch(function(e){alert(e.message);});};
   window.adminDeactivateAnnouncement=function(id){api('/api/admin',{method:'POST',body:JSON.stringify({action:'deactivate_announcement',id:id})}).then(loadAdmin).catch(function(e){alert(e.message);});};
   function loadAdmin(){api('/api/admin').then(function(d){renderMembers(d.members);renderAnnouncements(d.announcements);}).catch(function(e){if(adminMembers)adminMembers.innerHTML='<div class="admin-member-meta">'+safe(e.message)+'</div>';});}
