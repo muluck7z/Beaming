@@ -881,7 +881,7 @@
   .admin-bell{position:relative;width:38px;height:38px;border-radius:11px;border:1px solid var(--surface-border);background:var(--surface);color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
   .admin-bell:hover{color:var(--red-glow);border-color:rgba(224,16,42,.45);}
   .admin-badge{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--red-glow);color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;}
-  .admin-announcement{display:none;position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:10000;width:calc(100% - 24px);max-width:720px;min-height:190px;box-sizing:border-box;margin:0;padding:28px 32px;border:1px solid rgba(255,150,160,.82);border-radius:20px;background:linear-gradient(135deg,#9d1022 0%,#e0102a 48%,#8f0d1e 100%);box-shadow:0 22px 55px rgba(0,0,0,.6),0 0 35px rgba(224,16,42,.5);text-align:left;color:#fff !important;overflow:hidden;}
+  .admin-announcement{display:none !important;}
   .admin-announcement.show{display:block !important;}
   .admin-announcement h3{margin:4px 40px 10px 0;font-size:clamp(22px,4vw,32px);line-height:1.15;color:#fff !important;}
   .admin-announcement p{margin:0;max-width:590px;color:#fff !important;font-size:clamp(14px,2vw,17px);line-height:1.65;}
@@ -913,14 +913,14 @@
   .admin-announcement small{display:block;margin-top:7px;color:var(--text-faint);font-size:11px;}
   .admin-announcement-close{position:absolute;right:10px;top:10px;border:0;background:none;color:var(--text-muted);cursor:pointer;font-size:18px;}
   .admin-shell{width:100%;max-width:980px;margin:0 auto;text-align:left;}
-  .admin-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,360px);gap:18px;align-items:start;}
-  .admin-box{background:var(--surface);border:1px solid var(--surface-border);border-radius:18px;padding:20px;}
+  .admin-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);gap:18px;align-items:start;min-width:0;}
+  .admin-box{background:var(--surface);border:1px solid var(--surface-border);border-radius:18px;padding:20px;min-width:0;overflow:hidden;}
   .admin-box h2{margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:20px;}
   .admin-box input,.admin-box textarea{width:100%;box-sizing:border-box;margin:0 0 10px;padding:11px 12px;border-radius:10px;border:1px solid var(--surface-border);background:rgba(0,0,0,.18);color:var(--text);font:inherit;}
   .admin-box textarea{min-height:100px;resize:vertical;}
   .admin-primary{border:0;border-radius:10px;padding:11px 14px;background:var(--red-glow);color:#fff;font-weight:800;cursor:pointer;}
   .admin-form-label{margin:0 0 8px;color:var(--text-muted);font-size:12px;font-weight:700;}
-  .admin-table-wrap{overflow:auto;border:1px solid var(--surface-border);border-radius:14px;}
+  .admin-table-wrap{width:100%;max-width:100%;overflow-x:auto;border:1px solid var(--surface-border);border-radius:14px;}
   .admin-members{width:100%;border-collapse:collapse;min-width:760px;}
   .admin-members th{padding:12px 14px;text-align:left;background:rgba(224,16,42,.08);color:var(--text-faint);font-size:10px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
   .admin-members td{padding:12px 14px;border-top:1px solid var(--surface-border);color:var(--text-muted);font-size:12px;vertical-align:middle;}
@@ -4822,7 +4822,7 @@ function closeMethod(){
     if(adminAnnouncements) adminAnnouncements.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="admin-list-item">'+safe(a.message)+'<br><small>'+safe(a.author_name||'Administrador')+'</small><br><button onclick="adminDeactivateAnnouncement('+Number(a.id)+')" style="margin-top:7px;border:1px solid var(--surface-border);background:none;color:var(--text-muted);border-radius:7px;padding:5px 8px;cursor:pointer;">Fechar anúncio</button></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>';
     var seenAt=0;try{seenAt=Number(localStorage.getItem('announcements_seen_at')||0);}catch(e){}var unread=lastAnnouncements.filter(function(a){return new Date(a.created_at).getTime()>seenAt;}).length;if(badge){badge.textContent=String(unread);badge.style.display=unread?'flex':'none';}
     var a=lastAnnouncements[0];
-    if(banner && a){banner.innerHTML='<button class="ann-close" aria-label="Fechar anúncio">×</button>'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<span class="ann-label"><span class="ann-dot"></span> Anúncio</span><p>'+safe(a.message)+'</p><small>Publicado por '+safe(a.author_name||'Administrador')+'</small>';banner.classList.add('show');banner.querySelector('.ann-close').onclick=function(){banner.classList.remove('show');try{localStorage.setItem('dismissed_announcement_'+a.id,'1');}catch(e){}};try{if(localStorage.getItem('dismissed_announcement_'+a.id)==='1')banner.classList.remove('show');}catch(e){}}
+    if(false && banner && a){banner.innerHTML='<button class="ann-close" aria-label="Fechar anúncio">×</button>'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<span class="ann-label"><span class="ann-dot"></span> Anúncio</span><p>'+safe(a.message)+'</p><small>Publicado por '+safe(a.author_name||'Administrador')+'</small>';banner.classList.add('show');banner.querySelector('.ann-close').onclick=function(){banner.classList.remove('show');try{localStorage.setItem('dismissed_announcement_'+a.id,'1');}catch(e){}};try{if(localStorage.getItem('dismissed_announcement_'+a.id)==='1')banner.classList.remove('show');}catch(e){}}
   }
   function renderMembers(rows){
     if(!adminMembers)return;
