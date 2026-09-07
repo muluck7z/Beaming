@@ -1,5 +1,11 @@
 const { getUser, isAdmin, supabase } = require('../_admin');
 
+const ADMIN_ROLES = {
+  '1503230923980800150': 'Dono',
+  '1521369403399213186': 'Sub Dono',
+  '1328195818431451186': 'Executivo',
+};
+
 function deny(res, code, error) { return res.status(code).json({ error }); }
 function body(req) { return req.body && typeof req.body === 'object' ? req.body : {}; }
 
@@ -32,11 +38,10 @@ module.exports = async function handler(req, res) {
       return res.json({ ok: true });
     }
     if (action === 'announcement') {
-      const title = String(input.title || '').trim().slice(0, 120);
       const message = String(input.message || '').trim().slice(0, 2000);
-      if (!title || !message) return deny(res, 400, 'Title and message are required');
+      if (!message) return deny(res, 400, 'Message is required');
       const authorAvatarUrl = user.avatar ? `https://cdn.discordapp.com/avatars/${user.userId}/${user.avatar}.png?size=128` : `https://cdn.discordapp.com/embed/avatars/${parseInt(user.userId, 10) % 6}.png`;
-      const rows = await supabase('announcements', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ title, message, image_url: null, author_avatar_url: authorAvatarUrl, author_user_id: String(user.userId), author_name: String(user.username || 'Administrador').slice(0, 120) }) });
+      const rows = await supabase('announcements', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ title: null, message, image_url: null, author_avatar_url: authorAvatarUrl, author_role: ADMIN_ROLES[String(user.userId)] || 'Administrador', author_user_id: String(user.userId), author_name: String(user.username || 'Administrador').slice(0, 120) }) });
       return res.json({ ok: true, announcement: rows?.[0] || null });
     }
     if (action === 'deactivate_announcement') {
