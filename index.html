@@ -4162,6 +4162,17 @@
       </div>
     </section>
 
+
+    <section class="view view-top" id="view-announcements">
+      <div class="view-inner" style="max-width:680px;text-align:left;">
+        <button onclick="goHome()" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text-muted);font-size:.85rem;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:24px;padding:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7-7-7"></path></svg>
+          Voltar
+        </button>
+        <div class="site-section-header"><span class="site-section-badge">!</span><span class="site-section-title">Anúncios</span></div>
+        <div id="announcementPageList"><div class="admin-member-meta">Carregando anúncios...</div></div>
+      </div>
+    </section>
     <section class="view view-top" id="view-admin">
       <div class="admin-shell">
         <div class="site-section-header"><span class="site-section-badge">A</span><span class="site-section-title">Administrador</span></div>
@@ -4784,6 +4795,7 @@ function closeMethod(){
   var badge = document.getElementById('announcementBadge');
   var drawer = document.getElementById('announcementDrawer');
   var lastAnnouncements = [];
+  var announcementPageList = document.getElementById('announcementPageList');
   function token(){ try{return localStorage.getItem('ilegal_jwt');}catch(e){return null;} }
   function api(path, options){ options=options||{}; options.headers=Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+(token()||'')},options.headers||{}); return fetch(path,options).then(function(r){return r.json().then(function(d){if(!r.ok) throw new Error(d.error||'Erro'); return d;});}); }
   function formatSeconds(v){var n=Number(v||0),h=Math.floor(n/3600),m=Math.floor((n%3600)/60);return h+'h '+m+'min';}
@@ -4791,10 +4803,14 @@ function closeMethod(){
   function avatar(m){return m.avatar?'https://cdn.discordapp.com/avatars/'+encodeURIComponent(m.user_id)+'/'+encodeURIComponent(m.avatar)+'.png?size=64':'https://cdn.discordapp.com/embed/avatars/'+(parseInt(m.user_id,10)%6)+'.png';}
   function renderAnnouncements(rows){
     lastAnnouncements=rows||[];
+    if(announcementPageList){
+      announcementPageList.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="ann-wrap"><div class="ann-label"><span class="ann-dot"></span><span class="ann-label-text">Anúncio</span></div><div class="ann-outer"><div class="ann-inner">'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<div class="ann-body"><div class="ann-nick-row"><span class="ann-nick">'+safe(a.author_name||'Administrador')+'</span><span class="ann-check"><svg width=10 height=10 viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><path d="m5 12 4 4L19 6"></path></svg></span><span class="ann-tag">Admin</span></div><div style="font-size:11px;color:var(--text-faint);margin-top:5px;">'+new Date(a.created_at).toLocaleString('pt-BR')+'</div></div><div class="ann-text"><strong>'+safe(a.title)+'</strong><br>'+safe(a.message)+'</div></div></div></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>';
+    }
+
     if(drawer){drawer.innerHTML='<div class="admin-drawer-head"><span>Últimos anúncios</span><button class="admin-drawer-close" aria-label="Fechar anúncios">×</button></div>'+(lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="admin-drawer-item">'+(a.author_avatar_url?'<img src="'+safe(a.author_avatar_url)+'" alt="" style="width:28px;height:28px;border-radius:8px;object-fit:cover;float:left;margin:0 8px 4px 0;">':'')+'<strong>'+safe(a.title)+'</strong><p>'+safe(a.message)+'</p><small>'+safe(a.author_name||'Administrador')+' · '+new Date(a.created_at).toLocaleString('pt-BR')+'</small></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>');drawer.querySelector('.admin-drawer-close').onclick=function(){drawer.classList.remove('show');};}
 
     if(adminAnnouncements) adminAnnouncements.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="admin-list-item"><strong>'+safe(a.title)+'</strong><br>'+safe(a.message)+'<br><small>'+safe(a.author_name||'Administrador')+'</small><br><button onclick="adminDeactivateAnnouncement('+Number(a.id)+')" style="margin-top:7px;border:1px solid var(--surface-border);background:none;color:var(--text-muted);border-radius:7px;padding:5px 8px;cursor:pointer;">Fechar anúncio</button></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>';
-    if(badge){badge.textContent=String(lastAnnouncements.length);badge.style.display=lastAnnouncements.length?'flex':'none';}
+    var seenAt=0;try{seenAt=Number(localStorage.getItem('announcements_seen_at')||0);}catch(e){}var unread=lastAnnouncements.filter(function(a){return new Date(a.created_at).getTime()>seenAt;}).length;if(badge){badge.textContent=String(unread);badge.style.display=unread?'flex':'none';}
     var a=lastAnnouncements[0];
     if(banner && a){banner.innerHTML='<button class="ann-close" aria-label="Fechar anúncio">×</button>'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<span class="ann-label"><span class="ann-dot"></span> Anúncio</span><h3>'+safe(a.title)+'</h3><p>'+safe(a.message)+'</p><small>Publicado por '+safe(a.author_name||'Administrador')+'</small>';banner.classList.add('show');banner.querySelector('.ann-close').onclick=function(){banner.classList.remove('show');try{localStorage.setItem('dismissed_announcement_'+a.id,'1');}catch(e){}};try{if(localStorage.getItem('dismissed_announcement_'+a.id)==='1')banner.classList.remove('show');}catch(e){}}
   }
@@ -4807,7 +4823,7 @@ function closeMethod(){
   function loadAdmin(){api('/api/admin').then(function(d){renderMembers(d.members);renderAnnouncements(d.announcements);}).catch(function(e){if(adminMembers)adminMembers.innerHTML='<div class="admin-member-meta">'+safe(e.message)+'</div>';});}
   if(adminNav)adminNav.addEventListener('click',function(){setTimeout(loadAdmin,60);});
   if(adminPublish)adminPublish.addEventListener('click',function(){var title=document.getElementById('adminAnnTitle').value.trim(),message=document.getElementById('adminAnnMessage').value.trim(),status=document.getElementById('adminAnnStatus');if(!title||!message){status.textContent='Preencha título e mensagem.';return;}adminPublish.disabled=true;api('/api/admin',{method:'POST',body:JSON.stringify({action:'announcement',title:title,message:message})}).then(function(){status.textContent='Anúncio publicado.';document.getElementById('adminAnnTitle').value='';document.getElementById('adminAnnMessage').value='';loadAdmin();}).catch(function(e){status.textContent=e.message;}).finally(function(){adminPublish.disabled=false;});});
-  if(bell)bell.addEventListener('click',function(){if(drawer){drawer.classList.toggle('show');}if(banner)banner.classList.remove('show');});
+  if(bell)bell.addEventListener('click',function(){try{localStorage.setItem('announcements_seen_at',String(Date.now()));}catch(e){}if(badge){badge.textContent='0';badge.style.display='none';}if(drawer)drawer.classList.remove('show');if(banner)banner.classList.remove('show');showView('announcements');window.scrollTo({top:0,behavior:'smooth'});});
   function loadPublicAnnouncements(){fetch('/api/announcements',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){renderAnnouncements(d.announcements||[]);}).catch(function(){});}
   function heartbeat(){fetch('/api/admin/heartbeat',{method:'POST',headers:{Authorization:'Bearer '+(token()||''),'Content-Type':'application/json'},body:'{}'}).catch(function(){});}
   setTimeout(function(){loadPublicAnnouncements();heartbeat();setInterval(heartbeat,60000);setInterval(loadPublicAnnouncements,60000);},1800);
