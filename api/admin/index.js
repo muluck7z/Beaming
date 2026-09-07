@@ -30,9 +30,9 @@ module.exports = async function handler(req, res) {
     if (action === 'announcement') {
       const title = String(input.title || '').trim().slice(0, 120);
       const message = String(input.message || '').trim().slice(0, 2000);
-      const imageUrl = String(input.imageUrl || '').trim().slice(0, 500) || null;
       if (!title || !message) return deny(res, 400, 'Title and message are required');
-      const rows = await supabase('announcements', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ title, message, image_url: imageUrl, author_user_id: String(user.userId), author_name: String(user.username || 'Administrador').slice(0, 120) }) });
+      const authorAvatarUrl = user.avatar ? `https://cdn.discordapp.com/avatars/${user.userId}/${user.avatar}.png?size=128` : `https://cdn.discordapp.com/embed/avatars/${parseInt(user.userId, 10) % 6}.png`;
+      const rows = await supabase('announcements', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ title, message, image_url: null, author_avatar_url: authorAvatarUrl, author_user_id: String(user.userId), author_name: String(user.username || 'Administrador').slice(0, 120) }) });
       return res.json({ ok: true, announcement: rows?.[0] || null });
     }
     if (action === 'deactivate_announcement') {

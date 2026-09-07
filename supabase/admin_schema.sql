@@ -35,6 +35,7 @@ create table if not exists public.announcements (
   title text not null,
   message text not null,
   image_url text,
+  author_avatar_url text,
   author_user_id text not null,
   author_name text not null,
   created_at timestamptz not null default now(),
