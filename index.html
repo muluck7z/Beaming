@@ -3079,6 +3079,20 @@
                     <button class="site-list-btn" style="border:none;cursor:pointer;margin-top:16px;" onclick="openMethod('qr')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span>Ver método completo</span></button>
                   </div>
                 </div>
+
+                <!-- Método 11: LinkBio -->
+                <div class="site-list-card">
+                  <div class="site-list-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l2-2a5 5 0 0 0-7.07-7.07l-1.14 1.14"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-2 2a5 5 0 0 0 7.07 7.07l1.14-1.14"></path></svg>
+                  </div>
+                  <div class="site-list-body">
+                    <span class="site-list-tag">Método 11</span>
+                    <div class="site-list-title">LinkBio Método</div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;"><span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Link Bio</span><span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Tutorial</span></div>
+                    <div class="tutorial-desc">LinkBio Método</div>
+                    <button class="site-list-btn" style="border:none;cursor:pointer;margin-top:16px;" onclick="openMethod('linkbio')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg><span>Ver método completo</span></button>
+                  </div>
+                </div>
 </div><!-- /metodos-list -->
 
 
@@ -3131,6 +3145,11 @@
                 <div id="method-qr" style="display:none;">
                   <div class="site-section-header"><span class="site-section-badge">10</span><span class="site-section-title">QR Método</span></div>
                   <div class="site-list-card" style="margin-bottom:22px;"><div class="site-list-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><path d="M14 14h3v3h-3zM18 18h3v3h-3zM18 14h3M14 18v3"></path></svg></div><div class="site-list-body"><span class="site-list-tag">Método 10</span><div class="tutorial-title">QR Método</div><div class="tutorial-desc">Este método está em desenvolvimento.</div></div></div>
+                </div>
+
+                <div id="method-linkbio" style="display:none;">
+                  <div class="site-section-header"><span class="site-section-badge">11</span><span class="site-section-title">LinkBio Método</span></div>
+                  <div class="site-list-card" style="margin-bottom:22px;"><div class="site-list-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l2-2a5 5 0 0 0-7.07-7.07l-1.14 1.14"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-2 2a5 5 0 0 0 7.07 7.07l1.14-1.14"></path></svg></div><div class="site-list-body"><span class="site-list-tag">Método 11</span><div class="tutorial-title">LinkBio Método</div><div class="tutorial-desc">LinkBio Método</div></div></div>
                 </div>
 
 <!-- ─ Auto Click ─ -->
@@ -4578,7 +4597,7 @@
 
 <script>
 function openMethod(name){
-  ['extensao','condo','ugc','doacao','facebook','autoclick','bloxfruits','limiteds','robux','qr'].forEach(function(m){
+  ['extensao','condo','ugc','doacao','facebook','autoclick','bloxfruits','limiteds','robux','qr','linkbio'].forEach(function(m){
     document.getElementById('method-'+m).style.display = (m===name)?'block':'none';
   });
   document.getElementById('metodos-list').style.display='none';
