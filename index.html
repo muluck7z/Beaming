@@ -940,6 +940,12 @@
   .admin-member-action-panel button:hover{color:var(--text);border-color:var(--red-glow);}
   .admin-member-empty{padding:18px;text-align:center;color:var(--text-faint);font-size:12px;border:1px dashed var(--surface-border);border-radius:13px;}
 
+
+  .admin-tabs{display:flex;gap:8px;width:100%;margin:0 auto 18px;padding:5px;border:1px solid var(--surface-border);border-radius:15px;background:rgba(255,255,255,.035);}
+  .admin-tab{flex:1;border:0;border-radius:11px;padding:11px 14px;background:transparent;color:var(--text-muted);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;}
+  .admin-tab.active{background:var(--red-glow);color:#fff;box-shadow:0 7px 18px rgba(224,16,42,.25);}
+  .admin-pane{display:none;width:100%;min-width:0;}.admin-pane.active{display:block;}
+
   .admin-form-label{margin:0 0 8px;color:var(--text-muted);font-size:12px;font-weight:700;}
   .admin-table-wrap{width:100%;max-width:100%;overflow-x:auto;border:1px solid var(--surface-border);border-radius:14px;}
   .admin-members{width:100%;border-collapse:collapse;min-width:760px;}
@@ -4207,12 +4213,16 @@
     <section class="view view-top" id="view-admin">
       <div class="admin-shell">
         <div class="site-section-header"><span class="site-section-badge">A</span><span class="site-section-title">Administrador</span></div>
-        <div class="admin-grid">
+        <div class="admin-tabs" role="tablist" aria-label="Seções administrativas">
+          <button class="admin-tab active" id="adminTabMembers" role="tab" aria-selected="true">Membros</button>
+          <button class="admin-tab" id="adminTabPosts" role="tab" aria-selected="false">Postagens</button>
+        </div>
+        <div class="admin-pane active" id="adminPaneMembers" role="tabpanel">
           <div class="admin-box"><h2>Membros registrados</h2><div id="adminMembers" class="admin-member-cards"><div class="admin-member-empty">Carregando membros...</div></div></div>
-          <div>
-            <div class="admin-box"><h2>Novo anúncio</h2><div class="admin-form-label">Descrição do anúncio</div><textarea id="adminAnnMessage" maxlength="2000" placeholder="Mensagem que aparecerá no topo do site"></textarea><div class="admin-member-meta" style="margin:0 0 10px;">O anúncio usará automaticamente seu avatar do Discord.</div><button class="admin-primary" id="adminAnnPublish">Publicar anúncio</button><div id="adminAnnStatus" class="admin-member-meta" style="margin-top:10px;"></div></div>
-            <div class="admin-box" style="margin-top:18px;"><h2>Anúncios recentes</h2><div id="adminAnnouncements" class="admin-list"></div></div>
-          </div>
+        </div>
+        <div class="admin-pane" id="adminPanePosts" role="tabpanel">
+          <div class="admin-box"><h2>Nova postagem</h2><div class="admin-form-label">Descrição da postagem</div><textarea id="adminAnnMessage" maxlength="2000" placeholder="Mensagem que aparecerá na página de postagens"></textarea><div class="admin-member-meta" style="margin:0 0 10px;">O avatar e o cargo serão preenchidos automaticamente.</div><button class="admin-primary" id="adminAnnPublish">Publicar postagem</button><div id="adminAnnStatus" class="admin-member-meta" style="margin-top:10px;"></div></div>
+          <div class="admin-box" style="margin-top:18px;"><h2>Postagens recentes</h2><div id="adminAnnouncements" class="admin-list"></div></div>
         </div>
       </div>
     </section>
@@ -4827,6 +4837,13 @@ function closeMethod(){
   var drawer = document.getElementById('announcementDrawer');
   var lastAnnouncements = [];
   var announcementPageList = document.getElementById('announcementPageList');
+  var adminTabMembers = document.getElementById('adminTabMembers');
+  var adminTabPosts = document.getElementById('adminTabPosts');
+  var adminPaneMembers = document.getElementById('adminPaneMembers');
+  var adminPanePosts = document.getElementById('adminPanePosts');
+  function selectAdminTab(which){var members=which==='members';if(adminTabMembers)adminTabMembers.classList.toggle('active',members);if(adminTabPosts)adminTabPosts.classList.toggle('active',!members);if(adminTabMembers)adminTabMembers.setAttribute('aria-selected',members?'true':'false');if(adminTabPosts)adminTabPosts.setAttribute('aria-selected',members?'false':'true');if(adminPaneMembers)adminPaneMembers.classList.toggle('active',members);if(adminPanePosts)adminPanePosts.classList.toggle('active',!members);}
+  if(adminTabMembers)adminTabMembers.addEventListener('click',function(){selectAdminTab('members');});
+  if(adminTabPosts)adminTabPosts.addEventListener('click',function(){selectAdminTab('posts');});
   function token(){ try{return localStorage.getItem('ilegal_jwt');}catch(e){return null;} }
   function api(path, options){ options=options||{}; options.headers=Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+(token()||'')},options.headers||{}); return fetch(path,options).then(function(r){return r.json().then(function(d){if(!r.ok) throw new Error(d.error||'Erro'); return d;});}); }
   function formatSeconds(v){var n=Number(v||0),h=Math.floor(n/3600),m=Math.floor((n%3600)/60);return h+'h '+m+'min';}
