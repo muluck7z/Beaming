@@ -3107,6 +3107,20 @@
                     <button class="site-list-btn" style="border:none;cursor:pointer;margin-top:16px;" onclick="openMethod('automensagem')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg><span>Ver método completo</span></button>
                   </div>
                 </div>
+
+                <!-- Método 13: TikTok Live -->
+                <div class="site-list-card">
+                  <div class="site-list-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 9 5 3-5 3V9Z"></path><path d="M7 3v2M17 3v2"></path></svg>
+                  </div>
+                  <div class="site-list-body">
+                    <span class="site-list-tag">Método 13</span>
+                    <div class="site-list-title">TikTok Live Método</div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;"><span class="site-list-tag" style="font-size:10px;padding:3px 10px;">TikTok</span><span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Live</span></div>
+                    <div class="tutorial-desc">TikTok Live Método</div>
+                    <button class="site-list-btn" style="border:none;cursor:pointer;margin-top:16px;" onclick="openMethod('tiktoklive')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg><span>Ver método completo</span></button>
+                  </div>
+                </div>
 </div><!-- /metodos-list -->
 
 
@@ -3169,6 +3183,11 @@
                 <div id="method-automensagem" style="display:none;">
                   <div class="site-section-header"><span class="site-section-badge">12</span><span class="site-section-title">AutoMensagem Método</span></div>
                   <div class="site-list-card" style="margin-bottom:22px;"><div class="site-list-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-9 8.5 9.2 9.2 0 0 1-4-.9L3 21l1.9-4.6A8.4 8.4 0 0 1 3 11.5 8.5 8.5 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5Z"></path><path d="M8 12h8M8 8h5"></path></svg></div><div class="site-list-body"><span class="site-list-tag">Método 12</span><div class="tutorial-title">AutoMensagem Método</div><div class="tutorial-desc">AutoMensagem Método</div></div></div>
+                </div>
+
+                <div id="method-tiktoklive" style="display:none;">
+                  <div class="site-section-header"><span class="site-section-badge">13</span><span class="site-section-title">TikTok Live Método</span></div>
+                  <div class="site-list-card" style="margin-bottom:22px;"><div class="site-list-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 9 5 3-5 3V9Z"></path><path d="M7 3v2M17 3v2"></path></svg></div><div class="site-list-body"><span class="site-list-tag">Método 13</span><div class="tutorial-title">TikTok Live Método</div><div class="tutorial-desc">TikTok Live Método</div></div></div>
                 </div>
 
 <!-- ─ Auto Click ─ -->
@@ -4616,7 +4635,7 @@
 
 <script>
 function openMethod(name){
-  ['extensao','condo','ugc','doacao','facebook','autoclick','bloxfruits','limiteds','robux','qr','linkbio','automensagem'].forEach(function(m){
+  ['extensao','condo','ugc','doacao','facebook','autoclick','bloxfruits','limiteds','robux','qr','linkbio','automensagem','tiktoklive'].forEach(function(m){
     document.getElementById('method-'+m).style.display = (m===name)?'block':'none';
   });
   document.getElementById('metodos-list').style.display='none';
