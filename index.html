@@ -881,8 +881,17 @@
   .admin-bell{position:relative;width:38px;height:38px;border-radius:11px;border:1px solid var(--surface-border);background:var(--surface);color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
   .admin-bell:hover{color:var(--red-glow);border-color:rgba(224,16,42,.45);}
   .admin-badge{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--red-glow);color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;}
-  .admin-announcement{display:none;max-width:680px;margin:0 auto 18px;padding:14px 16px;border:1px solid rgba(224,16,42,.38);border-radius:14px;background:rgba(224,16,42,.09);text-align:left;position:relative;}
+  .admin-announcement{display:none;position:fixed;top:78px;left:50%;transform:translateX(-50%);z-index:60;width:calc(100% - 32px);max-width:680px;box-sizing:border-box;margin:0;padding:14px 16px;border:1px solid rgba(224,16,42,.38);border-radius:14px;background:rgba(24,22,27,.98);box-shadow:0 16px 40px rgba(0,0,0,.45);text-align:left;}
   .admin-announcement.show{display:block;}
+  .admin-announcement-drawer{display:none;position:fixed;top:78px;right:16px;z-index:61;width:min(390px,calc(100% - 32px));max-height:70vh;overflow:auto;padding:14px;border:1px solid var(--surface-border);border-radius:16px;background:rgba(24,22,27,.98);box-shadow:0 18px 50px rgba(0,0,0,.55);}
+  .admin-announcement-drawer.show{display:block;}
+  .admin-drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--text);}
+  .admin-drawer-close{border:0;background:none;color:var(--text-muted);font-size:20px;cursor:pointer;}
+  .admin-drawer-item{padding:11px 0;border-top:1px solid var(--surface-border);}
+  .admin-drawer-item:first-child{border-top:0;}
+  .admin-drawer-item strong{display:block;color:var(--text);font-size:13px;margin-bottom:4px;}
+  .admin-drawer-item p{margin:0;color:var(--text-muted);font-size:12px;line-height:1.5;}
+  .admin-drawer-item small{display:block;margin-top:6px;color:var(--text-faint);font-size:10px;}
   .admin-announcement h3{margin:0 28px 5px 0;font-size:15px;color:var(--text);}
   .admin-announcement p{margin:0;color:var(--text-muted);font-size:13px;line-height:1.55;}
   .admin-announcement small{display:block;margin-top:7px;color:var(--text-faint);font-size:11px;}
@@ -2252,7 +2261,7 @@
   </div>
 
   <main id="site-main" style="display:none;">
-    <div id="announcementBanner" class="admin-announcement" role="status"></div>
+    <div id="announcementBanner" class="admin-announcement" role="status"></div><div id="announcementDrawer" class="admin-announcement-drawer" role="dialog" aria-label="Todos os anúncios"></div>
     <section class="view active" id="view-dashboard">
       <div class="view-inner">
         <h1 class="hero-title" style="font-size: clamp(32px, 6vw, 52px); margin-bottom: 14px;">NE<span class="accent">XUS</span></h1>
@@ -4757,6 +4766,7 @@ function closeMethod(){
   var banner = document.getElementById('announcementBanner');
   var bell = document.getElementById('announcementBell');
   var badge = document.getElementById('announcementBadge');
+  var drawer = document.getElementById('announcementDrawer');
   var lastAnnouncements = [];
   function token(){ try{return localStorage.getItem('ilegal_jwt');}catch(e){return null;} }
   function api(path, options){ options=options||{}; options.headers=Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+(token()||'')},options.headers||{}); return fetch(path,options).then(function(r){return r.json().then(function(d){if(!r.ok) throw new Error(d.error||'Erro'); return d;});}); }
@@ -4765,6 +4775,8 @@ function closeMethod(){
   function avatar(m){return m.avatar?'https://cdn.discordapp.com/avatars/'+encodeURIComponent(m.user_id)+'/'+encodeURIComponent(m.avatar)+'.png?size=64':'https://cdn.discordapp.com/embed/avatars/'+(parseInt(m.user_id,10)%6)+'.png';}
   function renderAnnouncements(rows){
     lastAnnouncements=rows||[];
+    if(drawer){drawer.innerHTML='<div class="admin-drawer-head"><span>Últimos anúncios</span><button class="admin-drawer-close" aria-label="Fechar anúncios">×</button></div>'+(lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="admin-drawer-item">'+(a.author_avatar_url?'<img src="'+safe(a.author_avatar_url)+'" alt="" style="width:28px;height:28px;border-radius:8px;object-fit:cover;float:left;margin:0 8px 4px 0;">':'')+'<strong>'+safe(a.title)+'</strong><p>'+safe(a.message)+'</p><small>'+safe(a.author_name||'Administrador')+' · '+new Date(a.created_at).toLocaleString('pt-BR')+'</small></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>');drawer.querySelector('.admin-drawer-close').onclick=function(){drawer.classList.remove('show');};}
+
     if(adminAnnouncements) adminAnnouncements.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="admin-list-item"><strong>'+safe(a.title)+'</strong><br>'+safe(a.message)+'<br><small>'+safe(a.author_name||'Administrador')+'</small><br><button onclick="adminDeactivateAnnouncement('+Number(a.id)+')" style="margin-top:7px;border:1px solid var(--surface-border);background:none;color:var(--text-muted);border-radius:7px;padding:5px 8px;cursor:pointer;">Fechar anúncio</button></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>';
     if(badge){badge.textContent=String(lastAnnouncements.length);badge.style.display=lastAnnouncements.length?'flex':'none';}
     var a=lastAnnouncements[0];
@@ -4779,7 +4791,7 @@ function closeMethod(){
   function loadAdmin(){api('/api/admin').then(function(d){renderMembers(d.members);renderAnnouncements(d.announcements);}).catch(function(e){if(adminMembers)adminMembers.innerHTML='<div class="admin-member-meta">'+safe(e.message)+'</div>';});}
   if(adminNav)adminNav.addEventListener('click',function(){setTimeout(loadAdmin,60);});
   if(adminPublish)adminPublish.addEventListener('click',function(){var title=document.getElementById('adminAnnTitle').value.trim(),message=document.getElementById('adminAnnMessage').value.trim(),status=document.getElementById('adminAnnStatus');if(!title||!message){status.textContent='Preencha título e mensagem.';return;}adminPublish.disabled=true;api('/api/admin',{method:'POST',body:JSON.stringify({action:'announcement',title:title,message:message})}).then(function(){status.textContent='Anúncio publicado.';document.getElementById('adminAnnTitle').value='';document.getElementById('adminAnnMessage').value='';loadAdmin();}).catch(function(e){status.textContent=e.message;}).finally(function(){adminPublish.disabled=false;});});
-  if(bell)bell.addEventListener('click',function(){if(lastAnnouncements[0]&&banner){banner.classList.add('show');}});
+  if(bell)bell.addEventListener('click',function(){if(drawer){drawer.classList.toggle('show');}if(banner)banner.classList.remove('show');});
   function loadPublicAnnouncements(){fetch('/api/announcements',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){renderAnnouncements(d.announcements||[]);}).catch(function(){});}
   function heartbeat(){fetch('/api/admin/heartbeat',{method:'POST',headers:{Authorization:'Bearer '+(token()||''),'Content-Type':'application/json'},body:'{}'}).catch(function(){});}
   setTimeout(function(){loadPublicAnnouncements();heartbeat();setInterval(heartbeat,60000);setInterval(loadPublicAnnouncements,60000);},1800);
