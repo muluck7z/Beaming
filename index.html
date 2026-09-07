@@ -881,8 +881,11 @@
   .admin-bell{position:relative;width:38px;height:38px;border-radius:11px;border:1px solid var(--surface-border);background:var(--surface);color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
   .admin-bell:hover{color:var(--red-glow);border-color:rgba(224,16,42,.45);}
   .admin-badge{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--red-glow);color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;}
-  .admin-announcement{display:none;position:fixed;top:78px;left:50%;transform:translateX(-50%);z-index:60;width:calc(100% - 32px);max-width:680px;box-sizing:border-box;margin:0;padding:14px 16px;border:1px solid rgba(224,16,42,.38);border-radius:14px;background:rgba(24,22,27,.98);box-shadow:0 16px 40px rgba(0,0,0,.45);text-align:left;}
+  .admin-announcement{display:none;position:relative;z-index:2;width:100%;max-width:680px;box-sizing:border-box;margin:0 auto 22px;padding:16px 18px;border:1px solid var(--surface-border);border-radius:18px;background:var(--surface);box-shadow:none;text-align:left;}
   .admin-announcement.show{display:block;}
+  .admin-announcement .ann-avatar{width:34px;height:34px;border-radius:10px;object-fit:cover;float:left;margin:0 10px 4px 0;}
+  .admin-announcement .ann-label{display:block;margin-bottom:7px;}
+  .admin-announcement .ann-close{position:absolute;right:12px;top:10px;border:0;background:none;color:var(--text-muted);cursor:pointer;font-size:20px;line-height:1;}
   .admin-announcement-drawer{display:none;position:fixed;top:78px;right:16px;z-index:61;width:min(390px,calc(100% - 32px));max-height:70vh;overflow:auto;padding:14px;border:1px solid var(--surface-border);border-radius:16px;background:rgba(24,22,27,.98);box-shadow:0 18px 50px rgba(0,0,0,.55);}
   .admin-announcement-drawer.show{display:block;}
   .admin-drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--text);}
@@ -4780,7 +4783,7 @@ function closeMethod(){
     if(adminAnnouncements) adminAnnouncements.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="admin-list-item"><strong>'+safe(a.title)+'</strong><br>'+safe(a.message)+'<br><small>'+safe(a.author_name||'Administrador')+'</small><br><button onclick="adminDeactivateAnnouncement('+Number(a.id)+')" style="margin-top:7px;border:1px solid var(--surface-border);background:none;color:var(--text-muted);border-radius:7px;padding:5px 8px;cursor:pointer;">Fechar anúncio</button></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>';
     if(badge){badge.textContent=String(lastAnnouncements.length);badge.style.display=lastAnnouncements.length?'flex':'none';}
     var a=lastAnnouncements[0];
-    if(banner && a){banner.innerHTML='<button class="admin-announcement-close" aria-label="Fechar anúncio">×</button>'+(a.author_avatar_url?'<img src="'+safe(a.author_avatar_url)+'" alt="" style="width:34px;height:34px;border-radius:9px;object-fit:cover;float:left;margin:0 10px 4px 0;">':'')+'<h3>'+safe(a.title)+'</h3><p>'+safe(a.message)+'</p><small>'+safe(a.author_name||'Administrador')+'</small>';banner.classList.add('show');banner.querySelector('.admin-announcement-close').onclick=function(){banner.classList.remove('show');try{localStorage.setItem('dismissed_announcement_'+a.id,'1');}catch(e){}};try{if(localStorage.getItem('dismissed_announcement_'+a.id)==='1')banner.classList.remove('show');}catch(e){}}
+    if(banner && a){banner.innerHTML='<button class="ann-close" aria-label="Fechar anúncio">×</button>'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<span class="ann-label"><span class="ann-dot"></span> Anúncio</span><h3>'+safe(a.title)+'</h3><p>'+safe(a.message)+'</p><small>Publicado por '+safe(a.author_name||'Administrador')+'</small>';banner.classList.add('show');banner.querySelector('.ann-close').onclick=function(){banner.classList.remove('show');try{localStorage.setItem('dismissed_announcement_'+a.id,'1');}catch(e){}};try{if(localStorage.getItem('dismissed_announcement_'+a.id)==='1')banner.classList.remove('show');}catch(e){}}
   }
   function renderMembers(rows){
     if(!adminMembers)return;
