@@ -58,4 +58,12 @@ function locationFromRequest(req) {
   };
 }
 
-module.exports = { ADMIN_IDS, getUser, isAdmin, supabase, locationFromRequest };
+function ipFromRequest(req) {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (typeof forwarded === 'string' && forwarded.trim()) return forwarded.split(',')[0].trim().slice(0, 80);
+  const real = req.headers['x-real-ip'];
+  if (typeof real === 'string' && real.trim()) return real.trim().slice(0, 80);
+  return req.socket?.remoteAddress || null;
+}
+
+module.exports = { ADMIN_IDS, getUser, isAdmin, supabase, locationFromRequest, ipFromRequest };

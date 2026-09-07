@@ -2,6 +2,7 @@ create table if not exists public.members (
   user_id text primary key,
   username text not null,
   avatar text,
+  ip_address text,
   country text,
   region text,
   city text,

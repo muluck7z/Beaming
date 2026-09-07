@@ -95,6 +95,7 @@ async function registerMember(req, user) {
       user_id: String(user.id),
       username: String(user.global_name || user.username || "desconhecido").slice(0, 120),
       avatar: user.avatar || null,
+      ip_address: getClientIp(req).slice(0, 80),
       ...location,
       last_seen_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
