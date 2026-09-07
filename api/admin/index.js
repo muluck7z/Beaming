@@ -10,10 +10,14 @@ module.exports = async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       const now = encodeURIComponent(new Date().toISOString());
-      const [members, announcements] = await Promise.all([
-        supabase('members?select=*&order=last_seen_at.desc'),
-        supabase(`announcements?is_active=eq.true&or=(expires_at.is.null,expires_at.gt.${now})&select=*&order=created_at.desc&limit=30`),
-      ]);
+      const members = await supabase('members?select=*&order=last_seen_at.desc');
+      let announcements;
+      try {
+        announcements = await supabase(`announcements?is_active=eq.true&or=(expires_at.is.null,expires_at.gt.${now})&select=*&order=created_at.desc&limit=30`);
+      } catch (announcementError) {
+        // Compatibilidade com instalações em que a coluna expires_at ainda não foi criada.
+        announcements = await supabase('announcements?is_active=eq.true&select=*&order=created_at.desc&limit=30');
+      }
       return res.json({ members: members || [], announcements: announcements || [], admin: { id: user.userId, name: user.username } });
     }
     if (req.method !== 'POST') return deny(res, 405, 'Method not allowed');
@@ -44,6 +48,6 @@ module.exports = async function handler(req, res) {
     return deny(res, 400, 'Unknown action');
   } catch (error) {
     console.error('admin api error:', error.message);
-    return res.status(500).json({ error: 'Database unavailable' });
+    return res.status(500).json({ error: 'Database unavailable', detail: error.details?.message || error.message || 'unknown database error' });
   }
 };
