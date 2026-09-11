@@ -1888,6 +1888,10 @@
   .theft-card,.rfr-card{background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border-color:rgba(255,255,255,.1);box-shadow:0 10px 28px rgba(0,0,0,.18);}
   @media(max-width:700px){.site-list-card{padding:18px;gap:14px;}.site-list-icon{width:52px;height:52px;border-radius:14px;}.site-list-title{font-size:22px;}.tutorial-card-body{padding:20px 18px 22px;}}
 
+
+  .brand{gap:9px;letter-spacing:.24em;font-size:14px;text-transform:uppercase;}.brand-word{font-weight:800;letter-spacing:.28em;background:linear-gradient(180deg,#fff,#aaaab1);-webkit-background-clip:text;background-clip:text;color:transparent;}.brand .dot{width:8px;height:8px;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.08),0 0 18px rgba(255,255,255,.55);}
+  .millenium-hero{position:relative;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;padding:12px 22px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.018));box-shadow:0 16px 35px rgba(0,0,0,.22);}.millenium-hero:after{content:"";position:absolute;inset:-1px;border-radius:18px;padding:1px;background:linear-gradient(120deg,rgba(255,255,255,.52),transparent 42%,rgba(255,255,255,.08));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}.millenium-hero-text{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,52px);font-weight:800;letter-spacing:.22em;line-height:1;background:linear-gradient(180deg,#fff 10%,#a7a7ae 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 8px 24px rgba(255,255,255,.12);}.millenium-hero-sub{font-size:clamp(12px,2vw,15px);font-weight:700;letter-spacing:.38em;text-transform:uppercase;color:var(--text-faint);margin:0 auto 40px;}
+
 </style>
   <script>
     // Verificação Discord OAuth — JWT guardado no localStorage (ilegal_jwt)
@@ -2289,7 +2293,7 @@
   <div class="topbar" id="site-topbar" style="display:none;">
     <div class="brand" onclick="goHome()">
       <span class="dot"></span>
-      MILLENIUM
+      <span class="brand-word">Millenium</span>
     </div>
         <div class="topbar-right">
       <div class="account-wrap">
@@ -2344,8 +2348,8 @@
   <main id="site-main" style="display:none;">
     <section class="view active" id="view-dashboard">
       <div class="view-inner">
-        <h1 class="hero-title" style="font-size: clamp(32px, 6vw, 52px); margin-bottom: 14px;">BEAM<span class="accent">SE</span></h1>
-        <p style="font-size: clamp(36px, 10vw, 80px); font-weight: 900; letter-spacing: -0.02em; color: var(--text); margin: 0 auto 40px; line-height: 1.1;">THE BEST</p>
+        <h1 class="millenium-hero"><span class="millenium-hero-text">MILLENIUM</span></h1>
+        <p class="millenium-hero-sub">THE BEST</p>
 
         <!-- Anúncio Dashboard -->
         <div class="ann-wrap">
