@@ -111,9 +111,10 @@ module.exports = async function handler(req, res) {
   const VIP_ROLE_ID = process.env.DISCORD_VIP_ROLE_ID || "1542665006917619732";
   const SECRET = process.env.SESSION_SECRET || "fallback";
 
+  const publicSiteUrl = process.env.PUBLIC_SITE_URL || process.env.SITE_URL;
   const host = req.headers["x-forwarded-host"] || req.headers.host;
   const proto = req.headers["x-forwarded-proto"] || "https";
-  const base = proto + "://" + host;
+  const base = (publicSiteUrl || (proto + "://" + host)).replace(/\/$/, "");
 
   function send(res, dest) {
     res.setHeader("Cache-Control", "no-store");

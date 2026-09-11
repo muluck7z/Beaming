@@ -5,9 +5,11 @@ module.exports = function handler(req, res) {
       return;
     }
 
+    const publicSiteUrl = process.env.PUBLIC_SITE_URL || process.env.SITE_URL;
     const host = req.headers["x-forwarded-host"] || req.headers.host;
     const proto = req.headers["x-forwarded-proto"] || "https";
-    const redirectUri = proto + "://" + host + "/api/auth/callback";
+    const baseUrl = (publicSiteUrl || (proto + "://" + host)).replace(/\/$/, "");
+    const redirectUri = baseUrl + "/api/auth/callback";
 
     const params = new URLSearchParams({
       client_id:     CLIENT_ID,
@@ -19,4 +21,4 @@ module.exports = function handler(req, res) {
 
     res.redirect("https://discord.com/oauth2/authorize?" + params.toString());
   };
-  
+
