@@ -2221,6 +2221,21 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.5;
         }
+
+  #language-choice{display:none;min-height:100vh;align-items:center;justify-content:center;padding:32px 20px;background:radial-gradient(100% 90% at 50% 0%,#222228 0%,#0a0a0c 60%);color:var(--text);}
+  #language-choice.show{display:flex;}
+  .language-shell{width:min(680px,100%);text-align:center;}
+  .language-mark{display:inline-flex;align-items:center;gap:10px;padding:10px 15px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.05);font:800 12px 'Space Grotesk',sans-serif;letter-spacing:.28em;text-transform:uppercase;box-shadow:0 12px 35px rgba(0,0,0,.25);}
+  .language-mark i{width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 15px rgba(255,255,255,.65);}
+  .language-title{margin-top:28px;font:800 clamp(28px,7vw,48px)/1.08 'Space Grotesk',sans-serif;letter-spacing:.03em;background:linear-gradient(180deg,#fff,#aaaab1);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .language-subtitle{margin:12px auto 28px;max-width:430px;color:var(--text-muted);font-size:14px;line-height:1.6;}
+  .language-options{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;text-align:left;}
+  .language-card{position:relative;overflow:hidden;padding:22px;border:1px solid var(--surface-border);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018));color:var(--text);cursor:pointer;text-align:left;transition:transform .2s,border-color .2s,background .2s;}
+  .language-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.5);background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.03));}
+  .language-card-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:rgba(255,255,255,.1);font-size:22px;}
+  .language-card-title{margin-top:16px;font:800 18px 'Space Grotesk',sans-serif;}.language-card-desc{margin-top:7px;color:var(--text-muted);font-size:12px;line-height:1.5;}.language-card-arrow{position:absolute;right:18px;bottom:18px;color:var(--text-faint);font-size:18px;}
+  @media(max-width:520px){.language-options{grid-template-columns:1fr;}.language-card{padding:19px;}.language-title{margin-top:24px;}}
+
   </style>
 
   <div id="login-wall">
@@ -2349,6 +2364,19 @@
       </ul>
     </nav>
   </div>
+
+
+  <section id="language-choice" aria-label="Escolha de idioma">
+    <div class="language-shell">
+      <div class="language-mark"><i></i> Millenium</div>
+      <h1 class="language-title">Escolha sua nacionalidade</h1>
+      <p class="language-subtitle">Selecione o idioma da comunidade que você deseja acessar.</p>
+      <div class="language-options">
+        <button class="language-card" id="languagePortuguese"><div class="language-card-icon">🇧🇷</div><div class="language-card-title">Português</div><div class="language-card-desc">Acessar a versão brasileira do Millenium.</div><span class="language-card-arrow">→</span></button>
+        <button class="language-card" id="languageEnglish"><div class="language-card-icon">🇺🇸</div><div class="language-card-title">English</div><div class="language-card-desc">Access the complete English community site.</div><span class="language-card-arrow">→</span></button>
+      </div>
+    </div>
+  </section>
 
   <main id="site-main" style="display:none;">
     <div id="announcementBanner" class="admin-announcement" role="status"></div><div id="announcementDrawer" class="admin-announcement-drawer" role="dialog" aria-label="Todos os anúncios"></div>
@@ -4714,6 +4742,7 @@
       var logoutBtn = document.getElementById('logoutBtn');
       var topbar    = document.getElementById('site-topbar');
       var siteMain  = document.getElementById('site-main');
+      var languageChoice = document.getElementById('language-choice');
 
       var errorMsgs = {
         no_access:    'Você não tem o cargo necessário neste servidor Discord.',
@@ -4750,8 +4779,9 @@
         if(earlyStyle) earlyStyle.remove();
 
         wall.style.display = 'none';
-        topbar.style.display = 'flex';
-        siteMain.style.display = 'block';
+        topbar.style.display = 'none';
+        siteMain.style.display = 'none';
+        if (languageChoice) languageChoice.classList.add('show');
         errBox.style.display = 'none';
 
         currentUser = user || {};
@@ -4776,6 +4806,17 @@
           avatarBtn.style.overflow = 'hidden';
         }
       }
+
+      function enterPortuguese(){
+        if(languageChoice) languageChoice.classList.remove('show');
+        topbar.style.display = 'flex';
+        siteMain.style.display = 'block';
+        try { localStorage.setItem('millenium_language','pt'); } catch(e) {}
+      }
+      var ptChoice=document.getElementById('languagePortuguese');
+      var enChoice=document.getElementById('languageEnglish');
+      if(ptChoice) ptChoice.addEventListener('click', enterPortuguese);
+      if(enChoice) enChoice.addEventListener('click', function(){ try { localStorage.setItem('millenium_language','en'); } catch(e) {} window.location.href='english.html'; });
 
       function checkAuth() {
         var tkn = getToken();
