@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus</title>
+<title>Millenium</title>
 <link rel="icon" type="image/jpeg" href="/nexus-icon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,9 +16,9 @@
     --bg-2: #101013;
     --surface: rgba(255,255,255,0.04);
     --surface-border: rgba(255,255,255,0.09);
-    --red: #e0102a;
-    --red-deep: #7a0d1c;
-    --red-glow: #ff2d47;
+    --red: #d8d8dc;
+    --red-deep: #77777d;
+    --red-glow: #ffffff;
     --text: #f2f1f0;
     --text-muted: #93939a;
     --text-faint: #56565c;
@@ -29,7 +29,7 @@
   html{ scroll-behavior:smooth; }
 
   body{
-    background: radial-gradient(120% 120% at 85% -10%, #1a0508 0%, var(--bg) 45%), var(--bg);
+    background: radial-gradient(120% 120% at 85% -10%, #1b1b1f 0%, var(--bg) 45%), var(--bg);
     color: var(--text);
     font-family: 'Inter', sans-serif;
     min-height:100vh;
@@ -43,7 +43,7 @@
     position:fixed;
     inset:0;
     background:
-      radial-gradient(600px 400px at 15% 90%, rgba(224,16,42,0.07), transparent 70%);
+      radial-gradient(600px 400px at 15% 90%, rgba(220,220,224,0.07), transparent 70%);
     pointer-events:none;
     z-index:0;
   }
@@ -119,7 +119,7 @@
     width:7px; height:7px;
     background: var(--red);
     border-radius:50%;
-    box-shadow: 0 0 10px 2px rgba(224,16,42,0.7);
+    box-shadow: 0 0 10px 2px rgba(220,220,224,0.7);
     flex-shrink:0;
   }
 
@@ -144,7 +144,7 @@
     cursor:pointer;
     transition: border-color .25s ease, background .25s ease, transform .2s ease;
   }
-  .menu-btn:hover{ border-color: rgba(224,16,42,0.5); background: rgba(224,16,42,0.06); }
+  .menu-btn:hover{ border-color: rgba(220,220,224,0.5); background: rgba(220,220,224,0.06); }
   .menu-btn:active{ transform: scale(0.94); }
 
   .menu-btn span{
@@ -176,8 +176,8 @@
     transition: border-color .25s ease, background .25s ease, color .25s ease, transform .2s ease;
   }
   .avatar-slot:hover{
-    border-color: rgba(224,16,42,0.5);
-    background: rgba(224,16,42,0.06);
+    border-color: rgba(220,220,224,0.5);
+    background: rgba(220,220,224,0.06);
     color: var(--text);
   }
   .avatar-slot:active{ transform: scale(0.94); }
@@ -189,8 +189,8 @@
     display:block;
   }
   .avatar-slot.open{
-    border-color: rgba(224,16,42,0.6);
-    background: rgba(224,16,42,0.1);
+    border-color: rgba(220,220,224,0.6);
+    background: rgba(220,220,224,0.1);
     color: var(--red-glow);
   }
 
@@ -237,7 +237,7 @@
     transition: background .2s ease;
   }
   .dropdown-item:hover{
-    background: rgba(224,16,42,0.1);
+    background: rgba(220,220,224,0.1);
   }
   .dropdown-item:active{ transform: scale(0.98); }
 
@@ -251,8 +251,8 @@
     transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
   }
   .ex-card:hover{
-    border-color: rgba(224,16,42,0.45);
-    box-shadow: 0 10px 30px rgba(224,16,42,0.12);
+    border-color: rgba(220,220,224,0.45);
+    box-shadow: 0 10px 30px rgba(220,220,224,0.12);
     transform: scale(1.015);
   }
 
@@ -288,8 +288,8 @@
   }
   .ex-edit-table:focus{
     border-color: var(--red);
-    background: rgba(224,16,42,0.06);
-    box-shadow: 0 0 0 3px rgba(224,16,42,0.15);
+    background: rgba(220,220,224,0.06);
+    box-shadow: 0 0 0 3px rgba(220,220,224,0.15);
   }
 
   .ex-key-input{
@@ -308,8 +308,8 @@
   .ex-key-input::placeholder{ color: var(--text-faint); }
   .ex-key-input:focus{
     border-color: var(--red);
-    background: rgba(224,16,42,0.06);
-    box-shadow: 0 0 0 3px rgba(224,16,42,0.15);
+    background: rgba(220,220,224,0.06);
+    box-shadow: 0 0 0 3px rgba(220,220,224,0.15);
   }
 
   .ex-card-header{
@@ -317,7 +317,7 @@
     align-items:center;
     justify-content:space-between;
     padding: 20px 22px;
-    border-bottom: 1px solid rgba(224,16,42,0.3);
+    border-bottom: 1px solid rgba(220,220,224,0.3);
   }
   .ex-card-title{
     font-family:'Space Grotesk', sans-serif;
@@ -389,8 +389,8 @@
   }
   .ex-field-input::placeholder{ color: var(--text-faint); }
   .ex-field-input:focus{
-    border-color: rgba(224,16,42,0.5);
-    background: rgba(224,16,42,0.05);
+    border-color: rgba(220,220,224,0.5);
+    background: rgba(220,220,224,0.05);
   }
 
   .ex-toggle-block{
@@ -431,8 +431,8 @@
     transition: transform .2s cubic-bezier(.34,1.4,.4,1), background .2s ease;
   }
   .ex-switch[data-state="on"]{
-    background: rgba(224,16,42,0.35);
-    border-color: rgba(224,16,42,0.6);
+    background: rgba(220,220,224,0.35);
+    border-color: rgba(220,220,224,0.6);
   }
   .ex-switch[data-state="on"] .ex-switch-dot{
     transform: translateX(18px);
@@ -480,8 +480,8 @@
     display:flex; align-items:center; justify-content:center;
     width:34px; height:34px;
     border-radius:10px;
-    background: rgba(224,16,42,0.12);
-    border: 1px solid rgba(224,16,42,0.4);
+    background: rgba(220,220,224,0.12);
+    border: 1px solid rgba(220,220,224,0.4);
     color: var(--red-glow);
     font-family:'Space Grotesk', sans-serif;
     font-weight:700;
@@ -517,8 +517,8 @@
     display:inline-block;
     padding: 5px 12px;
     border-radius: 999px;
-    background: rgba(224,16,42,0.12);
-    border: 1px solid rgba(224,16,42,0.4);
+    background: rgba(220,220,224,0.12);
+    border: 1px solid rgba(220,220,224,0.4);
     color: var(--red-glow);
     font-size: 11.5px;
     font-weight:700;
@@ -543,7 +543,7 @@
     word-break:break-all;
     white-space:normal;
     background: #2D1016;
-    border: 1px solid rgba(224,16,42,0.45);
+    border: 1px solid rgba(220,220,224,0.45);
     color: var(--red-glow);
     font-family:'Inter', sans-serif;
     font-size: 15px;
@@ -572,7 +572,7 @@
     width: 8px; height: 8px;
     border-radius: 50%;
     background: var(--red-glow);
-    box-shadow: 0 0 8px rgba(255,45,71,0.8);
+    box-shadow: 0 0 8px rgba(255,255,255,0.8);
     animation: pulse-dot 1.8s ease-in-out infinite;
     flex-shrink: 0;
   }
@@ -585,15 +585,15 @@
   }
   /* Card externo — borda vermelha forte */
   .ann-outer{
-    background: rgba(224,16,42,0.08);
-    border: 1px solid rgba(255,45,71,0.45);
+    background: rgba(220,220,224,0.08);
+    border: 1px solid rgba(255,255,255,0.45);
     border-radius: 16px;
     padding: 16px;
   }
   /* Card interno — fundo mais escuro, borda vermelha suave */
   .ann-inner{
     background: rgba(10,10,12,0.55);
-    border: 1px solid rgba(255,45,71,0.18);
+    border: 1px solid rgba(255,255,255,0.18);
     border-radius: 12px;
     padding: 14px;
     display: grid;
@@ -649,8 +649,8 @@
   .ann-check svg{ display: block; }
   /* Tag retangular */
   .ann-tag{
-    background: rgba(255,45,71,0.18);
-    border: 1px solid rgba(255,45,71,0.38);
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.38);
     color: var(--red-glow);
     font-size: 9px;
     font-weight: 800;
@@ -826,7 +826,7 @@
     color: var(--text-muted);
     transition: border-color .2s ease, color .2s ease, transform .2s ease;
   }
-  .panel-close:hover{ border-color: rgba(224,16,42,0.5); color: var(--text); }
+  .panel-close:hover{ border-color: rgba(220,220,224,0.5); color: var(--text); }
   .panel-close:active{ transform: translateY(-50%) scale(0.92); }
 
   .nav-list{ list-style:none; display:flex; flex-direction:column; gap:6px; }
@@ -871,15 +871,15 @@
   }
   .nav-item:hover .icon-box, .nav-item.active .icon-box{
     color: var(--red-glow);
-    border-color: rgba(224,16,42,0.35);
-    background: rgba(224,16,42,0.09);
+    border-color: rgba(220,220,224,0.35);
+    background: rgba(220,220,224,0.09);
   }
 
 
 
 
   .admin-bell{position:relative;width:38px;height:38px;border-radius:11px;border:1px solid var(--surface-border);background:var(--surface);color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;}
-  .admin-bell:hover{color:var(--red-glow);border-color:rgba(224,16,42,.45);}
+  .admin-bell:hover{color:var(--red-glow);border-color:rgba(220,220,224,.45);}
   .admin-badge{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--red-glow);color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;}
   .admin-announcement{display:none !important;}
   .admin-announcement.show{display:block !important;}
@@ -922,7 +922,7 @@
 
   .admin-member-cards{display:flex;flex-direction:column;gap:10px;width:100%;min-width:0;}
   .admin-member-card{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:11px;align-items:center;padding:13px;border:1px solid var(--surface-border);border-radius:15px;background:linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.015));cursor:pointer;transition:border-color .2s,background .2s;}
-  .admin-member-card:hover,.admin-member-card.open{border-color:rgba(224,16,42,.55);background:rgba(224,16,42,.07);}
+  .admin-member-card:hover,.admin-member-card.open{border-color:rgba(220,220,224,.55);background:rgba(220,220,224,.07);}
   .admin-member-card-avatar{width:42px;height:42px;border-radius:13px;object-fit:cover;border:1px solid rgba(255,255,255,.15);}
   .admin-member-card-name{display:flex;align-items:center;gap:6px;min-width:0;color:var(--text);font-size:13px;font-weight:800;}
   .admin-member-card-name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -940,20 +940,20 @@
   .admin-member-action-panel button:hover{color:var(--text);border-color:var(--red-glow);}
 
   .admin-member-card{overflow:hidden;padding:0;grid-template-columns:1fr;gap:0;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018));border-color:rgba(255,255,255,.09);box-shadow:0 10px 25px rgba(0,0,0,.12);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
-  .admin-member-card:before{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--red-glow),rgba(255,45,71,.12));opacity:.85;}
-  .admin-member-card:hover{transform:translateY(-2px);border-color:rgba(224,16,42,.55);box-shadow:0 14px 30px rgba(0,0,0,.22);}
+  .admin-member-card:before{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--red-glow),rgba(255,255,255,.12));opacity:.85;}
+  .admin-member-card:hover{transform:translateY(-2px);border-color:rgba(220,220,224,.55);box-shadow:0 14px 30px rgba(0,0,0,.22);}
   .admin-member-card-main{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:13px;align-items:center;padding:15px;}
-  .admin-member-card-avatar{width:52px;height:52px;border-radius:16px;border:2px solid rgba(224,16,42,.65);box-shadow:0 0 0 4px rgba(224,16,42,.1),0 7px 18px rgba(0,0,0,.25);}
+  .admin-member-card-avatar{width:52px;height:52px;border-radius:16px;border:2px solid rgba(220,220,224,.65);box-shadow:0 0 0 4px rgba(220,220,224,.1),0 7px 18px rgba(0,0,0,.25);}
   .admin-member-card-name{font-size:14px;}.admin-member-card-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;}
   .admin-member-card-meta{gap:7px;margin-top:9px;}.admin-member-card-meta span{padding:5px 7px;border-radius:8px;background:rgba(0,0,0,.16);font-size:10px;}.admin-member-card-icon{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;}.admin-member-card-icon svg{width:13px;height:13px;}
-  .admin-member-card-status{align-self:start;margin-top:2px;padding:6px 8px;border-radius:999px;background:rgba(107,114,128,.12);border:1px solid rgba(107,114,128,.2);font-size:9px;letter-spacing:.05em;text-transform:uppercase;}.admin-member-card-status.online{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.25);}.admin-member-card-status.banned{background:rgba(224,16,42,.12);border-color:rgba(224,16,42,.3);}.admin-member-card-status.limited{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.28);}
+  .admin-member-card-status{align-self:start;margin-top:2px;padding:6px 8px;border-radius:999px;background:rgba(107,114,128,.12);border:1px solid rgba(107,114,128,.2);font-size:9px;letter-spacing:.05em;text-transform:uppercase;}.admin-member-card-status.online{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.25);}.admin-member-card-status.banned{background:rgba(220,220,224,.12);border-color:rgba(220,220,224,.3);}.admin-member-card-status.limited{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.28);}
   .admin-member-action-panel{display:none!important;}
   .admin-member-modal-backdrop{display:none;position:fixed;inset:0;z-index:10050;background:rgba(3,3,5,.72);backdrop-filter:blur(8px);align-items:flex-end;justify-content:center;padding:18px;}.admin-member-modal-backdrop.show{display:flex;}
   .admin-member-modal{width:min(520px,100%);border:1px solid rgba(255,255,255,.12);border-radius:24px;background:linear-gradient(180deg,#201b22,#0e0d10);box-shadow:0 25px 80px rgba(0,0,0,.6);overflow:hidden;animation:adminModalIn .2s ease-out;}
   @keyframes adminModalIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
   .admin-modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 0;}.admin-modal-close{width:34px;height:34px;border:1px solid var(--surface-border);border-radius:10px;background:rgba(255,255,255,.04);color:var(--text-muted);font-size:20px;cursor:pointer;}.admin-modal-close:hover{color:#fff;border-color:var(--red-glow);}
-  .admin-modal-profile{display:flex;align-items:center;gap:14px;padding:20px;}.admin-modal-profile img{width:68px;height:68px;border-radius:20px;object-fit:cover;border:2px solid var(--red-glow);box-shadow:0 0 0 5px rgba(224,16,42,.12);}.admin-modal-name{font-size:18px;font-weight:800;color:var(--text);}.admin-modal-id{margin-top:5px;color:var(--text-faint);font-family:ui-monospace,monospace;font-size:10px;word-break:break-all;}
-  .admin-modal-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 18px;}.admin-modal-info-item{padding:11px;border:1px solid var(--surface-border);border-radius:12px;background:rgba(255,255,255,.025);}.admin-modal-info-label{color:var(--text-faint);font-size:10px;text-transform:uppercase;letter-spacing:.06em;}.admin-modal-info-value{margin-top:5px;color:var(--text);font-size:12px;word-break:break-word;}.admin-modal-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:16px 20px 20px;border-top:1px solid var(--surface-border);}.admin-modal-action{border:1px solid var(--surface-border);border-radius:11px;padding:11px 8px;background:rgba(255,255,255,.035);color:var(--text-muted);font-size:11px;font-weight:700;cursor:pointer;}.admin-modal-action:hover{color:#fff;border-color:var(--red-glow);background:rgba(224,16,42,.1);}.admin-modal-action.danger{color:#ff7080;}
+  .admin-modal-profile{display:flex;align-items:center;gap:14px;padding:20px;}.admin-modal-profile img{width:68px;height:68px;border-radius:20px;object-fit:cover;border:2px solid var(--red-glow);box-shadow:0 0 0 5px rgba(220,220,224,.12);}.admin-modal-name{font-size:18px;font-weight:800;color:var(--text);}.admin-modal-id{margin-top:5px;color:var(--text-faint);font-family:ui-monospace,monospace;font-size:10px;word-break:break-all;}
+  .admin-modal-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 18px;}.admin-modal-info-item{padding:11px;border:1px solid var(--surface-border);border-radius:12px;background:rgba(255,255,255,.025);}.admin-modal-info-label{color:var(--text-faint);font-size:10px;text-transform:uppercase;letter-spacing:.06em;}.admin-modal-info-value{margin-top:5px;color:var(--text);font-size:12px;word-break:break-word;}.admin-modal-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:16px 20px 20px;border-top:1px solid var(--surface-border);}.admin-modal-action{border:1px solid var(--surface-border);border-radius:11px;padding:11px 8px;background:rgba(255,255,255,.035);color:var(--text-muted);font-size:11px;font-weight:700;cursor:pointer;}.admin-modal-action:hover{color:#fff;border-color:var(--red-glow);background:rgba(220,220,224,.1);}.admin-modal-action.danger{color:#f0f0f2;}
   @media(max-width:480px){.admin-member-card-main{grid-template-columns:46px minmax(0,1fr) auto;gap:10px;padding:13px;}.admin-member-card-avatar{width:46px;height:46px;border-radius:14px;}.admin-member-card-meta span{font-size:9px;padding:4px 5px;}.admin-modal-info{grid-template-columns:1fr 1fr;}.admin-modal-actions{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));}}
 
   .admin-member-empty{padding:18px;text-align:center;color:var(--text-faint);font-size:12px;border:1px dashed var(--surface-border);border-radius:13px;}
@@ -961,23 +961,23 @@
 
   .admin-tabs{display:flex;gap:8px;width:100%;margin:0 auto 18px;padding:5px;border:1px solid var(--surface-border);border-radius:15px;background:rgba(255,255,255,.035);}
   .admin-tab{flex:1;border:0;border-radius:11px;padding:11px 14px;background:transparent;color:var(--text-muted);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;}
-  .admin-tab.active{background:var(--red-glow);color:#fff;box-shadow:0 7px 18px rgba(224,16,42,.25);}
+  .admin-tab.active{background:var(--red-glow);color:#fff;box-shadow:0 7px 18px rgba(220,220,224,.25);}
   .admin-pane{display:none;width:100%;min-width:0;}.admin-pane.active{display:block;}
 
 
   .admin-member-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px;}
-  .admin-member-toolbar h2{margin:0!important;}.admin-member-search{width:210px;max-width:48%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--surface-border);border-radius:10px;background:rgba(0,0,0,.18);color:var(--text);font:inherit;font-size:12px;outline:none;}.admin-member-search:focus{border-color:rgba(224,16,42,.7);}
+  .admin-member-toolbar h2{margin:0!important;}.admin-member-search{width:210px;max-width:48%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--surface-border);border-radius:10px;background:rgba(0,0,0,.18);color:var(--text);font:inherit;font-size:12px;outline:none;}.admin-member-search:focus{border-color:rgba(220,220,224,.7);}
 
 
-  .admin-posts-heading{display:flex;align-items:center;gap:12px;margin-bottom:16px;}.admin-posts-heading-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:rgba(224,16,42,.12);border:1px solid rgba(224,16,42,.3);color:var(--red-glow);}.admin-posts-heading h2{margin:0!important;font-size:20px!important;}.admin-posts-heading p{margin:4px 0 0;color:var(--text-faint);font-size:11px;}
-  .admin-post-form{border:1px solid rgba(224,16,42,.25);background:linear-gradient(145deg,rgba(224,16,42,.08),rgba(255,255,255,.025));}.admin-post-form textarea{min-height:135px;padding:14px;line-height:1.55;border-radius:13px;background:rgba(0,0,0,.22);}.admin-post-form textarea:focus{outline:none;border-color:rgba(224,16,42,.7);box-shadow:0 0 0 3px rgba(224,16,42,.1);}.admin-post-form-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px;}.admin-post-author{display:flex;align-items:center;gap:8px;color:var(--text-faint);font-size:11px;}.admin-post-author-icon{width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--red-glow);}
-  .admin-post-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:18px 0;}.admin-post-stat{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--surface-border);border-radius:13px;background:rgba(255,255,255,.025);}.admin-post-stat-icon{width:30px;height:30px;border-radius:10px;background:rgba(224,16,42,.1);display:flex;align-items:center;justify-content:center;color:var(--red-glow);}.admin-post-stat strong{display:block;color:var(--text);font-size:16px;}.admin-post-stat span{display:block;margin-top:2px;color:var(--text-faint);font-size:10px;}
-  .admin-post-list{display:flex;flex-direction:column;gap:12px;}.admin-post-card{position:relative;overflow:hidden;padding:16px;border:1px solid var(--surface-border);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:0 8px 24px rgba(0,0,0,.12);}.admin-post-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red-glow);}.admin-post-card-head{display:flex;align-items:center;gap:10px;}.admin-post-card-avatar{width:38px;height:38px;border-radius:12px;object-fit:cover;border:1px solid rgba(224,16,42,.55);}.admin-post-card-author{min-width:0;flex:1;}.admin-post-card-name{color:var(--text);font-size:12px;font-weight:800;}.admin-post-card-meta{margin-top:4px;color:var(--text-faint);font-size:10px;}.admin-post-card-role{padding:4px 7px;border:1px solid rgba(255,45,71,.3);border-radius:6px;color:var(--red-glow);font-size:9px;font-weight:800;text-transform:uppercase;}.admin-post-card-body{margin:14px 0 12px;padding:12px;border-radius:11px;background:rgba(0,0,0,.16);color:var(--text-muted);font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;}.admin-post-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}.admin-post-card-date{display:flex;align-items:center;gap:5px;color:var(--text-faint);font-size:10px;}.admin-post-remove{border:1px solid var(--surface-border);border-radius:8px;padding:7px 9px;background:transparent;color:var(--text-muted);font-size:10px;cursor:pointer;}.admin-post-remove:hover{border-color:var(--red-glow);color:#fff;background:rgba(224,16,42,.1);}
+  .admin-posts-heading{display:flex;align-items:center;gap:12px;margin-bottom:16px;}.admin-posts-heading-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:rgba(220,220,224,.12);border:1px solid rgba(220,220,224,.3);color:var(--red-glow);}.admin-posts-heading h2{margin:0!important;font-size:20px!important;}.admin-posts-heading p{margin:4px 0 0;color:var(--text-faint);font-size:11px;}
+  .admin-post-form{border:1px solid rgba(220,220,224,.25);background:linear-gradient(145deg,rgba(220,220,224,.08),rgba(255,255,255,.025));}.admin-post-form textarea{min-height:135px;padding:14px;line-height:1.55;border-radius:13px;background:rgba(0,0,0,.22);}.admin-post-form textarea:focus{outline:none;border-color:rgba(220,220,224,.7);box-shadow:0 0 0 3px rgba(220,220,224,.1);}.admin-post-form-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px;}.admin-post-author{display:flex;align-items:center;gap:8px;color:var(--text-faint);font-size:11px;}.admin-post-author-icon{width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--red-glow);}
+  .admin-post-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:18px 0;}.admin-post-stat{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--surface-border);border-radius:13px;background:rgba(255,255,255,.025);}.admin-post-stat-icon{width:30px;height:30px;border-radius:10px;background:rgba(220,220,224,.1);display:flex;align-items:center;justify-content:center;color:var(--red-glow);}.admin-post-stat strong{display:block;color:var(--text);font-size:16px;}.admin-post-stat span{display:block;margin-top:2px;color:var(--text-faint);font-size:10px;}
+  .admin-post-list{display:flex;flex-direction:column;gap:12px;}.admin-post-card{position:relative;overflow:hidden;padding:16px;border:1px solid var(--surface-border);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:0 8px 24px rgba(0,0,0,.12);}.admin-post-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red-glow);}.admin-post-card-head{display:flex;align-items:center;gap:10px;}.admin-post-card-avatar{width:38px;height:38px;border-radius:12px;object-fit:cover;border:1px solid rgba(220,220,224,.55);}.admin-post-card-author{min-width:0;flex:1;}.admin-post-card-name{color:var(--text);font-size:12px;font-weight:800;}.admin-post-card-meta{margin-top:4px;color:var(--text-faint);font-size:10px;}.admin-post-card-role{padding:4px 7px;border:1px solid rgba(255,255,255,.3);border-radius:6px;color:var(--red-glow);font-size:9px;font-weight:800;text-transform:uppercase;}.admin-post-card-body{margin:14px 0 12px;padding:12px;border-radius:11px;background:rgba(0,0,0,.16);color:var(--text-muted);font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;}.admin-post-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}.admin-post-card-date{display:flex;align-items:center;gap:5px;color:var(--text-faint);font-size:10px;}.admin-post-remove{border:1px solid var(--surface-border);border-radius:8px;padding:7px 9px;background:transparent;color:var(--text-muted);font-size:10px;cursor:pointer;}.admin-post-remove:hover{border-color:var(--red-glow);color:#fff;background:rgba(220,220,224,.1);}
 
   .admin-form-label{margin:0 0 8px;color:var(--text-muted);font-size:12px;font-weight:700;}
   .admin-table-wrap{width:100%;max-width:100%;overflow-x:auto;border:1px solid var(--surface-border);border-radius:14px;}
   .admin-members{width:100%;border-collapse:collapse;min-width:760px;}
-  .admin-members th{padding:12px 14px;text-align:left;background:rgba(224,16,42,.08);color:var(--text-faint);font-size:10px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
+  .admin-members th{padding:12px 14px;text-align:left;background:rgba(220,220,224,.08);color:var(--text-faint);font-size:10px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
   .admin-members td{padding:12px 14px;border-top:1px solid var(--surface-border);color:var(--text-muted);font-size:12px;vertical-align:middle;}
   .admin-members tr:hover td{background:rgba(255,255,255,.025);}
   .admin-member-user{display:flex;align-items:center;gap:9px;color:var(--text);font-weight:700;white-space:nowrap;}
@@ -1038,7 +1038,7 @@
   .hero-title .accent{
     color: var(--red);
     -webkit-text-fill-color: var(--red);
-    text-shadow: 0 0 40px rgba(224,16,42,0.45);
+    text-shadow: 0 0 40px rgba(220,220,224,0.45);
   }
 
   .hero-sub{
@@ -1065,7 +1065,7 @@
     cursor:pointer;
     transition: border-color .3s ease, color .3s ease, transform .2s ease;
   }
-  .hero-hint:hover{ border-color: rgba(224,16,42,0.5); color: var(--text); }
+  .hero-hint:hover{ border-color: rgba(220,220,224,0.5); color: var(--text); }
   .hero-hint svg{ transform: translateY(-1px); }
 
   .hero-hint .arrow{
@@ -1125,7 +1125,7 @@
   .lb-rank-1 .lb-avatar{
     border: 2px solid var(--red);
     border-style: solid;
-    box-shadow: 0 0 14px 1px rgba(224,16,42,0.55);
+    box-shadow: 0 0 14px 1px rgba(220,220,224,0.55);
   }
   .lb-rank-2 .lb-avatar{
     border: 2px solid rgba(230,230,235,0.55);
@@ -1205,7 +1205,7 @@
     height:6px;
     border-radius:50%;
     background:var(--red);
-    box-shadow:0 0 10px 2px rgba(224,16,42,0.7);
+    box-shadow:0 0 10px 2px rgba(220,220,224,0.7);
   }
   .journey-title{
     font-family:'Space Grotesk',sans-serif;
@@ -1233,9 +1233,9 @@
     padding:5px 12px;
     margin-bottom:4px;
     color:var(--red-glow);
-    border:1px solid rgba(224,16,42,0.4);
+    border:1px solid rgba(220,220,224,0.4);
     border-radius:999px;
-    background:rgba(224,16,42,0.12);
+    background:rgba(220,220,224,0.12);
     font-size:11.5px;
     font-weight:700;
     letter-spacing:0.06em;
@@ -1263,8 +1263,8 @@
   }
   .journey-card:hover{
     transform:translateY(-2px);
-    border-color:rgba(224,16,42,0.45);
-    box-shadow:0 10px 30px rgba(224,16,42,0.12);
+    border-color:rgba(220,220,224,0.45);
+    box-shadow:0 10px 30px rgba(220,220,224,0.12);
   }
   .journey-card-head{ display:contents; }
   .journey-icon{
@@ -1324,9 +1324,9 @@
     height:28px;
     margin-top:1px;
     color:var(--red-glow);
-    border:1px solid rgba(224,16,42,0.4);
+    border:1px solid rgba(220,220,224,0.4);
     border-radius:10px;
-    background:rgba(224,16,42,0.12);
+    background:rgba(220,220,224,0.12);
     font-family:'Space Grotesk',sans-serif;
     font-size:11px;
     font-weight:700;
@@ -1363,8 +1363,8 @@
     transition: border-color .25s ease, background .25s ease, transform .2s ease;
   }
   .link-item:hover{
-    border-color: rgba(224,16,42,0.4);
-    background: rgba(224,16,42,0.06);
+    border-color: rgba(220,220,224,0.4);
+    background: rgba(220,220,224,0.06);
     transform: translateX(2px);
   }
   .link-item:active{ transform: scale(0.98); }
@@ -1463,9 +1463,9 @@
     transform: scale(1.08);
     opacity: 1;
     color: var(--text);
-    border-color: rgba(224,16,42,0.45);
-    background: rgba(224,16,42,0.08);
-    box-shadow: 0 10px 30px rgba(224,16,42,0.18);
+    border-color: rgba(220,220,224,0.45);
+    background: rgba(220,220,224,0.08);
+    box-shadow: 0 10px 30px rgba(220,220,224,0.18);
   }
   .tab-card.active .tab-icon{ color: var(--red-glow); }
 
@@ -1509,13 +1509,13 @@
     margin: 0 auto 30px;
     display:flex; align-items:center; justify-content:center;
     border-radius:50%;
-    background: radial-gradient(circle at 30% 30%, rgba(224,16,42,0.18), rgba(224,16,42,0.02));
-    border: 1px solid rgba(224,16,42,0.25);
+    background: radial-gradient(circle at 30% 30%, rgba(220,220,224,0.18), rgba(220,220,224,0.02));
+    border: 1px solid rgba(220,220,224,0.25);
   }
   .gear-wrap svg{
     animation: spin 6s linear infinite;
     color: var(--red-glow);
-    filter: drop-shadow(0 0 8px rgba(224,16,42,0.5));
+    filter: drop-shadow(0 0 8px rgba(220,220,224,0.5));
   }
   @keyframes spin{ to{ transform: rotate(360deg); } }
 
@@ -1701,14 +1701,14 @@
   .rfr-input-header{
     display:flex; align-items:center; gap:14px;
     padding: 18px 22px;
-    border-bottom: 1px solid rgba(224,16,42,0.2);
-    background: rgba(224,16,42,0.04);
+    border-bottom: 1px solid rgba(220,220,224,0.2);
+    background: rgba(220,220,224,0.04);
   }
   .rfr-input-icon{
     width:38px; height:38px;
     border-radius:11px;
-    background: rgba(224,16,42,0.12);
-    border: 1px solid rgba(224,16,42,0.35);
+    background: rgba(220,220,224,0.12);
+    border: 1px solid rgba(220,220,224,0.35);
     display:flex; align-items:center; justify-content:center;
     color: var(--red-glow);
     flex-shrink:0;
@@ -1739,9 +1739,9 @@
   }
   .rfr-textarea::placeholder{ color:var(--text-faint); }
   .rfr-textarea:focus{
-    border-color: rgba(224,16,42,0.55);
-    background: rgba(224,16,42,0.05);
-    box-shadow: 0 0 0 3px rgba(224,16,42,0.12);
+    border-color: rgba(220,220,224,0.55);
+    background: rgba(220,220,224,0.05);
+    box-shadow: 0 0 0 3px rgba(220,220,224,0.12);
   }
 
   .rfr-btn{
@@ -1764,7 +1764,7 @@
     background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
     pointer-events:none;
   }
-  .rfr-btn:hover{ background: var(--red-glow); box-shadow: 0 6px 22px rgba(224,16,42,0.45); }
+  .rfr-btn:hover{ background: var(--red-glow); box-shadow: 0 6px 22px rgba(220,220,224,0.45); }
   .rfr-btn:active{ transform: scale(0.97); }
   .rfr-btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
   .rfr-btn-spin{ display:inline-block; animation: rfr-spin .7s linear infinite; }
@@ -1780,8 +1780,8 @@
   .rfr-result.show{ display:flex; }
 
   .rfr-profile-card{
-    background: linear-gradient(145deg, rgba(224,16,42,0.07) 0%, var(--bg-2) 60%, var(--bg) 100%);
-    border: 1px solid rgba(224,16,42,0.3);
+    background: linear-gradient(145deg, rgba(220,220,224,0.07) 0%, var(--bg-2) 60%, var(--bg) 100%);
+    border: 1px solid rgba(220,220,224,0.3);
     border-radius:20px;
     overflow:hidden;
     position:relative;
@@ -1801,18 +1801,18 @@
     width:72px; height:72px;
     border-radius:18px;
     background: rgba(255,255,255,0.04);
-    border: 2px solid rgba(224,16,42,0.5);
-    box-shadow: 0 0 20px rgba(224,16,42,0.25), inset 0 0 20px rgba(0,0,0,0.4);
+    border: 2px solid rgba(220,220,224,0.5);
+    box-shadow: 0 0 20px rgba(220,220,224,0.25), inset 0 0 20px rgba(0,0,0,0.4);
     object-fit:cover;
     display:block;
   }
   .rfr-avatar-placeholder{
     width:72px; height:72px;
     border-radius:18px;
-    background: rgba(224,16,42,0.08);
-    border: 2px solid rgba(224,16,42,0.4);
+    background: rgba(220,220,224,0.08);
+    border: 2px solid rgba(220,220,224,0.4);
     display:flex; align-items:center; justify-content:center;
-    color: rgba(224,16,42,0.5);
+    color: rgba(220,220,224,0.5);
   }
   .rfr-avatar-badge{
     position:absolute; bottom:-4px; right:-4px;
@@ -1896,14 +1896,14 @@
     max-height:80px;
     overflow-y:auto;
     scrollbar-width:thin;
-    scrollbar-color: rgba(224,16,42,0.4) transparent;
+    scrollbar-color: rgba(220,220,224,0.4) transparent;
   }
   .rfr-copy-btn{
     display:flex; align-items:center; gap:7px;
     padding:8px 16px;
     border-radius:8px;
-    background: rgba(224,16,42,0.1);
-    border:1px solid rgba(224,16,42,0.35);
+    background: rgba(220,220,224,0.1);
+    border:1px solid rgba(220,220,224,0.35);
     color:var(--red-glow);
     font-family:'Inter', sans-serif;
     font-size:12px; font-weight:700;
@@ -1911,7 +1911,7 @@
     transition: background .2s ease, transform .15s ease;
     white-space:nowrap;
   }
-  .rfr-copy-btn:hover{ background:rgba(224,16,42,0.2); }
+  .rfr-copy-btn:hover{ background:rgba(220,220,224,0.2); }
   .rfr-copy-btn:active{ transform:scale(0.96); }
   .rfr-copy-btn.copied{ color:#3ecf6a; border-color:rgba(62,207,106,0.4); background:rgba(62,207,106,0.08); }
 
@@ -1920,8 +1920,8 @@
     display:none;
     align-items:center; gap:12px;
     padding:14px 18px;
-    background: rgba(224,16,42,0.06);
-    border:1px solid rgba(224,16,42,0.25);
+    background: rgba(220,220,224,0.06);
+    border:1px solid rgba(220,220,224,0.25);
     border-radius:14px;
     font-size:13.5px; color:var(--text-muted);
     animation: panel-fade .3s ease;
@@ -2096,7 +2096,7 @@
         #lw-check {
             width: 15px;
             height: 15px;
-            background: linear-gradient(145deg, #ff2d47, #a30f22);
+            background: linear-gradient(145deg, #ffffff, #a30f22);
             border-radius: 4.5px;
             display: flex;
             align-items: center;
@@ -2107,7 +2107,7 @@
         #lw-tag {
             background: rgba(255, 45, 71, 0.14);
             border: 1px solid rgba(255, 45, 71, 0.4);
-            color: #ff2d47;
+            color: #ffffff;
             font-size: 9px;
             font-weight: 800;
             letter-spacing: 0.09em;
@@ -2136,18 +2136,18 @@
         }
 
         #lw-desc strong {
-            color: #ff2d47;
+            color: #ffffff;
             font-weight: 700;
         }
 
         /* Erro dinâmico — inserido via JS */
         #login-error {
             grid-column: 1 / -1;
-            background: rgba(224,16,42,0.09);
-            border: 1px solid rgba(255,45,71,0.28);
+            background: rgba(220,220,224,0.09);
+            border: 1px solid rgba(255,255,255,0.28);
             border-radius: 10px;
             padding: 10px 13px;
-            font-size: 12px; color: #ff2d47;
+            font-size: 12px; color: #ffffff;
             font-family: 'Inter', sans-serif;
             line-height: 1.5;
         }
@@ -2161,7 +2161,7 @@
             justify-content: center;
             gap: 10px;
             padding: 14px 18px;
-            background: linear-gradient(180deg, rgba(224,16,42,0.18), rgba(224,16,42,0.08));
+            background: linear-gradient(180deg, rgba(220,220,224,0.18), rgba(220,220,224,0.08));
             border: 1.5px solid rgba(255, 45, 71, 0.55);
             border-radius: 12px;
             color: #fff;
@@ -2171,7 +2171,7 @@
             font-size: 14px;
             letter-spacing: 0.03em;
             overflow: hidden;
-            box-shadow: 0 8px 22px -10px rgba(224,16,42,0.55);
+            box-shadow: 0 8px 22px -10px rgba(220,220,224,0.55);
             transition: background .18s, border-color .18s, box-shadow .18s, transform .13s;
             cursor: pointer;
             animation: float-btn 2.6s ease-in-out infinite;
@@ -2187,9 +2187,9 @@
         }
 
         #lw-btn:hover {
-            background: linear-gradient(180deg, rgba(224,16,42,0.3), rgba(224,16,42,0.14));
+            background: linear-gradient(180deg, rgba(220,220,224,0.3), rgba(220,220,224,0.14));
             border-color: rgba(255, 45, 71, 0.9);
-            box-shadow: 0 10px 30px -8px rgba(224,16,42,0.75);
+            box-shadow: 0 10px 30px -8px rgba(220,220,224,0.75);
             animation-play-state: paused;
         }
 
@@ -2229,7 +2229,7 @@
           <!-- Info -->
           <div id="lw-body">
             <div id="lw-nick-row">
-              <span id="lw-nick">Nexus</span>
+              <span id="lw-nick">Millenium</span>
               <span id="lw-check">
                 <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
                   <path d="M1 3.5L3.5 6L8 1" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2271,7 +2271,7 @@
   <div class="topbar" id="site-topbar" style="display:none;">
     <div class="brand" onclick="goHome()">
       <span class="dot"></span>
-      Nexus
+      Millenium
     </div>
     <div class="topbar-right">
       <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
@@ -2375,7 +2375,7 @@
         <section class="journey-intro" aria-labelledby="journey-title">
           <div class="journey-heading">
             <div>
-              <div class="journey-kicker"><span class="journey-kicker-dot"></span>Guia Nexus</div>
+              <div class="journey-kicker"><span class="journey-kicker-dot"></span>Guia Millenium</div>
               <h2 class="journey-title" id="journey-title">Aonde começar?</h2>
               <p class="journey-subtitle">Ei Novato! Leia com muita atenção esse guia que preparamos para você!</p>
             </div>
@@ -2847,22 +2847,22 @@
                     <div class="tutorial-title">Cookie — PC</div>
                     <div class="tutorial-desc">Tutorial completo no PC mostrando como usar o método Cookie com a extensão atualizada.</div>
 
-                    <div style="margin-top:20px;padding:16px;background:rgba(224,16,42,0.06);border:1px solid rgba(224,16,42,0.25);border-radius:10px;">
+                    <div style="margin-top:20px;padding:16px;background:rgba(220,220,224,0.06);border:1px solid rgba(220,220,224,0.25);border-radius:10px;">
                       <div style="font-weight:700;color:var(--red-glow);margin-bottom:8px;font-size:.875rem;">Extensão Atualizada</div>
                       <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">O tutorial mostra a extensão <strong style="color:var(--text)">EditThisCookie</strong>, mas ela foi substituída. Use o arquivo abaixo no lugar dela. O funcionamento é idêntico.</div>
-                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(224,16,42,0.2);">
+                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(220,220,224,0.2);">
                         <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">A extensão atual está disponível na categoria <strong style="color:var(--text)">Sites &gt; Extensão</strong>.</div>
-                        <button class="site-list-btn" type="button" onclick="openExtension()" style="display:inline-flex;margin-top:12px;border:1px solid rgba(224,16,42,0.45);">→ Ir para Extensão</button>
+                        <button class="site-list-btn" type="button" onclick="openExtension()" style="display:inline-flex;margin-top:12px;border:1px solid rgba(220,220,224,0.45);">→ Ir para Extensão</button>
                       </div>
                     </div>
 
                     <div style="margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--surface-border);border-radius:10px;">
                       <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:14px;">Como instalar no Chrome</div>
                       <div style="display:flex;flex-direction:column;gap:10px;">
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">1</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Baixe o arquivo <strong style="color:var(--text)">.zip</strong> da extensão abaixo</span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">2</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Abra o Chrome e vá em <strong style="color:var(--red-glow)">chrome://extensions</strong></span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">3</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Ative o <strong style="color:var(--red-glow)">"Modo do desenvolvedor"</strong> no canto superior direito</span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">4</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Arraste e solte o arquivo <strong style="color:var(--text)">.zip</strong> diretamente na página de extensões</span></div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(220,220,224,0.2);border:1px solid rgba(220,220,224,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">1</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Baixe o arquivo <strong style="color:var(--text)">.zip</strong> da extensão abaixo</span></div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(220,220,224,0.2);border:1px solid rgba(220,220,224,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">2</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Abra o Chrome e vá em <strong style="color:var(--red-glow)">chrome://extensions</strong></span></div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(220,220,224,0.2);border:1px solid rgba(220,220,224,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">3</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Ative o <strong style="color:var(--red-glow)">"Modo do desenvolvedor"</strong> no canto superior direito</span></div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(220,220,224,0.2);border:1px solid rgba(220,220,224,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">4</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Arraste e solte o arquivo <strong style="color:var(--text)">.zip</strong> diretamente na página de extensões</span></div>
                       </div>
                     </div>
                   </div>
@@ -2887,22 +2887,22 @@
                     <div class="tutorial-title">Cookie — Celular</div>
                     <div class="tutorial-desc">Tutorial no celular com a versão mais recente da extensão com todas as melhorias.</div>
 
-                    <div style="margin-top:20px;padding:16px;background:rgba(224,16,42,0.06);border:1px solid rgba(224,16,42,0.25);border-radius:10px;">
+                    <div style="margin-top:20px;padding:16px;background:rgba(220,220,224,0.06);border:1px solid rgba(220,220,224,0.25);border-radius:10px;">
                       <div style="font-weight:700;color:var(--red-glow);margin-bottom:8px;font-size:.875rem;">Extensão Atualizada</div>
                       <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">O tutorial mostra a extensão <strong style="color:var(--text)">EditThisCookie</strong>, mas ela foi substituída. Use o arquivo abaixo no lugar dela. O funcionamento é idêntico.</div>
-                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(224,16,42,0.2);">
+                      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(220,220,224,0.2);">
                         <div style="font-size:.875rem;color:var(--text-muted);line-height:1.6;">A extensão atual está disponível na categoria <strong style="color:var(--text)">Sites &gt; Extensão</strong>.</div>
-                        <button class="site-list-btn" type="button" onclick="openExtension()" style="display:inline-flex;margin-top:12px;border:1px solid rgba(224,16,42,0.45);">→ Ir para Extensão</button>
+                        <button class="site-list-btn" type="button" onclick="openExtension()" style="display:inline-flex;margin-top:12px;border:1px solid rgba(220,220,224,0.45);">→ Ir para Extensão</button>
                       </div>
                     </div>
 
                     <div style="margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--surface-border);border-radius:10px;">
                       <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:14px;">Como instalar no Celular (Kiwi Browser)</div>
                       <div style="display:flex;flex-direction:column;gap:10px;">
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">1</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Baixe o arquivo <strong style="color:var(--text)">.zip</strong> da extensão abaixo</span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">2</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Instale o <strong style="color:var(--red-glow)">Kiwi Browser</strong> na Play Store — é o único navegador Android que suporta extensões</span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">3</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Abra o Kiwi, acesse <strong style="color:var(--red-glow)">kiwi://extensions</strong> e ative o <strong style="color:var(--text)">"Modo do desenvolvedor"</strong></span></div>
-                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(224,16,42,0.2);border:1px solid rgba(224,16,42,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">4</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Toque em <strong style="color:var(--text)">"Carregar sem compactar / + (from .zip)"</strong> e selecione o arquivo baixado</span></div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(220,220,224,0.2);border:1px solid rgba(220,220,224,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">1</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Baixe o arquivo <strong style="color:var(--text)">.zip</strong> da extensão abaixo</span></div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(220,220,224,0.2);border:1px solid rgba(220,220,224,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">2</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Instale o <strong style="color:var(--red-glow)">Kiwi Browser</strong> na Play Store — é o único navegador Android que suporta extensões</span></div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(220,220,224,0.2);border:1px solid rgba(220,220,224,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">3</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Abra o Kiwi, acesse <strong style="color:var(--red-glow)">kiwi://extensions</strong> e ative o <strong style="color:var(--text)">"Modo do desenvolvedor"</strong></span></div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="min-width:22px;height:22px;border-radius:50%;background:rgba(220,220,224,0.2);border:1px solid rgba(220,220,224,0.4);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--red-glow);">4</span><span style="font-size:.875rem;color:var(--text-muted);line-height:1.5;">Toque em <strong style="color:var(--text)">"Carregar sem compactar / + (from .zip)"</strong> e selecione o arquivo baixado</span></div>
                       </div>
                     </div>
                   </div>
@@ -3277,15 +3277,15 @@
                     <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--surface-border);"><span style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;display:block;margin-bottom:8px;">Tags</span><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Cookie</span><span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Extensão</span><span class="site-list-tag" style="font-size:10px;padding:3px 10px;">OG</span><span class="site-list-tag" style="font-size:10px;padding:3px 10px;">Roubo</span></div></div>
                   </div>
 <div class="site-section-header"><span class="site-section-badge">2</span><span class="site-section-title">Crie uma comunidade</span></div>
-                  <div class="tutorial-card" style="margin-bottom:22px;"><div class="tutorial-card-body" style="text-align:left;"><div class="tutorial-title">Crie uma comunidade para roubar seus membros que chegarem do TikTok.</div><div class="journey-card-list"><div class="journey-card-point"><span class="journey-card-number">1</span><div class="journey-card-point-content"><p>Você deve criar uma comunidade Discord para que todos possam entrar.</p></div></div><div class="journey-card-point"><span class="journey-card-number">2</span><div class="journey-card-point-content"><p>Se você quiser deixar seu servidor com uma aparência melhor você pode gastar dinheiro neste site <a href="https://revisionsmm.com/ref/md379" target="_blank" rel="noopener noreferrer" style="color:#60a5fa;">https://revisionsmm.com</a> com membros offline e membros online, e outros recursos. Com apenas 10 reais você consegue cerca de 800 membros. O preço varia com o passar do tempo.</p></div></div><div class="journey-card-point"><span class="journey-card-number">3</span><div class="journey-card-point-content"><p>Deixe canais elaborados e tutoriais para que os membros possam adicionar a extensão no navegador.</p><div style="margin:14px 0;padding:12px 14px;border-radius:10px;background:rgba(224,16,42,0.08);border:1px solid rgba(224,16,42,0.35);color:var(--red-glow);font-weight:700;line-height:1.6;">Não esqueça de avisar que o usuário mobile necessita do Kiwi Browser para adicionar a extensão.</div><div class="site-list-card" style="margin:18px 0 22px;">
+                  <div class="tutorial-card" style="margin-bottom:22px;"><div class="tutorial-card-body" style="text-align:left;"><div class="tutorial-title">Crie uma comunidade para roubar seus membros que chegarem do TikTok.</div><div class="journey-card-list"><div class="journey-card-point"><span class="journey-card-number">1</span><div class="journey-card-point-content"><p>Você deve criar uma comunidade Discord para que todos possam entrar.</p></div></div><div class="journey-card-point"><span class="journey-card-number">2</span><div class="journey-card-point-content"><p>Se você quiser deixar seu servidor com uma aparência melhor você pode gastar dinheiro neste site <a href="https://revisionsmm.com/ref/md379" target="_blank" rel="noopener noreferrer" style="color:#60a5fa;">https://revisionsmm.com</a> com membros offline e membros online, e outros recursos. Com apenas 10 reais você consegue cerca de 800 membros. O preço varia com o passar do tempo.</p></div></div><div class="journey-card-point"><span class="journey-card-number">3</span><div class="journey-card-point-content"><p>Deixe canais elaborados e tutoriais para que os membros possam adicionar a extensão no navegador.</p><div style="margin:14px 0;padding:12px 14px;border-radius:10px;background:rgba(220,220,224,0.08);border:1px solid rgba(220,220,224,0.35);color:var(--red-glow);font-weight:700;line-height:1.6;">Não esqueça de avisar que o usuário mobile necessita do Kiwi Browser para adicionar a extensão.</div><div class="site-list-card" style="margin:18px 0 22px;">
                       <div class="site-list-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red-glow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6M9 15l3-3 3 3"/></svg></div>
                       <div class="site-list-body"><span class="site-list-tag">Tutorial</span><div class="site-list-title">Baixar tutoriais</div><div class="tutorial-desc">Baixe os dois vídeos de tutorial para publicar no servidor.</div><a class="site-list-btn" href="Tutoriais.zip" download="Tutoriais.zip"><span>↓</span> Baixar tutoriais</a></div>
                     </div></div></div></div></div></div>
                   <div class="site-section-header"><span class="site-section-badge">3</span><span class="site-section-title">Publicação</span></div>
-                  <div class="tutorial-card" style="margin-bottom:22px;"><div class="tutorial-card-body" style="text-align:left;"><div class="tutorial-title">Publique vídeos para atrair suas vítimas</div><div style="margin:14px 0;padding:12px 14px;border-radius:10px;background:rgba(224,16,42,0.08);border:1px solid rgba(224,16,42,0.35);color:var(--red-glow);font-weight:700;line-height:1.6;">Aviso: recomendo vídeos em inglês para alcançar o público estrangeiro.</div><div class="journey-card-list"><div class="journey-card-point"><span class="journey-card-number">1</span><div class="journey-card-point-content"><p>Você deve criar uma conta de tiktok para publicar vídeos para o método. Deixe a conta bem padrão de Roblox mesmo.</p></div></div><div class="journey-card-point"><span class="journey-card-number">2</span><div class="journey-card-point-content"><p>Pesquise por vídeos de beaming ou beamed e baixe esses vídeos para republicar. Edita eles antes e adiciona um novo áudio antes de publicá-los.</p></div></div><div class="journey-card-point"><span class="journey-card-number">3</span><div class="journey-card-point-content"><p>Publique todo dia uns três vídeos para sua conta não nefar.</p></div></div><div class="journey-card-point"><span class="journey-card-number">4</span><div class="journey-card-point-content"><p>Você pode comprar seguidores no mesmo site que recomendei acima. Com uns 20 conto você consegue comprar mil seguidores tranquilo. Pra quê isso? Para adicionar bio.</p></div></div></div></div></div>
+                  <div class="tutorial-card" style="margin-bottom:22px;"><div class="tutorial-card-body" style="text-align:left;"><div class="tutorial-title">Publique vídeos para atrair suas vítimas</div><div style="margin:14px 0;padding:12px 14px;border-radius:10px;background:rgba(220,220,224,0.08);border:1px solid rgba(220,220,224,0.35);color:var(--red-glow);font-weight:700;line-height:1.6;">Aviso: recomendo vídeos em inglês para alcançar o público estrangeiro.</div><div class="journey-card-list"><div class="journey-card-point"><span class="journey-card-number">1</span><div class="journey-card-point-content"><p>Você deve criar uma conta de tiktok para publicar vídeos para o método. Deixe a conta bem padrão de Roblox mesmo.</p></div></div><div class="journey-card-point"><span class="journey-card-number">2</span><div class="journey-card-point-content"><p>Pesquise por vídeos de beaming ou beamed e baixe esses vídeos para republicar. Edita eles antes e adiciona um novo áudio antes de publicá-los.</p></div></div><div class="journey-card-point"><span class="journey-card-number">3</span><div class="journey-card-point-content"><p>Publique todo dia uns três vídeos para sua conta não nefar.</p></div></div><div class="journey-card-point"><span class="journey-card-number">4</span><div class="journey-card-point-content"><p>Você pode comprar seguidores no mesmo site que recomendei acima. Com uns 20 conto você consegue comprar mil seguidores tranquilo. Pra quê isso? Para adicionar bio.</p></div></div></div></div></div>
                   <div class="tutorial-card" style="margin-bottom:22px;"><div class="tutorial-card-body" style="text-align:left;"><div class="tutorial-title">Vídeo de Referência</div><div style="margin-top:18px;border-radius:14px;overflow:hidden;background:var(--surface);border:1px solid var(--surface-border);"><video style="width:100%;display:block;" controls playsinline preload="metadata"><source src="video-referencia-publicacao.mp4" type="video/mp4"></video></div></div></div>
                   <div style="background:var(--surface);border:1px solid var(--surface-border);border-radius:18px;padding:22px 24px;display:flex;align-items:flex-start;gap:18px;margin-top:22px;">
-                    <div style="flex-shrink:0;width:50px;height:50px;border-radius:14px;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.25);display:flex;align-items:center;justify-content:center;"><svg width="26" height="20" viewBox="0 0 71 55" fill="var(--red-glow)"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3-6.5-7.3-6.5 3.3-6.5 7.3c0 4 2.9 7.3 6.5 7.3Z"/></svg></div>
+                    <div style="flex-shrink:0;width:50px;height:50px;border-radius:14px;background:rgba(220,220,224,0.1);border:1px solid rgba(220,220,224,0.25);display:flex;align-items:center;justify-content:center;"><svg width="26" height="20" viewBox="0 0 71 55" fill="var(--red-glow)"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3-6.5-7.3-6.5 3.3-6.5 7.3c0 4 2.9 7.3 6.5 7.3Z"/></svg></div>
                     <div style="flex:1;"><span class="site-list-tag" style="margin-bottom:8px;">Exemplo de Servidor</span><div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;">Servidor de Referência</div><div class="tutorial-desc" style="margin-bottom:14px;">Veja um exemplo de servidor para organizar sua comunidade.</div><a class="site-list-btn" href="https://discord.gg/vee4eYHq5D" target="_blank" rel="noopener noreferrer"><svg width="14" height="11" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg><span>Entrar no servidor</span></a></div>
                   </div>
                 </div>
@@ -3383,7 +3383,7 @@
                       <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px;">
 
                         <!-- Card 1: Vermelho -->
-                        <div style="background:rgba(224,16,42,0.05);border:1px solid rgba(224,16,42,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                        <div style="background:rgba(220,220,224,0.05);border:1px solid rgba(220,220,224,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
                           <p style="font-size:14px;line-height:1.6;color:var(--text);margin:0;">Este método é muito bom (é um método que utiliza sites para anunciar trades e interagir com outros usuários), lá ocorre muitas trocas e é perfeito para você dá scam (porque têm como você se comunicar com o usuário).</p>
                         </div>
 
@@ -3403,7 +3403,7 @@
                         </div>
 
                         <!-- Card 3: Vermelho (Dica) -->
-                        <div style="background:rgba(224,16,42,0.05);border:1px solid rgba(224,16,42,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                        <div style="background:rgba(220,220,224,0.05);border:1px solid rgba(220,220,224,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
                           <p style="font-size:14px;line-height:1.6;color:var(--text);margin:0;">A chave aqui é a comunicação. Entre nos sites, veja o que as pessoas estão querendo e inicie uma conversa. Leve-as para o seu PV e execute o golpe com calma.</p>
                         </div>
 
@@ -3440,7 +3440,7 @@
                       <p style="font-size:14px;line-height:1.7;color:var(--text-muted);margin:14px 0 20px;">Um dos melhores métodos para roubar limiteds de usuários. Uma estratégia sólida para caçar suas vítimas usando ferramentas reais de traders.</p>
 
                       <!-- RoPro block -->
-                      <div style="background:rgba(224,16,42,0.06);border:1px solid rgba(224,16,42,0.18);border-radius:14px;padding:18px 20px;margin-bottom:14px;">
+                      <div style="background:rgba(220,220,224,0.06);border:1px solid rgba(220,220,224,0.18);border-radius:14px;padding:18px 20px;margin-bottom:14px;">
                         <div style="font-size:.7rem;color:rgba(255,100,120,0.9);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">RoPro — Extensão Essencial</div>
                         <ul style="list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:7px;">
                           <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--red-glow);flex-shrink:0;">›</span>Exibe o Discord das pessoas diretamente no perfil do Roblox</li>
@@ -3450,14 +3450,14 @@
                           <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--red-glow);flex-shrink:0;">›</span>Exibe amigos em comum entre você e o usuário</li>
                         </ul>
                         <p style="font-size:11.5px;color:rgba(255,100,120,0.6);font-style:italic;margin-bottom:12px;">Sem o RoPro você não consegue ver o Discord das pessoas no perfil do Roblox — ferramenta obrigatória.</p>
-                        <a href="https://chromewebstore.google.com/detail/ropro-tingkatkan-pengalam/adbacgifemdbhdkfppmeilbgppmhaobf" target="_blank" class="site-list-btn" style="border:none;cursor:pointer;width:100%;justify-content:center;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.3);color:var(--red-glow);">
+                        <a href="https://chromewebstore.google.com/detail/ropro-tingkatkan-pengalam/adbacgifemdbhdkfppmeilbgppmhaobf" target="_blank" class="site-list-btn" style="border:none;cursor:pointer;width:100%;justify-content:center;background:rgba(220,220,224,0.1);border:1px solid rgba(220,220,224,0.3);color:var(--red-glow);">
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
                           <span>Instalar RoPro</span>
                         </a>
                       </div>
 
                       <!-- Rolimons block -->
-                      <div style="background:rgba(224,16,42,0.06);border:1px solid rgba(224,16,42,0.18);border-radius:14px;padding:18px 20px;margin-bottom:20px;">
+                      <div style="background:rgba(220,220,224,0.06);border:1px solid rgba(220,220,224,0.18);border-radius:14px;padding:18px 20px;margin-bottom:20px;">
                         <div style="font-size:.7rem;color:rgba(255,100,120,0.9);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px;">Rolimons — Plataforma de Trocas</div>
                         <ul style="list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:7px;">
                           <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--red-glow);flex-shrink:0;">›</span>Lista os valores de todos os itens limitados</li>
@@ -3467,7 +3467,7 @@
                           <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--red-glow);flex-shrink:0;">›</span>Indica o nível de procura de cada item</li>
                         </ul>
                         <p style="font-size:11.5px;color:rgba(255,100,120,0.6);font-style:italic;margin-bottom:12px;">Procure por: SSHF, Valk, Korblox, Headless, Dominus e outros itens raros.</p>
-                        <a href="https://www.rolimons.com/trades" target="_blank" class="site-list-btn" style="border:none;cursor:pointer;width:100%;justify-content:center;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.3);color:var(--red-glow);">
+                        <a href="https://www.rolimons.com/trades" target="_blank" class="site-list-btn" style="border:none;cursor:pointer;width:100%;justify-content:center;background:rgba(220,220,224,0.1);border:1px solid rgba(220,220,224,0.3);color:var(--red-glow);">
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
                           <span>Abrir Rolimons Trades</span>
                         </a>
@@ -3477,23 +3477,23 @@
                       <div style="font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:12px;">Passo a Passo</div>
                       <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
                         <div style="display:flex;gap:12px;align-items:flex-start;">
-                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(224,16,42,0.15);border:1px solid rgba(224,16,42,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">1</div>
+                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(220,220,224,0.15);border:1px solid rgba(220,220,224,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">1</div>
                           <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;">Instale o RoPro</div><div style="font-size:12.5px;color:var(--text-muted);line-height:1.6;">Adicione a extensão ao navegador. Ela vai exibir o Discord das pessoas direto no perfil do Roblox.</div></div>
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;">
-                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(224,16,42,0.15);border:1px solid rgba(224,16,42,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">2</div>
+                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(220,220,224,0.15);border:1px solid rgba(220,220,224,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">2</div>
                           <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;">Acesse o Rolimons</div><div style="font-size:12.5px;color:var(--text-muted);line-height:1.6;">Vá em Anúncios de Troca e procure por itens raros nos anúncios.</div></div>
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;">
-                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(224,16,42,0.15);border:1px solid rgba(224,16,42,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">3</div>
+                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(220,220,224,0.15);border:1px solid rgba(220,220,224,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">3</div>
                           <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;">Encontre o Discord da vítima</div><div style="font-size:12.5px;color:var(--text-muted);line-height:1.6;">Clique no perfil do Roblox pelo anúncio — com o RoPro o Discord aparece na página.</div></div>
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;">
-                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(224,16,42,0.15);border:1px solid rgba(224,16,42,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">4</div>
+                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(220,220,224,0.15);border:1px solid rgba(220,220,224,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">4</div>
                           <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;">Aborde no Discord</div><div style="font-size:12.5px;color:var(--text-muted);line-height:1.6;">Adicione a pessoa e mande uma mensagem educada sobre o item visto no anúncio.</div></div>
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;">
-                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(224,16,42,0.15);border:1px solid rgba(224,16,42,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">5</div>
+                          <div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(220,220,224,0.15);border:1px solid rgba(220,220,224,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--red-glow);">5</div>
                           <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;">Execute o social</div><div style="font-size:12.5px;color:var(--text-muted);line-height:1.6;">Convença-a a te adicionar no Roblox através do link falso. Se ele disser que não precisa adicionar ele para realizar a troca, fale que sua conta apenas aceita negociar com amigos. Se ele pedir para mudar a configuração de troca, diga que só o responsável pode alterar — e que no momento ele não está disponível ou não quer alterar. Isso força ele a entrar no link e caso ele recuse, desiste e procura outra pessoa.</div></div>
                         </div>
                       </div>
@@ -3532,7 +3532,7 @@
                       <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px;">
 
                         <!-- Card 1: Vermelho -->
-                        <div style="background:rgba(224,16,42,0.05);border:1px solid rgba(224,16,42,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                        <div style="background:rgba(220,220,224,0.05);border:1px solid rgba(220,220,224,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
                           <p style="font-size:14px;line-height:1.6;color:var(--text);margin:0;">Pra quem rouba no manual (gosta de bate papo, persuadir a pessoa até o link), normalmente rouba em plataformas como Discord e Whatsapp, mas existem outros meios digitais para utilizar o beaming, como o próprio Facebook.</p>
                         </div>
 
@@ -3542,7 +3542,7 @@
                         </div>
 
                         <!-- Card 3: Vermelho -->
-                        <div style="background:rgba(224,16,42,0.05);border:1px solid rgba(224,16,42,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                        <div style="background:rgba(220,220,224,0.05);border:1px solid rgba(220,220,224,0.2);border-radius:14px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
                           <p style="font-size:14px;line-height:1.6;color:var(--text);margin:0;">Você deve entrar com grupos quem façam trocas/vendas de um determinado jogo. No meu caso vou me referir ao jogo Blox Fruits. Você pode tanto postar e tanto negociar em outros post. Caso consiga uma vítima e ela esteja em seu pv faça seu roubo.</p>
                         </div>
 
@@ -3603,7 +3603,7 @@
                     <a class="site-list-btn" href="https://revisionsmm.com/ref/md379" target="_blank" rel="noopener noreferrer">Acessar site de referência</a>
                   </div>
                   <div style="background:var(--surface);border:1px solid var(--surface-border);border-radius:18px;padding:22px 24px;display:flex;align-items:flex-start;gap:18px;">
-                    <div style="flex-shrink:0;width:50px;height:50px;border-radius:14px;background:rgba(224,16,42,0.1);border:1px solid rgba(224,16,42,0.25);display:flex;align-items:center;justify-content:center;">
+                    <div style="flex-shrink:0;width:50px;height:50px;border-radius:14px;background:rgba(220,220,224,0.1);border:1px solid rgba(220,220,224,0.25);display:flex;align-items:center;justify-content:center;">
                       <svg width="26" height="20" viewBox="0 0 71 55" fill="var(--red-glow)"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z"/></svg>
                     </div>
                     <div style="flex:1;">
@@ -3670,7 +3670,7 @@
                         <div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Como funciona</div>
                         <p style="font-size:.88rem;color:var(--text);margin-bottom:12px;">Método simples, mas que pode lhe render algumas contas. Publique um vídeo curto simulando uma doação de <strong style="color:var(--red-glow)">Robux ou itens</strong> — não em live, mas em clipes editados de forma atrativa (veja os exemplos abaixo).</p>
                         <p style="font-size:.88rem;color:var(--text);margin-bottom:14px;">Após atrair a vítima, direcione-a para um <strong style="color:var(--red-glow)">perfil, servidor ou grupo falso</strong> onde o beam acontece.</p>
-                        <div style="background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.2);border-radius:10px;padding:12px 14px;">
+                        <div style="background:rgba(220,220,224,0.07);border:1px solid rgba(220,220,224,0.2);border-radius:10px;padding:12px 14px;">
                           <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red-glow);margin-bottom:5px;">📌 Onde colocar seu link</div>
                           <p style="font-size:.83rem;color:var(--text-muted);margin:0;">Deixe seu link nos <strong style="color:var(--text);">comentários</strong> do vídeo ou na sua <strong style="color:var(--text);">bio</strong> do TikTok.</p>
                         </div>
@@ -4128,7 +4128,7 @@
                     <span class="site-section-badge">02</span>
                     <span class="site-section-title">Atenção</span>
                   </div>
-                  <div style="padding:18px 20px;border-radius:14px;background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.28);color:var(--text-muted);font-size:13px;line-height:1.7;text-align:left;">
+                  <div style="padding:18px 20px;border-radius:14px;background:rgba(220,220,224,0.07);border:1px solid rgba(220,220,224,0.28);color:var(--text-muted);font-size:13px;line-height:1.7;text-align:left;">
                     <strong style="display:block;color:var(--red-glow);margin-bottom:6px;">ATENÇÃO</strong>
                     Este método tem uma alta taxa de banimento caso o usuário denuncie a transferência e não recomendamos sua utilização.
                   </div>
@@ -4199,7 +4199,7 @@
                 </div>
                 <div class="tutorial-title">Antes de continuar</div>
                 <div class="tutorial-desc" style="margin-top:12px;line-height:1.7;">É estritamente proibido revender ou divulgar essa extensão mesmo que você seja um usuário VIP. Essa extensão é de uso próprio para quem a adquiriu através de nós. Isso evita um grande número de pessoas utilizando essa extensão, o que pode promover outras comunidades que nem se teve o esforço de trabalhar em uma ferramenta tão maravilhosa quando a minha. Punição para os que infringir a regra acima: Banimento permanente.</div>
-                   <div style="margin-top:18px;padding:16px;border-radius:12px;background:rgba(224,16,42,0.07);border:1px solid rgba(224,16,42,0.28);color:var(--text-muted);font-size:13px;line-height:1.7;">
+                   <div style="margin-top:18px;padding:16px;border-radius:12px;background:rgba(220,220,224,0.07);border:1px solid rgba(220,220,224,0.28);color:var(--text-muted);font-size:13px;line-height:1.7;">
                   <strong style="display:block;color:var(--red-glow);margin-bottom:6px;">LEIA COM ATENÇÃO!</strong>
                 </div>
                 <div style="margin-top:20px;">
@@ -4550,7 +4550,7 @@
       btn.style.color = 'var(--text-muted)';
     });
     event.target.style.border = '1px solid var(--red-glow)';
-    event.target.style.background = 'rgba(224,16,42,0.1)';
+    event.target.style.background = 'rgba(220,220,224,0.1)';
     event.target.style.color = 'var(--red-glow)';
   }
 
@@ -4714,7 +4714,7 @@
 
       function showError(msg) {
         errBox.textContent = msg;
-        errBox.style.cssText = 'display:block;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin:8px 0 4px;background:rgba(224,16,42,0.18);border:1.5px solid rgba(224,16,42,0.7);color:#ff2d47;';
+        errBox.style.cssText = 'display:block;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin:8px 0 4px;background:rgba(220,220,224,0.18);border:1.5px solid rgba(220,220,224,0.7);color:#ffffff;';
       }
 
       // Erro na URL (?error=...)
