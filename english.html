@@ -1973,6 +1973,9 @@
 
   .panel{background:linear-gradient(180deg,#17171b 0%,#0d0d10 100%);border-bottom-color:rgba(255,255,255,.1);box-shadow:0 18px 45px rgba(0,0,0,.45);}.panel-title{color:var(--text);}.panel-close{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);color:var(--text-muted);}.panel-close:hover{border-color:rgba(255,255,255,.5);color:#fff;}.nav-item{color:var(--text-muted);}.nav-item:hover,.nav-item.active{color:var(--text);background:rgba(255,255,255,.07);}.nav-item .icon-box{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.12);color:var(--text-muted);}.nav-item:hover .icon-box,.nav-item.active .icon-box{color:#fff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);}
 
+
+  #englishAnnouncementFeed{display:none;margin:0 auto 24px;width:min(680px,100%);text-align:left;}.english-live-announcement{padding:14px 16px;border:1px solid rgba(255,255,255,.14);border-left:3px solid #fff;border-radius:15px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018));box-shadow:0 10px 26px rgba(0,0,0,.2);}.english-live-announcement-head{display:flex;align-items:center;gap:8px;color:#fff;font-size:12px;font-weight:800;}.english-live-announcement-head i{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 9px rgba(255,255,255,.7);}.english-live-announcement p{margin-top:9px;color:var(--text-muted);font-size:12px;line-height:1.55;white-space:pre-wrap;}.english-live-announcement small{display:block;margin-top:8px;color:var(--text-faint);font-size:10px;}
+
 </style>
   <script>
     // Verificação Discord OAuth — JWT guardado no localStorage (ilegal_jwt)
@@ -2429,6 +2432,7 @@
 
   <main id="site-main" style="display:none;">
     <section class="view active" id="view-dashboard">
+      <div id="englishAnnouncementFeed"></div>
       <div class="view-inner">
         <h1 class="millenium-hero"><span class="millenium-hero-text">MILLENIUM</span></h1>
         <p class="millenium-hero-sub">THE BEST</p>
@@ -4707,6 +4711,8 @@ function runExtTutorial(){
   function avatar(m){return m.avatar?'https://cdn.discordapp.com/avatars/'+encodeURIComponent(m.user_id)+'/'+encodeURIComponent(m.avatar)+'.png?size=64':'https://cdn.discordapp.com/embed/avatars/'+(parseInt(m.user_id,10)%6)+'.png';}
   function renderAnnouncements(rows){
     lastAnnouncements=rows||[];
+    var englishFeed=document.getElementById('englishAnnouncementFeed');
+    if(englishFeed){var latest=lastAnnouncements[0];englishFeed.innerHTML=latest?'<div class="english-live-announcement"><div class="english-live-announcement-head"><i></i> Announcement <span style="margin-left:auto;color:var(--text-faint);font-size:10px;">'+safe(latest.author_role||'Administrator')+'</span></div><p>'+safe(latest.message)+'</p><small>Posted by '+safe(latest.author_name||'Administrator')+' · '+new Date(latest.created_at).toLocaleString('en-US')+'</small></div>':'';englishFeed.style.display=latest?'block':'none';}
     if(announcementPageList){
       announcementPageList.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="ann-wrap"><div class="ann-label"><span class="ann-dot"></span><span class="ann-label-text">Anúncio</span></div><div class="ann-outer"><div class="ann-inner">'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<div class="ann-body"><div class="ann-nick-row"><span class="ann-nick">'+safe(a.author_name||'Administrador')+'</span><span class="ann-check"><svg width=10 height=10 viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><path d="m5 12 4 4L19 6"></path></svg></span><span class="ann-tag">'+safe(a.author_role||'Administrador')+'</span></div><div style="font-size:11px;color:var(--text-faint);margin-top:5px;">'+new Date(a.created_at).toLocaleString('pt-BR')+'</div></div><div class="ann-text">'+safe(a.message)+'</div></div></div></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>';
     }
