@@ -611,11 +611,11 @@
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
-    border: 2.5px solid rgba(255, 45, 71, 0.95);
+    border: 2.5px solid rgba(255,255,255, 0.95);
     box-shadow:
-      0 0 0 4px rgba(255, 45, 71, 0.18),
-      0 0 18px rgba(255, 45, 71, 0.55),
-      0 0 36px rgba(255, 45, 71, 0.20);
+      0 0 0 4px rgba(255,255,255, 0.18),
+      0 0 18px rgba(255,255,255, 0.55),
+      0 0 36px rgba(255,255,255, 0.20);
     cursor: default;
     pointer-events: none;
     -webkit-tap-highlight-color: transparent;
@@ -639,7 +639,7 @@
   /* ✓ quadrado vermelho */
   .ann-check{
     width: 15px; height: 15px;
-    background: var(--red-glow);
+    background: #3c3c43;
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -961,7 +961,7 @@
 
   .admin-tabs{display:flex;gap:8px;width:100%;margin:0 auto 18px;padding:5px;border:1px solid var(--surface-border);border-radius:15px;background:rgba(255,255,255,.035);}
   .admin-tab{flex:1;border:0;border-radius:11px;padding:11px 14px;background:transparent;color:var(--text-muted);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;}
-  .admin-tab.active{background:var(--red-glow);color:#fff;box-shadow:0 7px 18px rgba(220,220,224,.25);}
+  .admin-tab.active{background:#e7e7eb;color:#17171b;box-shadow:0 7px 18px rgba(0,0,0,.28);}
   .admin-pane{display:none;width:100%;min-width:0;}.admin-pane.active{display:block;}
 
 
@@ -2038,7 +2038,7 @@
 
         #lw-outer {
             background: linear-gradient(180deg, rgba(224, 16, 42, 0.1), rgba(224, 16, 42, 0.05));
-            border: 1px solid rgba(255, 45, 71, 0.4);
+            border: 1px solid rgba(255,255,255, 0.4);
             border-radius: 18px;
             padding: 17px;
             box-shadow: 0 24px 50px -22px rgba(0,0,0,0.8);
@@ -2046,7 +2046,7 @@
 
         #lw-inner {
             background: rgba(8, 7, 8, 0.6);
-            border: 1px solid rgba(255, 45, 71, 0.18);
+            border: 1px solid rgba(255,255,255, 0.18);
             border-radius: 13px;
             padding: 15px;
             display: grid;
@@ -2066,7 +2066,7 @@
             object-fit: cover;
             object-position: center 40%;
             border: 2.5px solid rgba(10, 10, 12, 0.9);
-            box-shadow: 0 0 0 2px rgba(255, 45, 71, 0.8), 0 0 18px rgba(255, 45, 71, 0.5), 0 0 34px rgba(255, 45, 71, 0.18);
+            box-shadow: 0 0 0 2px rgba(255,255,255, 0.8), 0 0 18px rgba(255,255,255, 0.5), 0 0 34px rgba(255,255,255, 0.18);
             pointer-events: none;
             user-select: none;
         }
@@ -2105,8 +2105,8 @@
         }
 
         #lw-tag {
-            background: rgba(255, 45, 71, 0.14);
-            border: 1px solid rgba(255, 45, 71, 0.4);
+            background: rgba(255,255,255, 0.14);
+            border: 1px solid rgba(255,255,255, 0.4);
             color: #ffffff;
             font-size: 9px;
             font-weight: 800;
@@ -2132,7 +2132,7 @@
             color: var(--text-muted);
             font-family: 'Inter', sans-serif;
             padding-top: 2px;
-            border-top: 1px solid rgba(255, 45, 71, 0.14);
+            border-top: 1px solid rgba(255,255,255, 0.14);
         }
 
         #lw-desc strong {
@@ -2162,7 +2162,7 @@
             gap: 10px;
             padding: 14px 18px;
             background: linear-gradient(180deg, rgba(220,220,224,0.18), rgba(220,220,224,0.08));
-            border: 1.5px solid rgba(255, 45, 71, 0.55);
+            border: 1.5px solid rgba(255,255,255, 0.55);
             border-radius: 12px;
             color: #fff;
             text-decoration: none;
@@ -2188,7 +2188,7 @@
 
         #lw-btn:hover {
             background: linear-gradient(180deg, rgba(220,220,224,0.3), rgba(220,220,224,0.14));
-            border-color: rgba(255, 45, 71, 0.9);
+            border-color: rgba(255,255,255, 0.9);
             box-shadow: 0 10px 30px -8px rgba(220,220,224,0.75);
             animation-play-state: paused;
         }
