@@ -1892,6 +1892,84 @@
   .brand{gap:9px;letter-spacing:.24em;font-size:14px;text-transform:uppercase;}.brand-word{font-weight:800;letter-spacing:.28em;background:linear-gradient(180deg,#fff,#aaaab1);-webkit-background-clip:text;background-clip:text;color:transparent;}.brand .dot{width:8px;height:8px;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.08),0 0 18px rgba(255,255,255,.55);}
   .millenium-hero{position:relative;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;padding:12px 22px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.018));box-shadow:0 16px 35px rgba(0,0,0,.22);}.millenium-hero:after{content:"";position:absolute;inset:-1px;border-radius:18px;padding:1px;background:linear-gradient(120deg,rgba(255,255,255,.52),transparent 42%,rgba(255,255,255,.08));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}.millenium-hero-text{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,52px);font-weight:800;letter-spacing:.22em;line-height:1;background:linear-gradient(180deg,#fff 10%,#a7a7ae 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 8px 24px rgba(255,255,255,.12);}.millenium-hero-sub{font-size:clamp(12px,2vw,15px);font-weight:700;letter-spacing:.38em;text-transform:uppercase;color:var(--text-faint);margin:0 auto 40px;}
 
+  .admin-shell{width:100%;max-width:980px;margin:0 auto;text-align:left;}
+  .admin-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);gap:18px;align-items:start;min-width:0;}
+  .admin-box{background:var(--surface);border:1px solid var(--surface-border);border-radius:18px;padding:20px;min-width:0;overflow:hidden;}
+  .admin-box h2{margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:20px;}
+  .admin-box input,.admin-box textarea{width:100%;box-sizing:border-box;margin:0 0 10px;padding:11px 12px;border-radius:10px;border:1px solid var(--surface-border);background:rgba(0,0,0,.18);color:var(--text);font:inherit;}
+  .admin-box textarea{min-height:100px;resize:vertical;}
+  .admin-primary{border:0;border-radius:10px;padding:11px 14px;background:var(--red-glow);color:#fff;font-weight:800;cursor:pointer;}
+
+  .admin-member-cards{display:flex;flex-direction:column;gap:10px;width:100%;min-width:0;}
+  .admin-member-card{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:11px;align-items:center;padding:13px;border:1px solid var(--surface-border);border-radius:15px;background:linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.015));cursor:pointer;transition:border-color .2s,background .2s;}
+  .admin-member-card:hover,.admin-member-card.open{border-color:rgba(220,220,224,.55);background:rgba(220,220,224,.07);}
+  .admin-member-card-avatar{width:42px;height:42px;border-radius:13px;object-fit:cover;border:1px solid rgba(255,255,255,.15);}
+  .admin-member-card-name{display:flex;align-items:center;gap:6px;min-width:0;color:var(--text);font-size:13px;font-weight:800;}
+  .admin-member-card-name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .admin-member-card-id{margin-top:3px;color:var(--text-faint);font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .admin-member-card-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:8px;color:var(--text-muted);font-size:10px;line-height:1.35;}
+  .admin-member-card-meta span{display:inline-flex;align-items:center;gap:4px;}
+  .admin-member-card-icon{color:var(--red-glow);font-size:13px;line-height:1;}
+  .admin-member-card-status{display:flex;align-items:center;gap:5px;align-self:start;color:var(--text-faint);font-size:10px;font-weight:800;white-space:nowrap;}
+  .admin-member-card-status i{width:7px;height:7px;border-radius:50%;background:#6b7280;}
+  .admin-member-card-status.online{color:#4ade80;}.admin-member-card-status.online i{background:#4ade80;box-shadow:0 0 8px #4ade80;}
+  .admin-member-card-status.banned{color:var(--red-glow);}.admin-member-card-status.limited{color:#fbbf24;}
+  .admin-member-action-panel{grid-column:1/-1;display:none;padding-top:11px;border-top:1px solid var(--surface-border);}
+  .admin-member-card.open .admin-member-action-panel{display:flex;gap:7px;flex-wrap:wrap;}
+  .admin-member-action-panel button{border:1px solid var(--surface-border);background:rgba(0,0,0,.12);color:var(--text-muted);border-radius:9px;padding:8px 10px;font-size:11px;cursor:pointer;}
+  .admin-member-action-panel button:hover{color:var(--text);border-color:var(--red-glow);}
+
+  .admin-member-card{overflow:hidden;padding:0;grid-template-columns:1fr;gap:0;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018));border-color:rgba(255,255,255,.09);box-shadow:0 10px 25px rgba(0,0,0,.12);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
+  .admin-member-card:before{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--red-glow),rgba(255,255,255,.12));opacity:.85;}
+  .admin-member-card:hover{transform:translateY(-2px);border-color:rgba(220,220,224,.55);box-shadow:0 14px 30px rgba(0,0,0,.22);}
+  .admin-member-card-main{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:13px;align-items:center;padding:15px;}
+  .admin-member-card-avatar{width:52px;height:52px;border-radius:16px;border:2px solid rgba(220,220,224,.65);box-shadow:0 0 0 4px rgba(220,220,224,.1),0 7px 18px rgba(0,0,0,.25);}
+  .admin-member-card-name{font-size:14px;}.admin-member-card-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;}
+  .admin-member-card-meta{gap:7px;margin-top:9px;}.admin-member-card-meta span{padding:5px 7px;border-radius:8px;background:rgba(0,0,0,.16);font-size:10px;}.admin-member-card-icon{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;}.admin-member-card-icon svg{width:13px;height:13px;}
+  .admin-member-card-status{align-self:start;margin-top:2px;padding:6px 8px;border-radius:999px;background:rgba(107,114,128,.12);border:1px solid rgba(107,114,128,.2);font-size:9px;letter-spacing:.05em;text-transform:uppercase;}.admin-member-card-status.online{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.25);}.admin-member-card-status.banned{background:rgba(220,220,224,.12);border-color:rgba(220,220,224,.3);}.admin-member-card-status.limited{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.28);}
+  .admin-member-action-panel{display:none!important;}
+  .admin-member-modal-backdrop{display:none;position:fixed;inset:0;z-index:10050;background:rgba(3,3,5,.72);backdrop-filter:blur(8px);align-items:flex-end;justify-content:center;padding:18px;}.admin-member-modal-backdrop.show{display:flex;}
+  .admin-member-modal{width:min(520px,100%);border:1px solid rgba(255,255,255,.12);border-radius:24px;background:linear-gradient(180deg,#201b22,#0e0d10);box-shadow:0 25px 80px rgba(0,0,0,.6);overflow:hidden;animation:adminModalIn .2s ease-out;}
+  @keyframes adminModalIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+  .admin-modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 0;}.admin-modal-close{width:34px;height:34px;border:1px solid var(--surface-border);border-radius:10px;background:rgba(255,255,255,.04);color:var(--text-muted);font-size:20px;cursor:pointer;}.admin-modal-close:hover{color:#fff;border-color:var(--red-glow);}
+  .admin-modal-profile{display:flex;align-items:center;gap:14px;padding:20px;}.admin-modal-profile img{width:68px;height:68px;border-radius:20px;object-fit:cover;border:2px solid var(--red-glow);box-shadow:0 0 0 5px rgba(220,220,224,.12);}.admin-modal-name{font-size:18px;font-weight:800;color:var(--text);}.admin-modal-id{margin-top:5px;color:var(--text-faint);font-family:ui-monospace,monospace;font-size:10px;word-break:break-all;}
+  .admin-modal-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 18px;}.admin-modal-info-item{padding:11px;border:1px solid var(--surface-border);border-radius:12px;background:rgba(255,255,255,.025);}.admin-modal-info-label{color:var(--text-faint);font-size:10px;text-transform:uppercase;letter-spacing:.06em;}.admin-modal-info-value{margin-top:5px;color:var(--text);font-size:12px;word-break:break-word;}.admin-modal-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:16px 20px 20px;border-top:1px solid var(--surface-border);}.admin-modal-action{border:1px solid var(--surface-border);border-radius:11px;padding:11px 8px;background:rgba(255,255,255,.035);color:var(--text-muted);font-size:11px;font-weight:700;cursor:pointer;}.admin-modal-action:hover{color:#fff;border-color:var(--red-glow);background:rgba(220,220,224,.1);}.admin-modal-action.danger{color:#f0f0f2;}
+  @media(max-width:480px){.admin-member-card-main{grid-template-columns:46px minmax(0,1fr) auto;gap:10px;padding:13px;}.admin-member-card-avatar{width:46px;height:46px;border-radius:14px;}.admin-member-card-meta span{font-size:9px;padding:4px 5px;}.admin-modal-info{grid-template-columns:1fr 1fr;}.admin-modal-actions{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));}}
+
+  .admin-member-empty{padding:18px;text-align:center;color:var(--text-faint);font-size:12px;border:1px dashed var(--surface-border);border-radius:13px;}
+
+
+  .admin-tabs{display:flex;gap:8px;width:100%;margin:0 auto 18px;padding:5px;border:1px solid var(--surface-border);border-radius:15px;background:rgba(255,255,255,.035);}
+  .admin-tab{flex:1;border:0;border-radius:11px;padding:11px 14px;background:transparent;color:var(--text-muted);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;}
+  .admin-tab.active{background:#e7e7eb;color:#17171b;box-shadow:0 7px 18px rgba(0,0,0,.28);}
+  .admin-pane{display:none;width:100%;min-width:0;}.admin-pane.active{display:block;}
+
+
+  .admin-member-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px;}
+  .admin-member-toolbar h2{margin:0!important;}.admin-member-search{width:210px;max-width:48%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--surface-border);border-radius:10px;background:rgba(0,0,0,.18);color:var(--text);font:inherit;font-size:12px;outline:none;}.admin-member-search:focus{border-color:rgba(220,220,224,.7);}
+
+
+  .admin-posts-heading{display:flex;align-items:center;gap:12px;margin-bottom:16px;}.admin-posts-heading-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:rgba(220,220,224,.12);border:1px solid rgba(220,220,224,.3);color:var(--red-glow);}.admin-posts-heading h2{margin:0!important;font-size:20px!important;}.admin-posts-heading p{margin:4px 0 0;color:var(--text-faint);font-size:11px;}
+  .admin-post-form{border:1px solid rgba(220,220,224,.25);background:linear-gradient(145deg,rgba(220,220,224,.08),rgba(255,255,255,.025));}.admin-post-form textarea{min-height:135px;padding:14px;line-height:1.55;border-radius:13px;background:rgba(0,0,0,.22);}.admin-post-form textarea:focus{outline:none;border-color:rgba(220,220,224,.7);box-shadow:0 0 0 3px rgba(220,220,224,.1);}.admin-post-form-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px;}.admin-post-author{display:flex;align-items:center;gap:8px;color:var(--text-faint);font-size:11px;}.admin-post-author-icon{width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--red-glow);}
+  .admin-post-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:18px 0;}.admin-post-stat{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--surface-border);border-radius:13px;background:rgba(255,255,255,.025);}.admin-post-stat-icon{width:30px;height:30px;border-radius:10px;background:rgba(220,220,224,.1);display:flex;align-items:center;justify-content:center;color:var(--red-glow);}.admin-post-stat strong{display:block;color:var(--text);font-size:16px;}.admin-post-stat span{display:block;margin-top:2px;color:var(--text-faint);font-size:10px;}
+  .admin-post-list{display:flex;flex-direction:column;gap:12px;}.admin-post-card{position:relative;overflow:hidden;padding:16px;border:1px solid var(--surface-border);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:0 8px 24px rgba(0,0,0,.12);}.admin-post-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red-glow);}.admin-post-card-head{display:flex;align-items:center;gap:10px;}.admin-post-card-avatar{width:38px;height:38px;border-radius:12px;object-fit:cover;border:1px solid rgba(220,220,224,.55);}.admin-post-card-author{min-width:0;flex:1;}.admin-post-card-name{color:var(--text);font-size:12px;font-weight:800;}.admin-post-card-meta{margin-top:4px;color:var(--text-faint);font-size:10px;}.admin-post-card-role{padding:4px 7px;border:1px solid rgba(255,255,255,.3);border-radius:6px;color:var(--red-glow);font-size:9px;font-weight:800;text-transform:uppercase;}.admin-post-card-body{margin:14px 0 12px;padding:12px;border-radius:11px;background:rgba(0,0,0,.16);color:var(--text-muted);font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;}.admin-post-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}.admin-post-card-date{display:flex;align-items:center;gap:5px;color:var(--text-faint);font-size:10px;}.admin-post-remove{border:1px solid var(--surface-border);border-radius:8px;padding:7px 9px;background:transparent;color:var(--text-muted);font-size:10px;cursor:pointer;}.admin-post-remove:hover{border-color:var(--red-glow);color:#fff;background:rgba(220,220,224,.1);}
+
+  .admin-form-label{margin:0 0 8px;color:var(--text-muted);font-size:12px;font-weight:700;}
+  .admin-table-wrap{width:100%;max-width:100%;overflow-x:auto;border:1px solid var(--surface-border);border-radius:14px;}
+  .admin-members{width:100%;border-collapse:collapse;min-width:760px;}
+  .admin-members th{padding:12px 14px;text-align:left;background:rgba(220,220,224,.08);color:var(--text-faint);font-size:10px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
+  .admin-members td{padding:12px 14px;border-top:1px solid var(--surface-border);color:var(--text-muted);font-size:12px;vertical-align:middle;}
+  .admin-members tr:hover td{background:rgba(255,255,255,.025);}
+  .admin-member-user{display:flex;align-items:center;gap:9px;color:var(--text);font-weight:700;white-space:nowrap;}
+  .admin-member-user img{width:34px;height:34px;border-radius:50%;object-fit:cover;}
+  .admin-member-actions{display:flex;gap:5px;flex-wrap:wrap;}
+  .admin-member-actions button{border:1px solid var(--surface-border);background:transparent;color:var(--text-muted);border-radius:8px;padding:6px 8px;font-size:10px;cursor:pointer;}
+  .admin-member-actions button:hover{color:var(--text);border-color:var(--red-glow);}
+  .admin-member{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid var(--surface-border);border-radius:12px;background:rgba(255,255,255,.025);}
+  .admin-member img{width:34px;height:34px;border-radius:50%;object-fit:cover;}
+  .admin-member-main{min-width:0;flex:1;}.admin-member-name{font-weight:700;font-size:13px;}.admin-member-meta{color:var(--text-faint);font-size:11px;margin-top:3px;line-height:1.4;}
+  .admin-member-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;}.admin-member-actions button{border:1px solid var(--surface-border);background:transparent;color:var(--text-muted);border-radius:8px;padding:6px 8px;font-size:10px;cursor:pointer;}.admin-member-actions button:hover{color:var(--text);border-color:var(--red-glow);}
+
 </style>
   <script>
     // Verificação Discord OAuth — JWT guardado no localStorage (ilegal_jwt)
@@ -2341,6 +2419,7 @@
           <span class="label">Sites</span>
         </li>
 
+        <li class="nav-item" data-view="admin" id="adminNavItem" style="display:none;" aria-hidden="true"><span class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 7v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9V7l-8-4Z"></path><path d="m9 12 2 2 4-4"></path></svg></span><span class="label">Administrator</span></li>
       </ul>
     </nav>
   </div>
@@ -3725,6 +3804,33 @@
       </div>
     </section>
 
+    <section class="view view-top" id="view-admin">
+      <div class="admin-shell">
+        <div class="site-section-header"><span class="site-section-badge">A</span><span class="site-section-title">Administrador</span></div>
+        <div class="admin-tabs" role="tablist" aria-label="Seções administrativas">
+          <button class="admin-tab active" id="adminTabMembers" role="tab" aria-selected="true">Membros</button>
+          <button class="admin-tab" id="adminTabPosts" role="tab" aria-selected="false">Postagens</button>
+        </div>
+        <div class="admin-pane active" id="adminPaneMembers" role="tabpanel">
+          <div class="admin-box">
+            <div class="admin-member-toolbar"><h2>Membros</h2><input id="adminMemberSearch" class="admin-member-search" type="search" placeholder="Buscar nome, ID ou IP" aria-label="Buscar membros"></div>
+            <div id="adminMembers" class="admin-member-cards"><div class="admin-member-empty">Carregando membros...</div></div>
+          </div>
+        </div>
+        <div class="admin-pane" id="adminPanePosts" role="tabpanel">
+          <div class="admin-box admin-post-form"><div class="admin-posts-heading"><div class="admin-posts-heading-icon">✦</div><div><h2>Nova postagem</h2><p>Compartilhe uma atualização com a comunidade.</p></div></div><div class="admin-form-label">Descrição da postagem</div><textarea id="adminAnnMessage" maxlength="2000" placeholder="Escreva a mensagem que os membros verão..."></textarea><div class="admin-post-form-footer"><div class="admin-post-author"><span class="admin-post-author-icon">◉</span> Avatar e cargo automáticos</div><button class="admin-primary" id="adminAnnPublish">Publicar</button></div><div id="adminAnnStatus" class="admin-member-meta" style="margin-top:10px;"></div></div>
+          <div class="admin-post-stats"><div class="admin-post-stat"><div class="admin-post-stat-icon">▤</div><div><strong id="adminPostCount">0</strong><span>Postagens ativas</span></div></div><div class="admin-post-stat"><div class="admin-post-stat-icon">◷</div><div><strong>Ao vivo</strong><span>Visíveis no sino</span></div></div></div>
+          <div class="admin-box"><div class="admin-posts-heading"><div class="admin-posts-heading-icon">☷</div><div><h2>Postagens recentes</h2><p>Gerencie o que está publicado.</p></div></div><div id="adminAnnouncements" class="admin-post-list"></div></div>
+        </div>
+      </div>
+    </section>
+
+  <div class="admin-member-modal-backdrop" id="adminMemberModal" aria-hidden="true">
+    <div class="admin-member-modal" role="dialog" aria-modal="true" aria-labelledby="adminModalName">
+      <div class="admin-modal-head"><span class="site-section-badge">M</span><button class="admin-modal-close" id="adminMemberModalClose" aria-label="Fechar">×</button></div>
+      <div id="adminMemberModalBody"></div>
+    </div>
+  </div>
   </main>
 
 <script>
@@ -4084,6 +4190,8 @@
 
       function showDashboard(userObj) {
         var username = (userObj && userObj.username) || 'User';
+        var adminNavItem = document.getElementById('adminNavItem');
+        if (adminNavItem) { adminNavItem.style.display = userObj && userObj.isAdmin ? 'flex' : 'none'; adminNavItem.setAttribute('aria-hidden', userObj && userObj.isAdmin ? 'false' : 'true'); }
         const earlyStyle = document.getElementById('early-auth-style');
         if(earlyStyle) earlyStyle.remove();
         if (wall) wall.style.display = 'none';
@@ -4567,6 +4675,65 @@ function runExtTutorial(){
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initDonateCarousel);
   else initDonateCarousel();
+</script>
+<script>
+(function(){
+  var adminNav = document.getElementById('adminNavItem');
+  var adminMembers = document.getElementById('adminMembers');
+  var adminAnnouncements = document.getElementById('adminAnnouncements');
+  var adminPublish = document.getElementById('adminAnnPublish');
+  var banner = document.getElementById('announcementBanner');
+  var bell = document.getElementById('announcementBell');
+  var badge = document.getElementById('announcementBadge');
+  var drawer = document.getElementById('announcementDrawer');
+  var lastAnnouncements = [];
+  var announcementPageList = document.getElementById('announcementPageList');
+  var adminMemberSearch = document.getElementById('adminMemberSearch');
+  var allMemberRows = [];
+  var adminTabMembers = document.getElementById('adminTabMembers');
+  var adminTabPosts = document.getElementById('adminTabPosts');
+  var adminPaneMembers = document.getElementById('adminPaneMembers');
+  var adminPanePosts = document.getElementById('adminPanePosts');
+  function selectAdminTab(which){var members=which==='members';if(adminTabMembers)adminTabMembers.classList.toggle('active',members);if(adminTabPosts)adminTabPosts.classList.toggle('active',!members);if(adminTabMembers)adminTabMembers.setAttribute('aria-selected',members?'true':'false');if(adminTabPosts)adminTabPosts.setAttribute('aria-selected',members?'false':'true');if(adminPaneMembers)adminPaneMembers.classList.toggle('active',members);if(adminPanePosts)adminPanePosts.classList.toggle('active',!members);}
+  if(adminTabMembers)adminTabMembers.addEventListener('click',function(){selectAdminTab('members');});
+  if(adminTabPosts)adminTabPosts.addEventListener('click',function(){selectAdminTab('posts');});
+  function token(){ try{return localStorage.getItem('ilegal_jwt');}catch(e){return null;} }
+  function api(path, options){ options=options||{}; options.headers=Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+(token()||'')},options.headers||{}); return fetch(path,options).then(function(r){return r.json().then(function(d){if(!r.ok) throw new Error(d.error||'Erro'); return d;});}); }
+  function formatSeconds(v){var n=Number(v||0),h=Math.floor(n/3600),m=Math.floor((n%3600)/60);return h+'h '+m+'min';}
+  function safe(v){return String(v||'').replace(/[&<>'"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c];});}
+  function avatar(m){return m.avatar?'https://cdn.discordapp.com/avatars/'+encodeURIComponent(m.user_id)+'/'+encodeURIComponent(m.avatar)+'.png?size=64':'https://cdn.discordapp.com/embed/avatars/'+(parseInt(m.user_id,10)%6)+'.png';}
+  function renderAnnouncements(rows){
+    lastAnnouncements=rows||[];
+    if(announcementPageList){
+      announcementPageList.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="ann-wrap"><div class="ann-label"><span class="ann-dot"></span><span class="ann-label-text">Anúncio</span></div><div class="ann-outer"><div class="ann-inner">'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<div class="ann-body"><div class="ann-nick-row"><span class="ann-nick">'+safe(a.author_name||'Administrador')+'</span><span class="ann-check"><svg width=10 height=10 viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><path d="m5 12 4 4L19 6"></path></svg></span><span class="ann-tag">'+safe(a.author_role||'Administrador')+'</span></div><div style="font-size:11px;color:var(--text-faint);margin-top:5px;">'+new Date(a.created_at).toLocaleString('pt-BR')+'</div></div><div class="ann-text">'+safe(a.message)+'</div></div></div></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>';
+    }
+
+    if(drawer){drawer.innerHTML='<div class="admin-drawer-head"><span>Últimos anúncios</span><button class="admin-drawer-close" aria-label="Fechar anúncios">×</button></div>'+(lastAnnouncements.length?lastAnnouncements.map(function(a){return '<div class="admin-drawer-item">'+(a.author_avatar_url?'<img src="'+safe(a.author_avatar_url)+'" alt="" style="width:28px;height:28px;border-radius:8px;object-fit:cover;float:left;margin:0 8px 4px 0;">':'')+'<strong>'+safe(a.title)+'</strong><p>'+safe(a.message)+'</p><small>'+safe(a.author_name||'Administrador')+' · '+new Date(a.created_at).toLocaleString('pt-BR')+'</small></div>';}).join(''):'<div class="admin-member-meta">Nenhum anúncio ativo.</div>');drawer.querySelector('.admin-drawer-close').onclick=function(){drawer.classList.remove('show');};}
+
+    if(adminAnnouncements) adminAnnouncements.innerHTML=lastAnnouncements.length?lastAnnouncements.map(function(a){return '<article class="admin-post-card"><div class="admin-post-card-head">'+(a.author_avatar_url?'<img class="admin-post-card-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'<div class="admin-post-card-avatar"></div>')+'<div class="admin-post-card-author"><div class="admin-post-card-name">'+safe(a.author_name||'Administrador')+'</div><div class="admin-post-card-meta">Administrador · ID '+Number(a.id)+'</div></div><span class="admin-post-card-role">'+safe(a.author_role||'Admin')+'</span></div><div class="admin-post-card-body">'+safe(a.message)+'</div><div class="admin-post-card-footer"><span class="admin-post-card-date">◷ '+new Date(a.created_at).toLocaleString('pt-BR')+'</span><button class="admin-post-remove" onclick="adminDeactivateAnnouncement('+Number(a.id)+')">× Fechar</button></div></article>';}).join(''):'<div class="admin-member-empty">Nenhuma postagem ativa.</div>';var postCount=document.getElementById('adminPostCount');if(postCount)postCount.textContent=lastAnnouncements.length;
+    var seenAt=0;try{seenAt=Number(localStorage.getItem('announcements_seen_at')||0);}catch(e){}var unread=lastAnnouncements.filter(function(a){return new Date(a.created_at).getTime()>seenAt;}).length;if(badge){badge.textContent=String(unread);badge.style.display=unread?'flex':'none';}
+    var a=lastAnnouncements[0];
+    if(false && banner && a){banner.innerHTML='<button class="ann-close" aria-label="Fechar anúncio">×</button>'+(a.author_avatar_url?'<img class="ann-avatar" src="'+safe(a.author_avatar_url)+'" alt="">':'')+'<span class="ann-label"><span class="ann-dot"></span> Anúncio</span><p>'+safe(a.message)+'</p><small>Publicado por '+safe(a.author_name||'Administrador')+'</small>';banner.classList.add('show');banner.querySelector('.ann-close').onclick=function(){banner.classList.remove('show');try{localStorage.setItem('dismissed_announcement_'+a.id,'1');}catch(e){}};try{if(localStorage.getItem('dismissed_announcement_'+a.id)==='1')banner.classList.remove('show');}catch(e){}}
+  }
+  var adminMemberModal=document.getElementById('adminMemberModal');var adminMemberModalBody=document.getElementById('adminMemberModalBody');var selectedAdminMember=null;
+  function uiIcon(name){var p={user:'<circle cx="12" cy="8" r="3"></circle><path d="M5 20a7 7 0 0 1 14 0"></path>',ip:'<path d="M4 7h16M4 12h16M4 17h10"></path><circle cx="18" cy="17" r="2"></circle>',calendar:'<rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path>',clock:'<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>',location:'<path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2"></circle>'};return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(p[name]||p.user)+'</svg>';}
+  window.adminToggleMember=function(card){var id=card.getAttribute('data-member-id');selectedAdminMember=allMemberRows.find(function(m){return String(m.user_id)===String(id);});if(!selectedAdminMember)return;var m=selectedAdminMember,st=m.status||'active',online=m.last_seen_at&&(Date.now()-new Date(m.last_seen_at).getTime()<120000),status=st==='banned'?'Banido':st==='limited'?'Limitado':online?'Online':'Offline';adminMemberModalBody.innerHTML='<div class="admin-modal-profile"><img src="'+avatar(m)+'" alt=""><div><div id="adminModalName" class="admin-modal-name">@'+safe(m.username)+'</div><div class="admin-modal-id">'+safe(m.user_id)+'</div><div class="admin-member-card-status '+(st!=='active'?st:(online?'online':''))+'" style="display:inline-flex;margin-top:9px;"><i></i>'+status+'</div></div></div><div class="admin-modal-info"><div class="admin-modal-info-item"><div class="admin-modal-info-label">IP</div><div class="admin-modal-info-value">'+safe(m.ip_address||'Indisponível')+'</div></div><div class="admin-modal-info-item"><div class="admin-modal-info-label">Entrada</div><div class="admin-modal-info-value">'+new Date(m.first_seen_at).toLocaleString('pt-BR')+'</div></div><div class="admin-modal-info-item"><div class="admin-modal-info-label">Tempo no site</div><div class="admin-modal-info-value">'+formatSeconds(m.total_seconds)+'</div></div><div class="admin-modal-info-item"><div class="admin-modal-info-label">Localização</div><div class="admin-modal-info-value">'+safe([m.city,m.region,m.country].filter(Boolean).join(', ')||'Indisponível')+'</div></div></div><div class="admin-modal-actions"><button class="admin-modal-action" onclick="adminSetMember(\''+safe(m.user_id)+'\',\'limited\')">⚠ Limitar</button><button class="admin-modal-action danger" onclick="adminSetMember(\''+safe(m.user_id)+'\',\'banned\')">⊘ Banir</button><button class="admin-modal-action" onclick="adminSetMember(\''+safe(m.user_id)+'\',\'active\')">✓ Liberar</button></div>';adminMemberModal.classList.add('show');adminMemberModal.setAttribute('aria-hidden','false');};
+  function closeAdminMemberModal(){if(adminMemberModal){adminMemberModal.classList.remove('show');adminMemberModal.setAttribute('aria-hidden','true');}}
+  if(document.getElementById('adminMemberModalClose'))document.getElementById('adminMemberModalClose').addEventListener('click',closeAdminMemberModal);if(adminMemberModal)adminMemberModal.addEventListener('click',function(e){if(e.target===adminMemberModal)closeAdminMemberModal();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAdminMemberModal();});
+  function renderMembers(rows){
+    allMemberRows=rows||[];var query=(adminMemberSearch?.value||'').trim().toLowerCase();var filtered=allMemberRows.filter(function(m){return !query||[m.username,m.user_id,m.ip_address,m.city,m.region,m.country].join(' ').toLowerCase().includes(query);});if(!adminMembers)return;adminMembers.innerHTML=filtered.map(function(m){var st=m.status||'active';var isOnline=m.last_seen_at&&(Date.now()-new Date(m.last_seen_at).getTime()<120000);var statusClass=st!=='active'?st:(isOnline?'online':'');var statusText=st==='banned'?'Banido':st==='limited'?'Limitado':isOnline?'Online':'Offline';return '<div class="admin-member-card" data-member-id="'+safe(m.user_id)+'" onclick="adminToggleMember(this)"><div class="admin-member-card-main"><img class="admin-member-card-avatar" src="'+avatar(m)+'" alt=""><div><div class="admin-member-card-name"><span>@'+safe(m.username)+'</span></div><div class="admin-member-card-id"># '+safe(m.user_id)+'</div><div class="admin-member-card-meta"><span><b class="admin-member-card-icon">'+uiIcon('ip')+'</b>'+safe(m.ip_address||'IP indisponível')+'</span><span><b class="admin-member-card-icon">'+uiIcon('calendar')+'</b>'+new Date(m.first_seen_at).toLocaleDateString('pt-BR')+'</span><span><b class="admin-member-card-icon">'+uiIcon('clock')+'</b>'+formatSeconds(m.total_seconds)+'</span></div></div><div class="admin-member-card-status '+statusClass+'"><i></i>'+statusText+'</div></div></div>';}).join('')||'<div class="admin-member-empty">Nenhum membro encontrado.</div>';
+  }
+  window.adminSetMember=function(id,status){if(!confirm(status==='banned'?'Banir este membro?':status==='limited'?'Limitar este membro?':'Liberar este membro?'))return;api('/api/admin',{method:'POST',body:JSON.stringify({action:'member_status',userId:id,status:status})}).then(function(){closeAdminMemberModal();loadAdmin();}).catch(function(e){alert(e.message);});};
+  window.adminDeactivateAnnouncement=function(id){api('/api/admin',{method:'POST',body:JSON.stringify({action:'deactivate_announcement',id:id})}).then(loadAdmin).catch(function(e){alert(e.message);});};
+  function loadAdmin(){api('/api/admin').then(function(d){renderMembers(d.members);renderAnnouncements(d.announcements);}).catch(function(e){if(adminMembers)adminMembers.innerHTML='<div class="admin-member-meta">'+safe(e.message)+'</div>';});}
+  if(adminNav)adminNav.addEventListener('click',function(){setTimeout(loadAdmin,60);});
+  if(adminPublish)adminPublish.addEventListener('click',function(){var message=document.getElementById('adminAnnMessage').value.trim(),status=document.getElementById('adminAnnStatus');if(!message){status.textContent='Digite a descrição do anúncio.';return;}adminPublish.disabled=true;api('/api/admin',{method:'POST',body:JSON.stringify({action:'announcement',message:message})}).then(function(){status.textContent='Anúncio publicado.';document.getElementById('adminAnnMessage').value='';loadAdmin();}).catch(function(e){status.textContent=e.message;}).finally(function(){adminPublish.disabled=false;});});
+  if(bell)bell.addEventListener('click',function(){try{localStorage.setItem('announcements_seen_at',String(Date.now()));}catch(e){}if(badge){badge.textContent='0';badge.style.display='none';}if(drawer)drawer.classList.remove('show');if(banner)banner.classList.remove('show');showView('announcements');window.scrollTo({top:0,behavior:'smooth'});});
+  function loadPublicAnnouncements(){fetch('/api/announcements',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){renderAnnouncements(d.announcements||[]);}).catch(function(){});}
+  function heartbeat(){fetch('/api/admin/heartbeat',{method:'POST',headers:{Authorization:'Bearer '+(token()||''),'Content-Type':'application/json'},body:'{}'}).catch(function(){});}
+  setTimeout(function(){loadPublicAnnouncements();heartbeat();setInterval(heartbeat,60000);setInterval(loadPublicAnnouncements,60000);},1800);
+})();
 </script>
 </body>
 </html>
