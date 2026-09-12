@@ -1988,6 +1988,7 @@
         style.id = 'early-auth-style';
         style.innerHTML =
           '#login-wall { display: none !important; }' +
+          '#language-choice { display: none !important; }' +
           '#site-topbar { display: flex !important; }' +
           '#site-main { display: block !important; }' +
           '.view { display: none !important; }' +
@@ -4806,8 +4807,8 @@
         if(earlyStyle) earlyStyle.remove();
 
         wall.style.display = 'none';
-        topbar.style.display = 'none';
-        siteMain.style.display = 'none';
+        topbar.style.display = 'flex';
+        siteMain.style.display = 'block';
         if (languageChoice) { languageChoice.classList.remove('show'); languageChoice.style.display = 'none'; }
         errBox.style.display = 'none';
 
