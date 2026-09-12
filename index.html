@@ -2008,16 +2008,17 @@
   <style>
         /* ── Tela de Login (Login Wall) ── */
         #login-wall {
+            display: none;
             position: fixed;
             inset: 0;
             z-index: 9999;
             overflow: hidden;
-            display: flex;
             align-items: center;
             justify-content: center;
+            display: none;
             background:
-                radial-gradient(700px 500px at 50% 62%, rgba(224, 16, 42, 0.22) 0%, transparent 68%),
-                radial-gradient(900px 600px at 15% 100%, rgba(122, 13, 28, 0.18) 0%, transparent 60%),
+                radial-gradient(700px 500px at 50% 62%, rgba(255, 255, 255, 0.08) 0%, transparent 68%),
+                radial-gradient(900px 600px at 15% 100%, rgba(255, 255, 255, 0.045) 0%, transparent 60%),
                 #050506;
         }
 
@@ -2105,7 +2106,7 @@
         #lw-check {
             width: 15px;
             height: 15px;
-            background: linear-gradient(145deg, #ffffff, #a30f22);
+            background: linear-gradient(145deg, #ffffff, #8e8e96);
             border-radius: 4.5px;
             display: flex;
             align-items: center;
@@ -2170,7 +2171,7 @@
             justify-content: center;
             gap: 10px;
             padding: 14px 18px;
-            background: linear-gradient(180deg, rgba(220,220,224,0.18), rgba(220,220,224,0.08));
+            background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06));
             border: 1.5px solid rgba(255,255,255, 0.55);
             border-radius: 12px;
             color: #fff;
@@ -2180,7 +2181,7 @@
             font-size: 14px;
             letter-spacing: 0.03em;
             overflow: hidden;
-            box-shadow: 0 8px 22px -10px rgba(220,220,224,0.55);
+            box-shadow: 0 8px 22px -10px rgba(255,255,255,0.35);
             transition: background .18s, border-color .18s, box-shadow .18s, transform .13s;
             cursor: pointer;
             animation: float-btn 2.6s ease-in-out infinite;
@@ -2196,9 +2197,9 @@
         }
 
         #lw-btn:hover {
-            background: linear-gradient(180deg, rgba(220,220,224,0.3), rgba(220,220,224,0.14));
+            background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.1));
             border-color: rgba(255,255,255, 0.9);
-            box-shadow: 0 10px 30px -8px rgba(220,220,224,0.75);
+            box-shadow: 0 10px 30px -8px rgba(255,255,255,0.5);
             animation-play-state: paused;
         }
 
@@ -2367,7 +2368,7 @@
   </div>
 
 
-  <section id="language-choice" aria-label="Escolha de idioma">
+  <section id="language-choice" aria-label="Escolha de idioma" style="display:flex;">
     <div class="language-shell">
       <div class="language-mark"><i></i> Millenium</div>
       <h1 class="language-title">Escolha sua nacionalidade</h1>
@@ -4764,10 +4765,18 @@
       var siteMain  = document.getElementById('site-main');
       var languageChoice = document.getElementById('language-choice');
 
+      var currentLanguage = 'pt';
       var errorMsgs = {
-        no_access:    'Você não tem o cargo necessário neste servidor Discord.',
-        auth_failed:  'Falha na autenticação. Tente novamente.',
-        missing_code: 'Código de autorização ausente. Tente novamente.',
+        pt: {
+          no_access:    'Você não tem o cargo necessário neste servidor Discord.',
+          auth_failed:  'Falha na autenticação. Tente novamente.',
+          missing_code: 'Código de autorização ausente. Tente novamente.',
+        },
+        en: {
+          no_access:    'You do not have the required role in this Discord server.',
+          auth_failed:  'Authentication failed. Please try again.',
+          missing_code: 'Authorization code is missing. Please try again.',
+        },
       };
 
       function showError(msg) {
@@ -4775,10 +4784,8 @@
         errBox.style.cssText = 'display:block;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:600;margin:8px 0 4px;background:rgba(220,220,224,0.18);border:1.5px solid rgba(220,220,224,0.7);color:#ffffff;';
       }
 
-      // Erro na URL (?error=...)
+      // Erro na URL (?error=...) — exibido depois que o usuário escolher o idioma.
       var urlError = new URLSearchParams(window.location.search).get('error');
-      if (urlError && errorMsgs[urlError]) showError(errorMsgs[urlError]);
-      else if (urlError) showError('Erro: ' + urlError);
       if (urlError) history.replaceState(null, '', window.location.pathname);
 
       // JWT no hash (#jwt=...) vindo do callback
@@ -4801,7 +4808,7 @@
         wall.style.display = 'none';
         topbar.style.display = 'none';
         siteMain.style.display = 'none';
-        if (languageChoice) languageChoice.classList.add('show');
+        if (languageChoice) { languageChoice.classList.remove('show'); languageChoice.style.display = 'none'; }
         errBox.style.display = 'none';
 
         currentUser = user || {};
@@ -4827,25 +4834,49 @@
         }
       }
 
-      function enterPortuguese(){
-        if(languageChoice) languageChoice.classList.remove('show');
-        topbar.style.display = 'flex';
-        siteMain.style.display = 'block';
-        try { localStorage.setItem('millenium_language','pt'); } catch(e) {}
+      function showVerification(language) {
+        currentLanguage = language === 'en' ? 'en' : 'pt';
+        var english = currentLanguage === 'en';
+        var nick = document.getElementById('lw-nick');
+        var desc = document.getElementById('lw-desc');
+        var loginBtn = document.getElementById('lw-btn');
+        var foot = document.getElementById('lw-foot');
+        if (nick) nick.textContent = english ? 'Millenium' : 'Millenium';
+        if (desc) desc.textContent = english
+          ? 'Only verified members can access our site, so return to our server and complete your verification!'
+          : 'Somente membros verificados podem acessar ao nosso site, então volte ao nosso servidor e faça a sua verificação!';
+        if (loginBtn) loginBtn.innerHTML = english
+          ? '<svg width="18" height="14" viewBox="0 0 71 55" fill="none"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z" fill="currentColor"/></svg> Sign in with Discord'
+          : '<svg width="18" height="14" viewBox="0 0 71 55" fill="none"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.1 54.1 0 0 0-16.4 0A40 40 0 0 0 25.5.4 58.4 58.4 0 0 0 10.8 4.9C1.6 18.7-.9 32.2.3 45.5a58.9 58.9 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.1 42.1 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 43.8 43.8 0 0 0 3.8 6.2 58.7 58.7 0 0 0 18-9A58.6 58.6 0 0 0 60.1 4.9ZM23.7 37.3c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Zm23.6 0c-3.6 0-6.5-3.3-6.5-7.3s2.9-7.3 6.5-7.3 6.6 3.3 6.5 7.3c0 4-2.9 7.3-6.5 7.3Z" fill="currentColor"/></svg> Entrar com Discord';
+        if (foot) foot.lastChild.textContent = english
+          ? ' You need the server role to access the site.'
+          : ' Você precisa ter o cargo no servidor para acessar.';
+        if (languageChoice) { languageChoice.classList.remove('show'); languageChoice.style.display = 'none'; }
+        wall.classList.remove('hidden');
+        wall.style.display = 'flex';
+        topbar.style.display = 'none';
+        siteMain.style.display = 'none';
+        errBox.style.display = 'none';
+        if (urlError) {
+          var localizedError = (errorMsgs[currentLanguage] || errorMsgs.pt)[urlError] || (english ? 'Error: ' + urlError : 'Erro: ' + urlError);
+          showError(localizedError);
+        }
+        try { localStorage.setItem('millenium_language', currentLanguage); } catch(e) {}
       }
       var ptChoice=document.getElementById('languagePortuguese');
       var enChoice=document.getElementById('languageEnglish');
-      if(ptChoice) ptChoice.addEventListener('click', enterPortuguese);
-      if(enChoice) enChoice.addEventListener('click', function(){ try { localStorage.setItem('millenium_language','en'); } catch(e) {} window.location.href='english.html'; });
+      if(ptChoice) ptChoice.addEventListener('click', function(){ showVerification('pt'); });
+      if(enChoice) enChoice.addEventListener('click', function(){ showVerification('en'); });
 
       function checkAuth() {
         var tkn = getToken();
 
         // Se não houver token, garantimos que a wall esteja visível
         if (!tkn) {
-          wall.style.display = 'flex';
+          wall.style.display = 'none';
           topbar.style.display = 'none';
           siteMain.style.display = 'none';
+          if (languageChoice) { languageChoice.classList.add('show'); languageChoice.style.display = 'flex'; }
           return;
         }
 
@@ -4865,9 +4896,10 @@
             // Se falhar a autenticação, removemos o estilo temporário e mostramos a wall
             const earlyStyle = document.getElementById('early-auth-style');
             if(earlyStyle) earlyStyle.remove();
-            wall.style.display = 'flex';
+            wall.style.display = 'none';
             topbar.style.display = 'none';
             siteMain.style.display = 'none';
+            if (languageChoice) { languageChoice.classList.add('show'); languageChoice.style.display = 'flex'; }
           });
       }
 
