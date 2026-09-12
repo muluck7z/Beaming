@@ -13,16 +13,6 @@ const tools = [
     borderColor: "border-violet-500/20",
     category: "metodos",
   },
-  {
-    id: "criar-site",
-    name: "Criar Site",
-    description: "Criar Site",
-    icon: Settings,
-    color: "text-cyan-400",
-    bgColor: "bg-cyan-500/10",
-    borderColor: "border-cyan-500/20",
-    category: "complemento",
-  },
 ];
 
 const categories = [
@@ -35,11 +25,6 @@ const categories = [
     id: "metodos",
     label: "Métodos",
     icon: BookOpen,
-  },
-  {
-    id: "complemento",
-    label: "Complemento",
-    icon: Settings,
   },
 ];
 
